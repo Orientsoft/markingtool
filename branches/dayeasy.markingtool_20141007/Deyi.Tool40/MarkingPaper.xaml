@@ -1,0 +1,238 @@
+﻿<Window x:Class="Deyi.Tool.MarkingPaper"  Icon="icon.ico"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="阅卷" Height="600" Width="900" Loaded="Window_Loaded"
+       ResizeMode="CanMinimize"  WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal">
+    <Grid Name="wrap">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}" x:Key="OperateBtn">
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <!--控件模板-->
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <!--背景色-->
+                            <Border x:Name="back" Opacity="0.9" CornerRadius="3">
+                                <Border.BitmapEffect>
+                                    <OuterGlowBitmapEffect Opacity="0.9" GlowSize="0" GlowColor="{Binding (Control.Background).(SolidColorBrush.Color), RelativeSource={RelativeSource TemplatedParent}}" />
+                                </Border.BitmapEffect>
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1.5">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="{Binding (Control.Background).(SolidColorBrush.Color), RelativeSource={RelativeSource TemplatedParent}}" Offset="0"/>
+                                                <GradientStop Color="{Binding (Control.Background).(SolidColorBrush.Color), RelativeSource={RelativeSource TemplatedParent}}" Offset="0.4"/>
+                                                <GradientStop Color="#FFF" Offset="1"/>
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                                <!--前景色及边框-->
+                                <Border x:Name="fore" BorderThickness="1" CornerRadius="3" BorderBrush="#5555">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                            <LinearGradientBrush.GradientStops>
+                                                <GradientStopCollection>
+                                                    <GradientStop Color="#6FFF" Offset="0.5"/>
+                                                    <GradientStop Color="#1111" Offset="0.51"/>
+                                                </GradientStopCollection>
+                                            </LinearGradientBrush.GradientStops>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <!--按钮内容-->
+                                    <ContentPresenter x:Name="content" HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}">
+                                        <!-- 文字阴影效果 -->
+                                        <ContentPresenter.BitmapEffect>
+                                            <DropShadowBitmapEffect Color="#fff"  />
+                                        </ContentPresenter.BitmapEffect>
+                                    </ContentPresenter>
+                                </Border>
+                            </Border>
+                            <!--触发器-->
+                            <ControlTemplate.Triggers>
+                                <!--鼠标移入移出-->
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation To="10" Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)" />
+                                                <ColorAnimation To="#AFFF" BeginTime="0:0:0.2" Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation To="#3FFF" BeginTime="0:0:0.2" Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.2" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)"/>
+                                                <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation Duration="0:0:0.2" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <!--按钮按下弹起-->
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation To="3" Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)"/>
+                                                <ColorAnimation To="#3AAA" Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation To="#2111" Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                </Trigger>
+                                <!--按钮失效-->
+                                <Trigger Property="IsEnabled" Value="False">
+                                    <Trigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation To="0" Duration="0:0:0.3" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)"/>
+                                                <DoubleAnimation To="1" Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Opacity)"/>
+                                                <DoubleAnimation To="-135" Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Direction)"/>
+                                                <ColorAnimation To="#FFF" Duration="0:0:0.3" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Color)"/>
+                                                <ColorAnimation To="#D555" Duration="0:0:0.3" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+                                                <ColorAnimation To="#CEEE" Duration="0:0:0.3" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation To="#CDDD" Duration="0:0:0.3" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.EnterActions>
+                                    <Trigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="back" Storyboard.TargetProperty="(UIElement.BitmapEffect).(OuterGlowBitmapEffect.GlowSize)"/>
+                                                <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Opacity)"/>
+                                                <DoubleAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Direction)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="content" Storyboard.TargetProperty="(UIElement.BitmapEffect).(DropShadowBitmapEffect.Color)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)"/>
+                                                <ColorAnimation Duration="0:0:0.1" Storyboard.TargetName="fore" Storyboard.TargetProperty="(Border.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)"/>
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </Trigger.ExitActions>
+                                    <Setter Property="Foreground" Value="#B444"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="40"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <ProgressBar x:Name="pBar" Value="10"   Width="400" Height="22" Margin="0 0 280 0" Visibility="Hidden" />
+            <!--<Button Content="扫描试卷" Margin="0 0 20 0" Width="77" Height="25" Name="btnScan" Click="btnScan_Click" />-->
+            <Button Content="扫描试卷" Margin="0 0 20 0" Width="77" Height="25" Name="btnScan" Click="btnScan_Click" />
+            <!--<Button Content="扫描试卷" Margin="0 0 20 0" Width="77" Height="25" Name="btnImportImage" Click="btnImportImage_Click" />-->
+            <Button Content="导入试卷" Margin="0 0 20 0" Width="77" Height="25" Name="btnImport" Click="btnImport_Click" ></Button>
+        </StackPanel>
+        <Grid  Grid.Column="0" Grid.Row="1" Background="White" ShowGridLines="True"  VerticalAlignment="Top"  >
+            <ListView Name="list"  Margin="0,0,0,0" DockPanel.Dock="Right" Height="470" VerticalAlignment="Top">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="学号" Width="100"  >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="100"  TextAlignment="Center" Text="{Binding SutdentNo}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="姓名" Width="80"  >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="80"  TextAlignment="Center" Text="{Binding SutdentName}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="图片名称"  Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  MinWidth="80" TextAlignment="Center" Text="{Binding PaperName}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="试卷标题"  Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  MinWidth="100" TextAlignment="Center" Text="{Binding PaperTitle}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="客观题(错/总)" Width="90">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  TextAlignment="Center" Text="{Binding Ratios}"  Width="90"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="总分"  Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  TextAlignment="Center" Text="{Binding TotalScore}"  Width="40"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="处理结果"  Width="80">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  TextAlignment="Center" Text="{Binding Result}" Background="{Binding ResultColor}"  Width="80"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="备注"  Width="50">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock  TextAlignment="Center" Text="{Binding Desc}"  MinWidth="50"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="批阅情况"  Width="60">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Width="60" TextAlignment="Center" Text="{Binding MarkedSatusDesc}"></TextBlock>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="操作"  Width="230">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <WrapPanel>
+                                        <Button  Content="查看" Style="{StaticResource OperateBtn}" Tag="{Binding ImagePath}" Click="btnSee_Click"/>
+                                        <Button  Content="评阅" Style="{StaticResource OperateBtn}" Tag="{Binding MarkedResultID}" Click="btnOperate_Click"/>
+                                        <Button  Content="打印" Style="{StaticResource OperateBtn}" Tag="{Binding MarkedResultID}"  IsEnabled="{Binding IsMarked}" Click="btnPrint_Click"/>
+                                        <Button  Content="删除" Style="{StaticResource OperateBtn}" Tag="{Binding MarkedResultID}" Click="btnDelete_Click"/>
+                                    </WrapPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <StackPanel Grid.Column="0" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+            <TextBlock Width="480" Margin="0 0 20 0" Name="txtTip"></TextBlock>
+            <RadioButton Name="sequence" GroupName="sort" Content="顺序" IsChecked="True" Checked="sequence_Checked"  VerticalAlignment="Center" />
+            <RadioButton Name="reverse" GroupName="sort" Content="倒序" Checked="reverse_Checked"  VerticalAlignment="Center"  />
+            <Button Name="SavePaper" Height="25" Click="SavePaper_Click" Margin="10 0 10 0" Width="80"  >保存</Button>
+            <Button Name="UploadPaper" Height="25" Click="UploadPaper_Click" Margin="0 0 10 0" Width="80" >上传阅卷</Button>
+            <Button Name="btnPrintAll" Height="25" Click="btnPrintAll_Click" Margin="0 0 20 0" Width="80" >一键打印</Button>
+        </StackPanel>
+    </Grid>
+</Window>

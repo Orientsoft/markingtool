@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e509af9c-6e24-44fc-be0b-b9d8263b1bc3" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://srv.dayez.net/paper/paper_service.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="paper_service.xsd" MetadataType="Schema" ID="3517f23a-0080-4ca8-b975-72c6383a16de" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd8" />
+    <MetadataFile FileName="paper_service9.xsd" MetadataType="Schema" ID="61bb7515-14be-4177-aa84-d1fc3558a6be" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd9" />
+    <MetadataFile FileName="paper_service1.xsd" MetadataType="Schema" ID="7ccdb8cc-90ce-4354-9aa5-9f7700f5a665" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd6" />
+    <MetadataFile FileName="paper_service2.xsd" MetadataType="Schema" ID="d1de8849-a01f-4c2d-b189-efb7adb7a878" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd7" />
+    <MetadataFile FileName="paper_service3.xsd" MetadataType="Schema" ID="6d0a2870-557c-4a24-bbf2-a63c5ec332ed" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd4" />
+    <MetadataFile FileName="paper_service4.xsd" MetadataType="Schema" ID="de6745e8-c022-40af-9b2c-4271cb62ae55" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd5" />
+    <MetadataFile FileName="paper_service5.xsd" MetadataType="Schema" ID="cb03d53a-170d-494c-a8ed-429a93713c44" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd2" />
+    <MetadataFile FileName="paper_service6.xsd" MetadataType="Schema" ID="6640973f-bc03-49ce-b384-835fc90cdf1b" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd3" />
+    <MetadataFile FileName="paper_service7.xsd" MetadataType="Schema" ID="770b5894-bfba-4273-bd14-43bed5a86799" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd0" />
+    <MetadataFile FileName="paper_service8.xsd" MetadataType="Schema" ID="afdc9eaa-5c0b-4791-b3d6-d862b6d0d785" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd1" />
+    <MetadataFile FileName="PaperService.wsdl" MetadataType="Wsdl" ID="45cfd5a1-a50f-4032-aa98-476ab718e2db" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?wsdl" />
+    <MetadataFile FileName="paper_service.disco" MetadataType="Disco" ID="206d49ea-c2ce-4357-a1fd-dc68a2e0daf1" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?disco" />
+    <MetadataFile FileName="paper_service.wsdl" MetadataType="Wsdl" ID="cbd68508-5b16-4e84-ac03-28747ee2d9bf" SourceId="1" SourceUrl="http://srv.dayez.net/paper/paper_service.svc?wsdl=wsdl0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

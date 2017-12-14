@@ -1,0 +1,1226 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008"  xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+    <LinearGradientBrush x:Key="WindowBackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#FF4785B0" Offset="0"/>
+        <GradientStop Color="#FF63AADA" Offset="1"/>
+    </LinearGradientBrush>
+
+    <Color x:Key="PrimaryColor">#FF63AADA</Color>
+    <Color x:Key="SecondaryColor">#FFA0FCFF</Color>
+    <Color x:Key="FontColor">#FF555555</Color>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}" />
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource SecondaryColor}" />
+    <SolidColorBrush x:Key="FontBrush" Color="{StaticResource FontColor}" />
+    <SolidColorBrush x:Key="TextBrush" Color="#FF152937" />
+    <Color x:Key="DisabledColor">#8CFFFFFF</Color>
+    <!--Button-->
+    <Style TargetType="{x:Type Button}">
+        <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
+        <Setter Property="Background" Value="#00000000" />
+        <Setter Property="Padding" Value="5,4" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}" />
+        <Setter Property="Cursor" Value="Hand" />
+    </Style>
+    <!--Login-->
+    <Style TargetType="Label" x:Key="Login-Label-Tip">
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Height" Value="30"></Setter>
+        <Setter Property="Foreground" Value="#FF79848A"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+    </Style>
+    <Style TargetType="Control" x:Key="LoginText">
+        <Setter Property="Width" Value="370"></Setter>
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="BorderBrush" Value="#FFDEDEDE"></Setter>
+        <Setter Property="Foreground" Value="#FF566166"></Setter>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Padding" Value="5,0,0,0"/>
+    </Style>
+    <Style TargetType="{x:Type TextBox}" x:Key="Login-Text-Account" BasedOn="{StaticResource LoginText}">
+    </Style>
+    <Style TargetType="{x:Type PasswordBox}" x:Key="Login-Text-Password" BasedOn="{StaticResource LoginText}">
+        <Setter Property="Margin" Value="0,-40,0,0"></Setter>
+    </Style>
+    <Style TargetType="{x:Type Button}" x:Key="Login-Style-Button" BasedOn="{StaticResource SimpleButton}">
+        <Setter Property="Width" Value="230"></Setter>
+        <Setter Property="Height" Value="50"></Setter>
+        <Setter Property="Margin" Value="0"></Setter>
+        <Setter Property="Background" Value="#FF529EEA"></Setter>
+        <Setter Property="BorderBrush" Value="White"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="FontWeight" Value="Normal"></Setter>
+    </Style>
+    <Style TargetType="{x:Type Label}" x:Key="D-Label">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Foreground" Value="{StaticResource FontBrush}"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Height" Value="32"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="{x:Type Label}" x:Key="Login-Label-Title" BasedOn="{StaticResource D-Label}">
+        <Setter Property="FontSize" Value="22"/>
+        <Setter Property="Height" Value="45"/>
+    </Style>
+    <!--TextBox-->
+    <!--扫描面操作按钮-->
+    <Style TargetType="{x:Type Button}" x:Key="OperateBtn">
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="Padding" Value="6,1"/>
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="22"/>
+    </Style>
+    <!--主页面扫描按钮-->
+    <Style TargetType="{x:Type Button}" x:Key="ScannerBtn" BasedOn="{StaticResource OperateBtn}">
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Margin" Value="0,0,120,0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="Foreground" Value="{StaticResource FontBrush}"/>
+    </Style>
+    <!--主页面套打按钮-->
+    <Style TargetType="{x:Type Button}" x:Key="PrintBtn" BasedOn="{StaticResource ScannerBtn}">
+        <Setter Property="Margin" Value="120,0,0,0"/>
+    </Style>
+    <!--主页面标题-->
+    <Style TargetType="{x:Type TextBlock}" x:Key="S-DeyiTitle">
+        <Setter Property="FontSize" Value="18.67" />
+        <Setter Property="FontWeight" Value="Bold" />
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="{StaticResource FontBrush}"/>
+    </Style>
+    <!--主页面文字描述-->
+    <Style TargetType="{x:Type Label}" x:Key="MainBoxTip" BasedOn="{StaticResource D-Label}">
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Top"/>
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Padding" Value="0 8 0 0"/>
+        <Setter Property="Margin" Value="0 0 160 0"/>
+    </Style>
+    <!--主页面试卷编号输入框-->
+    <Style TargetType="{x:Type TextBox}" x:Key="Common-InputText">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="5,0,0,0"/>
+        <Setter Property="Background" Value="Transparent"></Setter>
+        <Setter Property="Foreground" Value="#FF566166"></Setter>
+        <Setter Property="BorderBrush" Value="#FFDEDEDE"></Setter>
+        <Style.Triggers>
+            <Trigger Property="IsFocused" Value="True">
+                <Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"></Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="Label" x:Key="Common-TextPlace">
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Width" Value="Auto"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="12,1,0,0"/>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="Foreground" Value="#FFbbbbbb"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ListBox}" x:Key="Default-Style-NumList" BasedOn="{StaticResource SimpleListBox}">
+        <Setter Property="Width" Value="Auto"></Setter>
+        <Setter Property="MinHeight" Value="35"></Setter>
+        <Setter Property="MaxHeight" Value="170"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="Margin" Value="0,40,0,0"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="BorderThickness" Value="1"></Setter>
+        <Setter Property="BorderBrush" Value="#FFDEDEDE"></Setter>
+    </Style>
+
+    <Style TargetType="{x:Type ListBoxItem}" x:Key="AutoViewItem" BasedOn="{StaticResource SimpleListBoxItem}">
+        <Setter Property="Height" Value="25"></Setter>
+        <Setter Property="FontSize" Value="14"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="Foreground" Value="Gray"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="Margin" Value="0,0,0,0"></Setter>
+        <Setter Property="Padding" Value="12,0,0,0"></Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BatchList-Btn" BasedOn="{StaticResource SimpleButton}">
+        <Setter Property="Width" Value="60"></Setter>
+        <Setter Property="Height" Value="26"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Background" Value="#FF529EEA"></Setter>
+        <Setter Property="BorderBrush" Value="White"></Setter>
+        <Setter Property="Foreground" Value="White"></Setter>
+        <Setter Property="Margin" Value="0,6,0,0"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="Txt-PaperTitle">
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Width" Value="Auto"></Setter>
+        <Setter Property="Height" Value="25"></Setter>		
+        <Setter Property="Foreground" Value="#FF3D3D3D"></Setter>
+        <Setter Property="FontSize" Value="15"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    <Style TargetType="Label" x:Key="Lbl-ProcessBar">
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Foreground" Value="#FF529EEA"></Setter>
+        <Setter Property="Height" Value="26"></Setter>
+        <Setter Property="Margin" Value="169,32,0,11"></Setter>
+    </Style>
+    <Style TargetType="ProgressBar" x:Key="D-ProcessBar" BasedOn="{StaticResource SimpleProgressBar}">
+        <Setter Property="Width" Value="280"></Setter>
+        <Setter Property="Height" Value="14"></Setter>
+        <Setter Property="Background" Value="White"></Setter>
+        <Setter Property="BorderBrush" Value="#FF66A726"></Setter>
+        <Setter Property="Foreground" Value="#FF58A20E"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="Margin" Value="0,38.994,506.333,17.006"></Setter>
+    </Style>
+
+    <!--打印相关-->
+    <Style TargetType="Label" x:Key="Lbl-Objective-Error" BasedOn="{StaticResource SimpleLabel}">
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+    <Style TargetType="Label" x:Key="Lbl-TotalScore" BasedOn="{StaticResource SimpleLabel}">
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontSize" Value="26"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    <Style TargetType="Label" x:Key="Lbl-Words" BasedOn="{StaticResource SimpleLabel}">
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontSize" Value="24"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    <Style TargetType="TextBlock" x:Key="Lbl-SubScore">
+        <Setter Property="Foreground" Value="Red"></Setter>
+        <Setter Property="FontFamily" Value="Arial"></Setter>
+        <Setter Property="FontSize" Value="22"></Setter>
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+    </Style>
+    <!--可排序-->
+    <Style x:Key="Sort-Base"
+			TargetType="GridViewColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Height" Value="28"/>		
+        <Setter Property="Padding" Value="0,3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0" Padding="2,0,2,0">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.Background>
+                            <ContentPresenter x:Name="HeaderContent"
+									Margin="0,0,0,0"									
+									RecognizesAccessKey="True"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}" />
+                        <ed:RegularPolygon Fill="#FF646464" HorizontalAlignment="Right" Height="4.849" InnerRadius="1" Margin="0,8.443,5,0" PointCount="3" Stretch="Fill" VerticalAlignment="Top" Width="9.806"/>
+                        <ed:RegularPolygon Fill="#FF646464" HorizontalAlignment="Right" Height="4.849" InnerRadius="1" Margin="0,15.541,5,0" PointCount="3" Stretch="Fill" VerticalAlignment="Top" Width="9.806" RenderTransformOrigin="0.5,0.5">
+                            <ed:RegularPolygon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="180"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ed:RegularPolygon.RenderTransform>
+                        </ed:RegularPolygon>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="Floating">
+                <Setter Property="Opacity" Value="0.7" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Canvas x:Name="PART_FloatingHeaderCanvas">
+                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Role"
+					Value="Padding">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--升序-->
+    <Style x:Key="Sort-Asc"
+			TargetType="GridViewColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Padding" Value="0,3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0" Padding="2,0,2,0">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.Background>
+                            <ContentPresenter x:Name="HeaderContent"
+									Margin="0,0,0,0"
+									RecognizesAccessKey="True"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}" />
+                        <ed:RegularPolygon Fill="#FF5FACE2" HorizontalAlignment="Right" Height="4.849" InnerRadius="1" Margin="0,10.651,5,0" PointCount="3" Stretch="Fill" VerticalAlignment="Top" Width="9.806"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="Floating">
+                <Setter Property="Opacity" Value="0.7" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Canvas x:Name="PART_FloatingHeaderCanvas">
+                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Role"
+					Value="Padding">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--降序-->
+    <Style x:Key="Sort-Desc"
+			TargetType="GridViewColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Padding" Value="0,3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0" Padding="2,0,2,0">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.Background>
+                            <ContentPresenter x:Name="HeaderContent"
+									Margin="0,0,0,0"
+									RecognizesAccessKey="True"
+									VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+									HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+									SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}" />
+                        <ed:RegularPolygon Fill="#FF5FACE2" HorizontalAlignment="Right" Height="4.849" InnerRadius="1" Margin="0,12.624,5,0" PointCount="3" Stretch="Fill" VerticalAlignment="Top" Width="9.806" RenderTransformOrigin="0.5,0.5">
+                            <ed:RegularPolygon.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="180"/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </ed:RegularPolygon.RenderTransform>
+                        </ed:RegularPolygon>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="Floating">
+                <Setter Property="Opacity" Value="0.7" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Canvas x:Name="PART_FloatingHeaderCanvas">
+                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Role"
+					Value="Padding">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type GridViewColumnHeader}">
+                            <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <!--Control colors.-->
+    <Color x:Key="WindowColor">#FFE8EDF9</Color>
+    <Color x:Key="ContentAreaColorLight">White</Color>
+    <Color x:Key="ContentAreaColorDark">White</Color>
+
+    <Color x:Key="DisabledControlLightColor">#FFE8EDF9</Color>
+    <Color x:Key="DisabledControlDarkColor">White</Color>
+    <Color x:Key="DisabledForegroundColor">#FF888888</Color>
+
+    <Color x:Key="SelectedBackgroundColor">#FFD2EFFF</Color>
+    <Color x:Key="SelectedUnfocusedColor">#FFDDDDDD</Color>
+
+    <Color x:Key="ControlLightColor">#FFEDF3FB</Color>
+    <Color x:Key="ControlMediumColor">#FFEDF3FB</Color>
+    <Color x:Key="ControlDarkColor">#FF211AA9</Color>
+
+    <Color x:Key="ControlMouseOverColor">#FFFFFFFF</Color>
+    <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+
+
+    <Color x:Key="GlyphColor">#FF444444</Color>
+    <Color x:Key="GlyphMouseOver">sc#1, 0.004391443, 0.002428215, 0.242281124</Color>
+
+    <!--Border colors-->
+    <Color x:Key="BorderLightColor">#FFbabdc0</Color>
+    <Color x:Key="BorderMediumColor">#FFbabdc0</Color>
+    <Color x:Key="BorderDarkColor">#FFbabdc0</Color>
+
+    <Color x:Key="PressedBorderLightColor">#FFbabdc0</Color>
+    <Color x:Key="PressedBorderDarkColor">#FFbabdc0</Color>
+
+    <Color x:Key="DisabledBorderLightColor">#FFbabdc0</Color>
+    <Color x:Key="DisabledBorderDarkColor">#FFbabdc0</Color>
+
+    <!--Control-specific resources.-->
+    <Color x:Key="HeaderTopColor">#FFEDF3FB</Color>
+    <Color x:Key="DatagridCurrentCellBorderColor">Black</Color>
+    <Color x:Key="SliderTrackDarkColor">White</Color>
+
+    <Color x:Key="NavButtonFrameColor">#FF3843C4</Color>
+
+    <SolidColorBrush x:Key="MenuPopupBrush"
+                     Color="White"/>
+
+    <SolidColorBrush x:Key="ProgressBarIndicatorAnimatedFill"
+                     Color="White"/>
+
+    <Style x:Key="{x:Static GridView.GridViewScrollViewerStyleKey}"
+       TargetType="ScrollViewer">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollViewer">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <DockPanel Margin="{TemplateBinding Padding}">
+                            <ScrollViewer DockPanel.Dock="Top"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Hidden"
+                          Focusable="false" Background="#FFFAFCFF" Foreground="Gray">
+                                <GridViewHeaderRowPresenter Margin="0"
+                                          Columns="{Binding Path=TemplatedParent.View.Columns,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContainerStyle="{Binding
+                Path=TemplatedParent.View.ColumnHeaderContainerStyle,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplate="{Binding
+                Path=TemplatedParent.View.ColumnHeaderTemplate,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderTemplateSelector="{Binding 
+                Path=TemplatedParent.View.ColumnHeaderTemplateSelector,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          AllowsColumnReorder="{Binding
+                Path=TemplatedParent.View.AllowsColumnReorder,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderContextMenu="{Binding
+                Path=TemplatedParent.View.ColumnHeaderContextMenu,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          ColumnHeaderToolTip="{Binding
+                Path=TemplatedParent.View.ColumnHeaderToolTip,
+                RelativeSource={RelativeSource TemplatedParent}}"
+                                          SnapsToDevicePixels="{TemplateBinding
+                SnapsToDevicePixels}" OpacityMask="{x:Null}" />
+                            </ScrollViewer>
+
+                            <ScrollContentPresenter Name="PART_ScrollContentPresenter"
+                                    KeyboardNavigation.DirectionalNavigation="Local"
+                                    CanContentScroll="True"
+                                    CanHorizontallyScroll="False"
+                                    CanVerticallyScroll="False" />
+                        </DockPanel>
+
+                        <ScrollBar Name="PART_HorizontalScrollBar"
+                     Orientation="Horizontal"
+                     Grid.Row="1"
+                     Maximum="{TemplateBinding ScrollableWidth}"
+                     ViewportSize="{TemplateBinding ViewportWidth}"
+                     Value="{TemplateBinding HorizontalOffset}"
+                     Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" />
+
+                        <ScrollBar Name="PART_VerticalScrollBar"
+                     Grid.Column="1"
+                     Maximum="{TemplateBinding ScrollableHeight}"
+                     ViewportSize="{TemplateBinding ViewportHeight}"
+                     Value="{TemplateBinding VerticalOffset}"
+                     Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" />
+
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="GridViewColumnHeaderGripper" TargetType="Thumb">
+        <Setter Property="Width" Value="18" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <LinearGradientBrush.GradientStops>
+                        <GradientStopCollection>
+                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                        </GradientStopCollection>
+                    </LinearGradientBrush.GradientStops>
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Padding="{TemplateBinding Padding}" Background="Transparent">
+                        <Rectangle HorizontalAlignment="Center" Width="1" Fill="{TemplateBinding Background}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderBrush">
+            <Setter.Value>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="0" />
+                    <GradientStop Color="White" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type GridViewColumnHeader}"
+       TargetType="GridViewColumnHeader">
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Padding" Value="0,3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="GridViewColumnHeader">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[1].(GradientStop.Color)" Storyboard.TargetName="HeaderBorder">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed" />
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="HeaderBorder" BorderThickness="0,0,0,0" Padding="2,0,2,0">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStopCollection>
+                                            <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0.0" />
+                                            <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1.0" />
+                                        </GradientStopCollection>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+
+                            </Border.Background>
+                            <ContentPresenter x:Name="HeaderContent"
+                              Margin="0,0,0,0"
+                              RecognizesAccessKey="True"
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <Thumb x:Name="PART_HeaderGripper" HorizontalAlignment="Right" Margin="0,0,-9,0" Style="{StaticResource GridViewColumnHeaderGripper}" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Role" Value="Floating">
+                <Setter Property="Opacity" Value="0.7" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewColumnHeader">
+                            <Canvas Name="PART_FloatingHeaderCanvas">
+                                <Rectangle Fill="#60000000" Width="{TemplateBinding ActualWidth}" Height="{TemplateBinding ActualHeight}" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <Trigger Property="Role"
+             Value="Padding">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="GridViewColumnHeader">
+                            <Border Name="HeaderBorder" BorderThickness="0,0,0,0">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{DynamicResource ControlLightColor}" />
+                                </Border.Background>
+                                <Border.BorderBrush>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <LinearGradientBrush.GradientStops>
+                                            <GradientStopCollection>
+                                                <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+                                                <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+                                            </GradientStopCollection>
+                                        </LinearGradientBrush.GradientStops>
+                                    </LinearGradientBrush>
+                                </Border.BorderBrush>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="{x:Type ListView}" TargetType="ListView">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.CanContentScroll" Value="true" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListView">
+                    <Border Name="Border" BorderThickness="0,1" Background="White">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="#FFC4C4C4" />
+                        </Border.BorderBrush>
+                        <ScrollViewer Style="{DynamicResource {x:Static GridView.GridViewScrollViewerStyleKey}}" FontSize="12">
+                            <ItemsPresenter OpacityMask="Black" />
+                        </ScrollViewer>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsGrouping" Value="true">
+                            <Setter Property="ScrollViewer.CanContentScroll" Value="false" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter TargetName="Border" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="{DynamicResource DisabledBorderLightColor}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="{x:Type ListViewItem}"
+       TargetType="ListViewItem">
+        <Setter Property="SnapsToDevicePixels" Value="true" />
+        <Setter Property="OverridesDefaultStyle" Value="true" />
+        <Setter Property="Height" Value="40"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+        <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="Border" Padding="2" SnapsToDevicePixels="true" Background="Transparent">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource SelectedBackgroundColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="SelectedUnfocused">
+                                    <Storyboard>
+                                        <ColorAnimationUsingKeyFrames Storyboard.TargetName="Border" Storyboard.TargetProperty="(Panel.Background).(SolidColorBrush.Color)">
+                                            <EasingColorKeyFrame KeyTime="0" Value="{StaticResource SelectedUnfocusedColor}" />
+                                        </ColorAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <GridViewRowPresenter VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--图标按钮-->
+    <Style x:Key="IconButtonBase" TargetType="{x:Type Button}" BasedOn="{x:Null}">
+        <Setter Property="FocusVisualStyle" Value="{DynamicResource SimpleButtonFocusVisual}"/>
+        <Setter Property="Background" Value="{DynamicResource NormalBrush}"/>
+        <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+        <Setter Property="VerticalAlignment" Value="Top"></Setter>
+        <Setter Property="Width" Value="32"></Setter>
+        <Setter Property="Height" Value="32"></Setter>
+        <Setter Property="BorderBrush" Value="{x:Null}"></Setter>
+        <Setter Property="Cursor" Value="Hand"></Setter>
+    </Style>
+    <!--预览按钮-->
+    <Style x:Key="ViewButton" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonBase}">
+        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!-- 我们将 Grid 用作根，原因在于这便于添加更多的元素来自定义按钮 -->
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderBrush="{x:Null}" CornerRadius="3" Width="26" Height="26">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Images/icon_view.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Content Presenter 是控件放置文本内容等项之处 -->
+                        <!-- 通过利用绑定，无需编辑模板即可将控件参数化 -->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" OpacityMask="White"/>
+                    </Grid>
+
+                    <!--每种状态都基于模板中的 Border 来设置画笔 -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_view.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_view_hover.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_view_pressed.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_view.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--重置按钮-->
+    <Style x:Key="ResetButton" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonBase}">
+        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!-- 我们将 Grid 用作根，原因在于这便于添加更多的元素来自定义按钮 -->
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderBrush="{x:Null}" CornerRadius="3" Width="26" Height="26">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Images/icon_reset.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Content Presenter 是控件放置文本内容等项之处 -->
+                        <!-- 通过利用绑定，无需编辑模板即可将控件参数化 -->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" OpacityMask="White"/>
+                    </Grid>
+
+                    <!--每种状态都基于模板中的 Border 来设置画笔 -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_reset.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_reset.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_reset.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_reset.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="BindButton" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonBase}">
+        <Setter Property="Margin" Value="0,0,0,0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!-- 我们将 Grid 用作根，原因在于这便于添加更多的元素来自定义按钮 -->
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderBrush="{x:Null}" CornerRadius="3" Width="26" Height="26">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Images/btn-bind.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Content Presenter 是控件放置文本内容等项之处 -->
+                        <!-- 通过利用绑定，无需编辑模板即可将控件参数化 -->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" OpacityMask="White"/>
+                    </Grid>
+
+                    <!--每种状态都基于模板中的 Border 来设置画笔 -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/btn-bind.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/btn-bind.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/btn-bind.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/btn-bind.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!-- 删除按钮-->
+    <Style x:Key="DeleteButton" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonBase}">
+        <Setter Property="Margin" Value="5,0,0,0"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!-- 我们将 Grid 用作根，原因在于这便于添加更多的元素来自定义按钮 -->
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderBrush="{x:Null}" CornerRadius="3" Width="26" Height="26">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Images/icon_delete.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Content Presenter 是控件放置文本内容等项之处 -->
+                        <!-- 通过利用绑定，无需编辑模板即可将控件参数化 -->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" OpacityMask="White"/>
+                    </Grid>
+
+                    <!--每种状态都基于模板中的 Border 来设置画笔 -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_delete.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_delete_hover.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_delete_pressed.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_delete.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--打印按钮-->
+    <Style x:Key="PrintIconButton" TargetType="{x:Type Button}" BasedOn="{StaticResource IconButtonBase}">
+        <Setter Property="Margin" Value="10,0,0,0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+
+                    <!-- 我们将 Grid 用作根，原因在于这便于添加更多的元素来自定义按钮 -->
+                    <Grid x:Name="Grid">
+                        <Border x:Name="Border" Padding="{TemplateBinding Padding}" BorderBrush="{x:Null}" CornerRadius="3" Width="26" Height="26">
+                            <Border.Background>
+                                <ImageBrush ImageSource="/Images/icon_print.png"/>
+                            </Border.Background>
+                        </Border>
+
+                        <!-- Content Presenter 是控件放置文本内容等项之处 -->
+                        <!-- 通过利用绑定，无需编辑模板即可将控件参数化 -->
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" RecognizesAccessKey="True" OpacityMask="White"/>
+                    </Grid>
+
+                    <!--每种状态都基于模板中的 Border 来设置画笔 -->
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsKeyboardFocused" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_print.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_print_hover.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_print_pressed.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="true">
+                            <Setter Property="BorderThickness" TargetName="Border" Value="0"/>
+                            <Setter Property="CornerRadius" TargetName="Border" Value="3"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="false">
+                            <Setter Property="Foreground" Value="{DynamicResource DisabledForegroundBrush}"/>
+                            <Setter Property="BorderBrush" TargetName="Border" Value="{x:Null}"/>
+                            <Setter Property="Background" TargetName="Border">
+                                <Setter.Value>
+                                    <ImageBrush ImageSource="/Images/icon_print.png"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

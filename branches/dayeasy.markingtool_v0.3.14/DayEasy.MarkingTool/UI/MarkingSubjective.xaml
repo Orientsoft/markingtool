@@ -1,0 +1,151 @@
+﻿<d:DeyiWindow xmlns:d="clr-namespace:DayEasy.MarkingTool.Core"
+              x:Class="DayEasy.MarkingTool.UI.MarkingSubjective"
+              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              Title="主观题批阅" Height="600" Width="860" Loaded="Window_Loaded"
+              ResizeMode="CanMinimize"  WindowStartupLocation="CenterScreen"
+              WindowStyle="SingleBorderWindow" WindowState="Normal" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <!--<RowDefinition Height="30"></RowDefinition>-->
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="30"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ScrollViewer Name="ScrollWrap" CanContentScroll="True"  Grid.Column="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="0">
+                <Canvas Name="ReadWrap" Height="500" MouseDown="readWrap_MouseDown" MouseMove="readWrap_MouseMove" MouseLeave="readWrap_MouseLeave" MouseEnter="readWrap_MouseEnter">
+                    <StackPanel Name="ImageWrap">
+                    </StackPanel>
+                    <!--<TextBlock Canvas.Left="100" Canvas.Top="100" >
+                    批注下哈
+                    </TextBlock>-->
+                </Canvas>
+            </ScrollViewer>
+            <Button Grid.Column="0" Name="BtnPrev" Background="White"  Cursor="Hand" Height="100" Click="btnPrev_Click" BorderThickness="0" BorderBrush="White">
+                <Image Source="/Images/left.png"></Image>
+            </Button>
+            <Button Name="BtnNext" Grid.Column="2" Background="White" Height="100"  BorderThickness="0" BorderBrush="White" Cursor="Hand" Click="btnNext_Click">
+                <Image Source="/Images/right.png"></Image>
+            </Button>
+
+        </Grid>
+        <!--<StackPanel Grid.Row="2" Orientation="Horizontal"  VerticalAlignment="Center" HorizontalAlignment="Right">
+            <Button Content="结束阅卷" Margin="0 0 20 0" Width="80" Height="25" Name="BtnEndRead" Click="btnEndRead_Click"></Button>
+            -->
+        <!--<Button Content="上传试卷" Margin="0 0 60 0"></Button>-->
+        <!--
+            <Button Name="BtnPrint" Width="80" Height="25"  Margin="0 0 40 0" Content="打印"  Click="btnPrint_Click" />
+        </StackPanel>-->
+        <WrapPanel Grid.Row="0">
+            <!--工具栏-->
+            <ToolBarTray Background="White" Height="30" >
+                <ToolBar Height="30" OverflowMode="AsNeeded">
+                    <Button  Click="btnOption_Click" Tag="0" ToolTip="Ctrl+D">
+                        <Image Source="/Images/Pointer.png"></Image>
+                    </Button>
+                    <Separator/>
+                    <Button  Click="btnOption_Click" Tag="1" ToolTip="Ctrl+R">
+                        <Image Source="/Images/DrawCheckmark_o.png"></Image>
+                    </Button>
+                    <Separator/>
+                    <Button  Click="btnOption_Click" Tag="5" ToolTip="Ctrl+H">
+                        <Image Source="/Images/DrawCheckmark_ho.png"></Image>
+                    </Button>
+                    <Separator/>
+                    <Button  Click="btnOption_Click" Tag="2" ToolTip="Ctrl+W">
+                        <Image Source="/Images/DrawForks.png"></Image>
+                    </Button>
+                    <Separator/>
+                    <Menu Width="32" Background="Transparent">
+                        <MenuItem>
+                            <MenuItem.Icon>
+                                <Image Source="/Images/Comment.png"></Image>
+                            </MenuItem.Icon>
+                            <MenuItem Header="Good"
+                                      Click="btnOption_Click"
+                                      Tag="101"
+                                      ToolTip="Ctrl+1">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_101.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_101.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="哭脸"
+                                      Click="btnOption_Click"
+                                      Tag="102"
+                                      ToolTip="Ctrl+2">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_102.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_102.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="干得漂亮"
+                                      Click="btnOption_Click"
+                                      Tag="103"
+                                      ToolTip="Ctrl+3">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_103.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_103.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="注意格式"
+                                      Click="btnOption_Click"
+                                      Tag="104"
+                                      ToolTip="Ctrl+4">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_104.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_104.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="认真改错"
+                                      Click="btnOption_Click"
+                                      Tag="105"
+                                      ToolTip="Ctrl+5">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_105.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_105.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="来办公室"
+                                      Click="btnOption_Click"
+                                      Tag="106"
+                                      ToolTip="Ctrl+6">
+                                <MenuItem.Icon>
+                                    <Image Width="16" Source="/Images/emotion_106.png"></Image>
+                                </MenuItem.Icon>
+                                <!--<Image Source="/Images/emotion_106.png"></Image>-->
+                            </MenuItem>
+                            <MenuItem Header="自定义"
+                                      Click="btnOption_Click"
+                                      Tag="3"
+                                      ToolTip="Ctrl+Q">
+                                <MenuItem.Icon>
+                                    <Image Source="/Images/Comment.png"></Image>
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </MenuItem>
+                    </Menu>
+                    <Separator/>
+                    <Button Click="btnOption_Click"  Tag="4" ToolTip="Ctrl+E">
+                        <Image Source="/Images/Erase.png"></Image>
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <Label Margin="100 0 0 0" 
+                   Name="Curpic"
+                   Foreground="Red"></Label>
+            <Label x:Name="TotalScore"
+                   Margin="150 0 0 0"
+                   FontWeight="Bold"
+                   Foreground="Red"
+                   FontSize="15"
+                   HorizontalContentAlignment="Center"
+                   HorizontalAlignment="Left"/>
+        </WrapPanel>
+    </Grid>
+</d:DeyiWindow>

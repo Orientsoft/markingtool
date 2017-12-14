@@ -1,0 +1,22 @@
+﻿<Window x:Class="Dayeasy.UITest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="得一科技" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"></RowDefinition>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Row="0" Column="0">
+            
+        </Grid>
+        <Grid Row="1" Column="0">
+            <Button>
+                <StaticResource ResourceKey="ScanningText"></StaticResource>
+            </Button>
+            <Button>
+                <StaticResource ResourceKey="PrintingText"></StaticResource>
+            </Button>
+        </Grid>
+    </Grid>
+</Window>

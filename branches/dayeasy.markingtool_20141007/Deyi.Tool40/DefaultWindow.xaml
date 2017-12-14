@@ -1,0 +1,113 @@
+﻿<!-- 四川得一科技有限公司 版权所有
+* ================================================
+* 公司：四川得一科技有限公司
+* 作者：文杰
+* 创建：2013-12-28
+* 描述：默认窗口
+* ================================================
+-->
+<Window x:Class="Deyi.Tool.DefaultWindow" Icon="icon.ico" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Title="得一作业管理工具" Height="300" Width="500" Background="White"
+        ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" WindowState="Normal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <WrapPanel>
+                <TextBlock Text="欢迎使用" FontSize="16" Margin="10,0,0,0"/>
+            </WrapPanel>
+
+            <WrapPanel Grid.Column="1" HorizontalAlignment="Center">
+                <TextBlock Text="得一作业管理工具" FontSize="18"/>
+            </WrapPanel>
+
+            <WrapPanel Grid.Column="2" HorizontalAlignment="Right">
+                <!--<TextBlock Text="以下为我的作业列表" FontSize="16" Margin="0,0,10,0"/>-->
+            </WrapPanel>
+        </Grid>
+
+        <!--<ListView Grid.Row="1" Name="lvPaperList" BorderThickness="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,13,0,13">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="700"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <Grid Margin="20,0,0,0" VerticalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Text="{Binding Title}" FontSize="18"/>
+                            <TextBlock Grid.Row="1" Text="{Binding DisplayAddedAt}" Foreground="Gray"/>
+                        </Grid>
+
+                        <WrapPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center">
+                            <Button Name="btnPrint" Tag="{Binding ID}" Cursor="Hand" Margin="0,0,20,0" Padding="20,1,20,3" Click="btnPrint_Click">打印预览</Button>
+                        </WrapPanel>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <!--<Grid.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="GreenYellow" Offset="0.0"/>
+                    <GradientStop Color="LimeGreen" Offset="0.93"/>
+                    <GradientStop Color="GreenYellow" Offset="0.0"/>
+                </LinearGradientBrush>
+            </Grid.Background>-->
+            <StackPanel >
+                <Image Height="120" Margin="0,30,15,0"   Source="Images/logo.png" HorizontalAlignment="Right" Width="120"/>
+                <TextBlock  FontSize="20" TextAlignment="Center" Padding="20 0 10 0" FontWeight="Bold" Foreground="White" FontFamily="微软雅黑">我的得一</TextBlock>
+            </StackPanel>
+            <StackPanel Grid.Column="1" >
+                <!--<StackPanel Margin="0 70 0 0">
+                <TextBlock>
+                    上次阅卷开始时间：2014年2月17日 08:49:18
+                </TextBlock>
+                <TextBlock>
+                    上传试卷时间：2014年2月17日 17:49:09
+                </TextBlock>
+                <TextBlock>
+                    上传阅卷试卷：2014年2月17日 17:49:09
+                </TextBlock>
+                </StackPanel>-->
+                <WrapPanel  HorizontalAlignment="Center" Margin="0 88">
+                    <Button x:Name="btnMarking" Tag="{Binding ID}" Cursor="Hand" Width="100" Height="40" Margin="0,0,30,0"  FontSize="16"  Click="btnMarking_Click" Content="作 业"/>
+                    <Button x:Name="btnMarkingCrad" Tag="{Binding ID}" Cursor="Hand" Width="100" Height="40" Margin="0,0,30,0"  FontSize="16"  Click="btnMarkingCrad_Click" Content="答题卡"/>
+                    <!--<Button Name="btnPrintTemplate" Cursor="Hand" Width="100" Height="40"  FontSize="16" Click="btnPrintTemplate_Click">打印模板</Button>-->
+            </WrapPanel>
+            </StackPanel>
+
+        </Grid>
+
+
+        <Grid Grid.Row="2" VerticalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="90"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Name="lblCurrentDateTime" Margin="10,0,0,0"/>
+            <TextBlock Name="versionMesg" TextAlignment="Left"  Grid.Column="2" Text="版本：v1.1.1"/>
+        </Grid>
+    </Grid>
+</Window>

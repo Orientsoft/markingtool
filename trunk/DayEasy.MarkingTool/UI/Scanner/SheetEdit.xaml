@@ -1,0 +1,45 @@
+﻿<d:DeyiWindow xmlns:d="clr-namespace:DayEasy.MarkingTool.Core" x:Class="DayEasy.MarkingTool.UI.Scanner.SheetEdit"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="答题卡编辑" Height="200" Width="600" ResizeMode="CanMinimize">
+    <d:DeyiWindow.Resources>
+        <Style x:Key="SheetItemStyle" TargetType="{x:Type ContentPresenter}">
+            <Setter Property="VerticalAlignment" Value="Top"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Margin" Value="5,5,0,0"></Setter>
+        </Style>
+    </d:DeyiWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="60"></RowDefinition>
+        </Grid.RowDefinitions>
+        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <ItemsControl x:Name="SheetList" ItemContainerStyle="{DynamicResource SheetItemStyle}"
+                     Padding="5,5,5,5"
+                     BorderThickness="0"
+                     BorderBrush="#FFFFFFFF"
+                     Width="560">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border>
+                            <WrapPanel>
+                                <Label Width="30" Content="{Binding Sort}" HorizontalContentAlignment="Right"></Label>
+                                <TextBox Width="50" Height="25" FontSize="13" GotFocus="SheetFocus" LostFocus="SheetChanged" BorderBrush="{Binding Color}" KeyUp="SheetKeyup" Style="{DynamicResource Common-InputText}" Text="{Binding Answer}"></TextBox>
+                            </WrapPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <!--<Label x:Name="TxtLine" Margin="0,0,15,0" Content="第1行" Foreground="Gray" VerticalAlignment="Center"></Label>-->
+            <Button x:Name="BtnSubmit" Style="{DynamicResource Btn-Primary}" Click="BtnSave" Content="确认修改"></Button>
+        </WrapPanel>
+    </Grid>
+</d:DeyiWindow>

@@ -1,0 +1,52 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <s:String x:Key="L-AppTitle">Dayeasy Scanner Tool</s:String>
+    <!-- Login -->
+    <s:String x:Key="L-Login-Title">Dayeasy·Scanner Tool</s:String>
+    <s:String x:Key="L-Login-Account">Account:</s:String>
+    <s:String x:Key="L-Login-Password">Password:</s:String>
+    <s:String x:Key="L-Login-Btn">Login</s:String>
+    <s:String x:Key="L-Login-Btn-Cancel">Cancel</s:String>
+    <!--Default-->
+    <s:String x:Key="L-Default-Title">Dayeasy Scanner Tool</s:String>
+    <s:String x:Key="L-Default-PaperNum">Paper Number:</s:String>
+    <s:String x:Key="L-Default-Btn-Scanner">Scan</s:String>
+    <s:String x:Key="L-Default-Btn-Print">Print</s:String>
+    <!-- ImageView -->
+    <s:String x:Key="L-ImageView-Title">Paper View</s:String>
+    <s:String x:Key="L-ImageView-List">Paper List:</s:String>
+    <s:String x:Key="L-ImageView-All">All</s:String>
+    <s:String x:Key="L-ImageView-Delete">Delete Selected</s:String>
+    <s:String x:Key="L-ImageView-Start">Go</s:String>
+    <!--ImageDetail-->
+    <s:String x:Key="L-ImageDetail-Title">View Paper</s:String>
+    <!--Marking-->
+    <s:String x:Key="L-Marking-Title">Paper Recognition</s:String>
+    <s:String x:Key="L-Marking-SingleScanner">Single-faced</s:String>
+    <s:String x:Key="L-Marking-DoubleScanner">Double-faced</s:String>
+    <s:String x:Key="L-Marking-Combine01">Not Combine</s:String>
+    <s:String x:Key="L-Marking-Combine02">Pre 2 Combine</s:String>
+    <s:String x:Key="L-Marking-Combine03">Pre 3 Combine</s:String>
+    <s:String x:Key="L-Marking-Combine04">Pre 4 Combine</s:String>
+    <s:String x:Key="L-Marking-Grid-Index">Index</s:String>
+    <s:String x:Key="L-Marking-Grid-Name">Name</s:String>
+    <s:String x:Key="L-Marking-Grid-Sheet">Objective Result</s:String>
+    <s:String x:Key="L-Marking-Grid-Result">Result</s:String>
+    <s:String x:Key="L-Marking-Grid-Update">Update Status</s:String>
+    <s:String x:Key="L-Marking-Grid-Operate">Operate</s:String>
+    <s:String x:Key="L-Marking-Btn-Scanner">Scanner</s:String>
+    <s:String x:Key="L-Marking-Btn-Open">Open</s:String>
+    <s:String x:Key="L-Marking-Btn-View">View</s:String>
+    <s:String x:Key="L-Marking-Btn-Delete">Delete</s:String>
+    <s:String x:Key="L-Marking-Btn-Clear">Clear</s:String>
+    <s:String x:Key="L-Marking-Btn-Save">Save</s:String>
+    <s:String x:Key="L-Marking-Btn-Update">Update</s:String>
+    <s:String x:Key="L-Marking-OnlyFail">Only Fail</s:String>
+    <!--BatchPrint-->
+    <s:String x:Key="L-BatchPrint-Title">试卷套打</s:String>
+    <s:String x:Key="L-BatchPrint-Btn-Print">开始套打</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-ErrorInfo">客观题信息</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-Score">得分</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-PrintStatus">打印状态</s:String>
+</ResourceDictionary>

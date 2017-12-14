@@ -1,0 +1,20 @@
+﻿using System.Drawing;
+using DayEasy.MarkingTool.BLL;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace DayEasy.MarkingTool.Test
+{
+    [TestClass]
+    public class SectionManagerTest
+    {
+        [TestMethod]
+        public void LoadTest()
+        {
+        }
+
+        public void Corrosion(Bitmap binaryBmp)
+        {
+
+        }
+    }
+}

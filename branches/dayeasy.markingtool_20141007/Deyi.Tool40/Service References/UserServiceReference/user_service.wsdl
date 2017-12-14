@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.dayez.net/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.dayez.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.dayez.net/Imports">
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd0" namespace="http://www.dayez.net/" />
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DayEZ.Framework" />
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity.User" />
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity" />
+      <xsd:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="User_IsNicknameUnique_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsNicknameUnique" />
+  </wsdl:message>
+  <wsdl:message name="User_IsNicknameUnique_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsNicknameUniqueResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_IsEmailUnique_InputMessage">
+    <wsdl:part name="parameters" element="tns:IsEmailUnique" />
+  </wsdl:message>
+  <wsdl:message name="User_IsEmailUnique_OutputMessage">
+    <wsdl:part name="parameters" element="tns:IsEmailUniqueResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_UserLogin_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserLogin" />
+  </wsdl:message>
+  <wsdl:message name="User_UserLogin_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_UserRegiste_InputMessage">
+    <wsdl:part name="parameters" element="tns:UserRegiste" />
+  </wsdl:message>
+  <wsdl:message name="User_UserRegiste_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UserRegisteResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetTotalStudentCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalStudentCount" />
+  </wsdl:message>
+  <wsdl:message name="User_GetTotalStudentCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTotalStudentCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetAvatar_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvatar" />
+  </wsdl:message>
+  <wsdl:message name="User_GetAvatar_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAvatarResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetMyAgencyUserIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyAgencyUserIDs" />
+  </wsdl:message>
+  <wsdl:message name="User_GetMyAgencyUserIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyAgencyUserIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetOtherAgencyUserIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOtherAgencyUserIDs" />
+  </wsdl:message>
+  <wsdl:message name="User_GetOtherAgencyUserIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOtherAgencyUserIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetNicknames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetNicknames" />
+  </wsdl:message>
+  <wsdl:message name="User_GetNicknames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetNicknamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetClassIDNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassIDNames" />
+  </wsdl:message>
+  <wsdl:message name="User_GetClassIDNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetClassIDNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentIDIDNos_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentIDIDNos" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentIDIDNos_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentIDIDNosResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetUserIDTrueNames_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDTrueNames" />
+  </wsdl:message>
+  <wsdl:message name="User_GetUserIDTrueNames_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDTrueNamesResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentCodeTrueNameByUserIDs_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCodeTrueNameByUserIDs" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentCodeTrueNameByUserIDs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCodeTrueNameByUserIDsResponse" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentCodeTrueName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCodeTrueName" />
+  </wsdl:message>
+  <wsdl:message name="User_GetStudentCodeTrueName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentCodeTrueNameResponse" />
+  </wsdl:message>
+  <wsdl:portType name="User">
+    <wsdl:operation name="IsNicknameUnique">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/IsNicknameUnique" message="tns:User_IsNicknameUnique_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/IsNicknameUniqueResponse" message="tns:User_IsNicknameUnique_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="IsEmailUnique">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/IsEmailUnique" message="tns:User_IsEmailUnique_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/IsEmailUniqueResponse" message="tns:User_IsEmailUnique_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserLogin">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/UserLogin" message="tns:User_UserLogin_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/UserLoginResponse" message="tns:User_UserLogin_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UserRegiste">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/UserRegiste" message="tns:User_UserRegiste_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/UserRegisteResponse" message="tns:User_UserRegiste_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTotalStudentCount">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetTotalStudentCount" message="tns:User_GetTotalStudentCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetTotalStudentCountResponse" message="tns:User_GetTotalStudentCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAvatar">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetAvatar" message="tns:User_GetAvatar_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetAvatarResponse" message="tns:User_GetAvatar_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyAgencyUserIDs">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetMyAgencyUserIDs" message="tns:User_GetMyAgencyUserIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetMyAgencyUserIDsResponse" message="tns:User_GetMyAgencyUserIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOtherAgencyUserIDs">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetOtherAgencyUserIDs" message="tns:User_GetOtherAgencyUserIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetOtherAgencyUserIDsResponse" message="tns:User_GetOtherAgencyUserIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNicknames">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetNicknames" message="tns:User_GetNicknames_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetNicknamesResponse" message="tns:User_GetNicknames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetClassIDNames">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetClassIDNames" message="tns:User_GetClassIDNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetClassIDNamesResponse" message="tns:User_GetClassIDNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentIDIDNos">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetStudentIDIDNos" message="tns:User_GetStudentIDIDNos_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetStudentIDIDNosResponse" message="tns:User_GetStudentIDIDNos_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserIDTrueNames">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetUserIDTrueNames" message="tns:User_GetUserIDTrueNames_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetUserIDTrueNamesResponse" message="tns:User_GetUserIDTrueNames_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCodeTrueNameByUserIDs">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetStudentCodeTrueNameByUserIDs" message="tns:User_GetStudentCodeTrueNameByUserIDs_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetStudentCodeTrueNameByUserIDsResponse" message="tns:User_GetStudentCodeTrueNameByUserIDs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentCodeTrueName">
+      <wsdl:input wsaw:Action="http://www.dayez.net/User/GetStudentCodeTrueName" message="tns:User_GetStudentCodeTrueName_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/User/GetStudentCodeTrueNameResponse" message="tns:User_GetStudentCodeTrueName_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

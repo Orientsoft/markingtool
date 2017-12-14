@@ -1,0 +1,83 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:s="clr-namespace:System;assembly=mscorlib">
+    <s:String x:Key="L-AppTitle">得一扫描工具</s:String>
+    <!-- Login -->
+    <s:String x:Key="L-Login-Title">得一科技·扫描工具</s:String>
+    <s:String x:Key="L-Login-Account">Dayeasy</s:String>
+    <s:String x:Key="L-Login-Password">登录密码：</s:String>
+    <s:String x:Key="L-Login-Btn">登 录</s:String>
+    <s:String x:Key="L-Login-Btn-Cancel">取 消</s:String>
+    <!--Default-->
+    <s:String x:Key="L-Default-Title">得一扫描工具</s:String>
+    <s:String x:Key="L-Default-PaperNum">试卷编号：</s:String>
+    <s:String x:Key="L-Default-Btn-Scanner">扫　描</s:String>
+    <s:String x:Key="L-Default-Btn-Print">套　打</s:String>
+    <!-- ImageView -->
+    <s:String x:Key="L-ImageView-Title">试卷预览</s:String>
+    <s:String x:Key="L-ImageView-List">试卷列表：</s:String>
+    <s:String x:Key="L-ImageView-All">全选</s:String>
+    <s:String x:Key="L-ImageView-Delete">删除选中</s:String>
+    <s:String x:Key="L-ImageView-Start">开始识别</s:String>
+    <!--ImageDetail-->
+    <s:String x:Key="L-ImageDetail-Title">查看试卷</s:String>
+    <!--Marking-->
+    <s:String x:Key="L-Marking-Title">试卷扫描</s:String>
+    <s:String x:Key="L-Marking-SectionA">A卷</s:String>
+    <s:String x:Key="L-Marking-SectionB">B卷</s:String>
+    <s:String x:Key="L-Marking-SingleScanner">单面</s:String>
+    <s:String x:Key="L-Marking-DoubleScanner">双面</s:String>
+    <s:String x:Key="L-Marking-Qrcode">二维码</s:String>
+    <s:String x:Key="L-Marking-Dcode">得一号</s:String>
+    <s:String x:Key="L-Marking-NewSheet">新答题卡</s:String>
+    <s:String x:Key="L-Marking-Sheet">旧答题卡</s:String>
+    <s:String x:Key="L-Marking-Combine01">共1页</s:String>
+    <s:String x:Key="L-Marking-Combine02">共2页</s:String>
+    <s:String x:Key="L-Marking-Combine03">共3页</s:String>
+    <s:String x:Key="L-Marking-Combine04">共4页</s:String>
+    <s:String x:Key="L-Marking-Grid-Index">序号</s:String>
+    <s:String x:Key="L-Marking-Grid-SectionType">类型</s:String>
+    <s:String x:Key="L-Marking-Grid-Name">姓名</s:String>
+    <s:String x:Key="L-Marking-Grid-Agency">学校</s:String>
+    <s:String x:Key="L-Marking-Grid-Sheet">客观题识别</s:String>
+    <s:String x:Key="L-Marking-Grid-Result">识别试卷</s:String>
+    <s:String x:Key="L-Marking-Grid-Update">上传状态</s:String>
+    <s:String x:Key="L-Marking-Grid-Operate">操　作</s:String>
+    <s:String x:Key="L-Marking-Btn-Scanner">扫描试卷</s:String>
+    <s:String x:Key="L-Marking-Btn-Setting">扫描配置</s:String>
+    <s:String x:Key="L-Marking-Btn-Export">导出报表</s:String>
+    <s:String x:Key="L-Marking-Btn-Open">打开试卷</s:String>
+    <s:String x:Key="L-Marking-Btn-View">查看</s:String>
+    <s:String x:Key="L-Marking-Btn-Bind">绑定学生</s:String>
+    <s:String x:Key="L-Marking-Btn-Reset">重新识别</s:String>
+    <s:String x:Key="L-Marking-Btn-Delete">删除</s:String>
+    <s:String x:Key="L-Marking-Btn-Clear">清空列表</s:String>
+    <s:String x:Key="L-Marking-Btn-Save">保存试卷</s:String>
+    <s:String x:Key="L-Marking-Btn-Update">上传试卷</s:String>
+    <s:String x:Key="L-Marking-OnlyFail">仅失败</s:String>
+    <!--BatchList-->
+    <s:String x:Key="L-BatchList-Title">套打列表</s:String>
+    <s:String x:Key="L-BatchList-Btn-Print">套打</s:String>
+    <s:String x:Key="L-BatchList-Btn-PrintA">A卷</s:String>
+    <s:String x:Key="L-BatchList-Btn-PrintB">B卷</s:String>
+    <s:String x:Key="L-BatchList-Grid-Agency">学校</s:String>
+    <s:String x:Key="L-BatchList-Grid-Class">班级</s:String>
+    <s:String x:Key="L-BatchList-Grid-Colleage">同事圈</s:String>
+    <s:String x:Key="L-BatchList-Grid-Sender">发起人</s:String>
+    <s:String x:Key="L-BatchList-Grid-MarkingStatus">批阅状态</s:String>
+    <s:String x:Key="L-BatchList-Grid-MarkingCount">批阅人数</s:String>
+    <s:String x:Key="L-BatchList-Grid-MarkingTime">批阅时间</s:String>
+    <s:String x:Key="L-BatchList-Grid-Operate">操作</s:String>
+    <!--BatchPrint-->
+    <s:String x:Key="L-BatchPrint-Title">试卷套打</s:String>
+    <s:String x:Key="L-BatchPrint-Btn-Print-Odd">奇数页套打</s:String>
+    <s:String x:Key="L-BatchPrint-Btn-Print-Even">偶数页套打</s:String>
+    <s:String x:Key="L-BatchPrint-Btn-Print">一键套打</s:String>
+    <s:String x:Key="L-BatchPrint-Btn-PrintItem">套打</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-ErrorInfo">客观题信息</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-Score">得分</s:String>
+    <s:String x:Key="L-BatchPrint-Grid-PrintStatus">打印状态</s:String>
+    <!--PrintDetail-->
+    <s:String x:Key="L-PrintDetail-Btn">套　打</s:String>
+    <s:String x:Key="L-JointPrint-Btn">协同批次套打</s:String>
+</ResourceDictionary>

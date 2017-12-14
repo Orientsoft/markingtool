@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://www.dayez.net/" elementFormDefault="qualified" targetNamespace="http://www.dayez.net/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/DayEZ.Framework" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/Message" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity.Microtest" />
+  <xs:element name="GetHomeworksFromSpecifiedTimeOn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="time" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="subjectID" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="userID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHomeworksFromSpecifiedTimeOnResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetHomeworksFromSpecifiedTimeOnResult" nillable="true" type="q1:ArrayOfHomeworkStruct" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMarkingDetails">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userID" type="xs:long" />
+        <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="questionID" type="q2:guid" />
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMarkingDetailsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetMarkingDetailsResult" nillable="true" type="q3:ArrayOfMarkingDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRecommendedAnswers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="questionID" type="q4:guid" />
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetRecommendedAnswersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetRecommendedAnswersResult" nillable="true" type="q5:ArrayOfMarkingDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserPaperCreationCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userID" type="xs:long" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="paperType" type="q6:PaperType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserPaperCreationCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUserPaperCreationCountResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CretePaper">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="paper" nillable="true" type="q7:PaperEntity" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CretePaperResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="CretePaperResult" nillable="true" type="q8:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperList4Page">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element xmlns:q9="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="userIDs" nillable="true" type="q9:ArrayOflong" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="type" type="q10:PaperType" />
+        <xs:element minOccurs="0" name="isPublic" nillable="true" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperList4PageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetPaperList4PageResult" nillable="true" type="q11:ArrayOfPaperFeed" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperSection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paperID" type="q12:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperSectionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetPaperSectionResult" nillable="true" type="q13:PaperDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePaperSatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="isPublic" type="xs:boolean" />
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="paperId" type="q14:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePaperSatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="ChangePaperSatusResult" nillable="true" type="q15:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedMarkingResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="markingResult" nillable="true" type="q16:MarkingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedMarkingResultResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="GeneratedMarkingResultResult" nillable="true" type="q17:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedPaperUsage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="usage" nillable="true" type="q18:PaperUsage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedPaperUsageResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="GeneratedPaperUsageResult" nillable="true" type="q19:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperBatchDetail">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperBatchDetailResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetPaperBatchDetailResult" nillable="true" type="q20:PaperBatchDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedMarkingResults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="markingResults" nillable="true" type="q21:ArrayOfMarkingResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GeneratedMarkingResultsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="GeneratedMarkingResultsResult" nillable="true" type="q22:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PaperMarkingFileData">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.microsoft.com/Message" name="Data" type="q23:StreamBody" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DirectoryName" nillable="true" type="xs:string" />
+  <xs:element name="Filename" nillable="true" type="xs:string" />
+  <xs:element name="GetLessons">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="id" type="xs:long" />
+        <xs:element minOccurs="0" name="isTeacher" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetLessonsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetLessonsResult" nillable="true" type="q24:ArrayOfLesson" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemarkedLesson">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="lessonId" type="q25:guid" />
+        <xs:element minOccurs="0" name="content" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemarkedLessonResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="RemarkedLessonResult" nillable="true" type="q26:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTeacherUsedPaperList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:long" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="type" type="q27:PaperType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetTeacherUsedPaperListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetTeacherUsedPaperListResult" nillable="true" type="q28:ArrayOfPaperUsage" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Status4Question">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="studentIds" nillable="true" type="q29:ArrayOfstring" />
+        <xs:element minOccurs="0" name="batchCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Status4QuestionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="Status4QuestionResult" nillable="true" type="q30:ArrayOfQuestionStatus" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Status4ErrorStudentCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q31="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="studentIds" nillable="true" type="q31:ArrayOfstring" />
+        <xs:element minOccurs="0" name="batchCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Status4ErrorStudentCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q32="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="Status4ErrorStudentCountResult" nillable="true" type="q32:ArrayOfErrorCountStatus" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentByErrorCount">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q33="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="studentIds" nillable="true" type="q33:ArrayOfstring" />
+        <xs:element minOccurs="0" name="batchCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="errorCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentByErrorCountResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q34="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetStudentByErrorCountResult" nillable="true" type="q34:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentIDByQuestionID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q35="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="studentIds" nillable="true" type="q35:ArrayOfstring" />
+        <xs:element minOccurs="0" name="batchCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q36="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="questionID" type="q36:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentIDByQuestionIDResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetStudentIDByQuestionIDResult" nillable="true" type="q37:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QuestionWholeStats">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="hours" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="QuestionWholeStatsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" minOccurs="0" name="QuestionWholeStatsResult" nillable="true" type="q38:ArrayOfStatsData" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetErrorQuestion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="studentID" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="subjectId" type="xs:unsignedByte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetErrorQuestionResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetErrorQuestionResult" nillable="true" type="q39:ArrayOfErrorQuestion" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperMarkSymbols">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="markingResultID" type="q40:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetPaperMarkSymbolsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q41="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetPaperMarkSymbolsResult" nillable="true" type="q41:ArrayOfPaperSymbols" />
+        <xs:element minOccurs="0" name="dircetoryName" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpenMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q42="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="mtu" nillable="true" type="q42:MicroTestUsage" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="OpenMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q43="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="OpenMicrotestResult" nillable="true" type="q43:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="classID" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CloseMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q44="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="CloseMicrotestResult" nillable="true" type="q44:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnderwayMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="id" type="xs:long" />
+        <xs:element minOccurs="0" name="subjectID" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="isTeacher" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUnderwayMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q45="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetUnderwayMicrotestResult" nillable="true" type="q45:ArrayOfMicrotestFeed" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEndedMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="pageIndex" type="xs:int" />
+        <xs:element minOccurs="0" name="id" type="xs:long" />
+        <xs:element minOccurs="0" name="subjectID" type="xs:unsignedByte" />
+        <xs:element minOccurs="0" name="isTeacher" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEndedMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q46="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetEndedMicrotestResult" nillable="true" type="q46:ArrayOfMicrotestFeed" />
+        <xs:element minOccurs="0" name="totalCount" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartAndEndedTime">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStartAndEndedTimeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="startTime" type="xs:dateTime" />
+        <xs:element minOccurs="0" name="endedTime" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HandInPaperOnline">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q47="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="result" nillable="true" type="q47:MicrotestResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="HandInPaperOnlineResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q48="http://schemas.datacontract.org/2004/07/DayEZ.Framework" minOccurs="0" name="HandInPaperOnlineResult" nillable="true" type="q48:ResultPacket" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckStudentIsHandIn">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="studentId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckStudentIsHandInResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="CheckStudentIsHandInResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="totalScore" type="xs:unsignedByte" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMicrotestStatistics">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="classID" type="xs:long" />
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element xmlns:q49="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="detailId" type="q49:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMicrotestStatisticsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q50="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity.Microtest" minOccurs="0" name="GetMicrotestStatisticsResult" nillable="true" type="q50:ArrayOfStatistics" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentByAnswerInMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="classID" type="xs:long" />
+        <xs:element xmlns:q51="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="detailId" type="q51:guid" />
+        <xs:element minOccurs="0" name="answer" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentByAnswerInMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q52="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetStudentByAnswerInMicrotestResult" nillable="true" type="q52:ArrayOflong" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentMicrotestResult">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="studentId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentMicrotestResultResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q53="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetStudentMicrotestResultResult" nillable="true" type="q53:MicrotestResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentAnswerInMicrotest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="batchNo" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="studentId" type="xs:long" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStudentAnswerInMicrotestResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q54="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" minOccurs="0" name="GetStudentAnswerInMicrotestResult" nillable="true" type="q54:ArrayOfAnswerDetail" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

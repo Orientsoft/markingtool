@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfQuestionEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QuestionEntity" nillable="true" type="tns:QuestionEntity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuestionEntity" nillable="true" type="tns:ArrayOfQuestionEntity" />
+  <xs:complexType name="QuestionEntity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Base" nillable="true" type="tns:QuestionBase" />
+      <xs:element minOccurs="0" name="DetailList" nillable="true" type="tns:ArrayOfDetail">
+        <xs:annotation>
+          <xs:appinfo>
+            <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuestionEntity" nillable="true" type="tns:QuestionEntity" />
+  <xs:complexType name="QuestionBase">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:QuestionPorperty">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsSchool" type="xs:boolean" />
+          <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="KnowledgePoint" nillable="true" type="q1:ArrayOfguid">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Score" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="TypeID" type="xs:unsignedByte" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="QuestionBase" nillable="true" type="tns:QuestionBase" />
+  <xs:complexType name="QuestionPorperty">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:QuestionElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+          <xs:element minOccurs="0" name="ChapterID" type="ser:guid">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="ChapterName" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Difficulty" type="tns:QuestionDifficulty">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="EntireVersionID" type="xs:long" />
+          <xs:element minOccurs="0" name="ErrorRate" type="xs:unsignedByte">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="Range" type="tns:SharedRange">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="SchoolGradeID" type="xs:unsignedByte">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="SchoolStageID" type="xs:unsignedByte">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="SchoolTermID" type="xs:unsignedByte">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="UsedCount" type="xs:int">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="QuestionPorperty" nillable="true" type="tns:QuestionPorperty" />
+  <xs:complexType name="QuestionElement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuestionElement" nillable="true" type="tns:QuestionElement" />
+  <xs:simpleType name="QuestionDifficulty">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Level0" />
+      <xs:enumeration value="Level1" />
+      <xs:enumeration value="Level2" />
+      <xs:enumeration value="Level3" />
+      <xs:enumeration value="Level4" />
+      <xs:enumeration value="Level5" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="QuestionDifficulty" nillable="true" type="tns:QuestionDifficulty" />
+  <xs:simpleType name="SharedRange">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="None">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="Oneself">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="School">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+          <xs:enumeration value="OtherSchool">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="SharedRange" nillable="true" type="tns:SharedRange" />
+  <xs:complexType name="ArrayOfDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Detail" nillable="true" type="tns:Detail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDetail" nillable="true" type="tns:ArrayOfDetail" />
+  <xs:complexType name="Detail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AnswerList" nillable="true" type="tns:ArrayOfAnswer" />
+      <xs:element minOccurs="0" name="Base" nillable="true" type="tns:DetailBase" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Detail" nillable="true" type="tns:Detail" />
+  <xs:complexType name="ArrayOfAnswer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Answer" nillable="true" type="tns:Answer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAnswer" nillable="true" type="tns:ArrayOfAnswer" />
+  <xs:complexType name="Answer">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:QuestionElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="DetailID" type="ser:guid" />
+          <xs:element minOccurs="0" name="IsCorrect" type="xs:boolean" />
+          <xs:element minOccurs="0" name="Sort" type="xs:unsignedByte" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="Answer" nillable="true" type="tns:Answer" />
+  <xs:complexType name="DetailBase">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:QuestionElement">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="IsObjective" type="xs:boolean" />
+          <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+          <xs:element minOccurs="0" name="Score" type="xs:unsignedByte" />
+          <xs:element minOccurs="0" name="Sort" type="xs:unsignedByte" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="DetailBase" nillable="true" type="tns:DetailBase" />
+  <xs:complexType name="ArrayOfStatsData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StatsData" nillable="true" type="tns:StatsData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStatsData" nillable="true" type="tns:ArrayOfStatsData" />
+  <xs:complexType name="StatsData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorRate" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="QuestionVersion" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StatsData" nillable="true" type="tns:StatsData" />
+</xs:schema>

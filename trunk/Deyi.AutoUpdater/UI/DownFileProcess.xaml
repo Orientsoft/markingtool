@@ -1,0 +1,47 @@
+﻿<Window  x:Class="Deyi.AutoUpdater.UI.DownFileProcess"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="得一扫描工具更新提醒" Height="320" Width="600" ResizeMode="NoResize" Background="#FFEEEEEE">
+    <Grid>
+        <Grid.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/Deyi.AutoUpdater;component/Theme/Colors.xaml"/>
+                    <ResourceDictionary Source="/Deyi.AutoUpdater;component/Theme/Button.xaml"/>
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Grid.Resources>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition  Height="*"></RowDefinition>
+            <RowDefinition Height="55"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border x:Name="BProcess" BorderBrush="{DynamicResource C-BorderBrush}" Width="580" Height="40" BorderThickness="1" CornerRadius="3" HorizontalAlignment="Center">
+            <Rectangle x:Name="RectProcess" Fill="Green" Width="0" HorizontalAlignment="Left"></Rectangle>
+        </Border>
+        <TextBlock Grid.Row="0" x:Name="TxtProcess" Foreground="{DynamicResource C-ForegroundBrush}"
+                   TextAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Border Grid.Row="1" Width="580" BorderThickness="0" CornerRadius="2" BorderBrush="{DynamicResource C-BorderBrush}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto"
+                      HorizontalScrollBarVisibility="Disabled" Padding="0,15">
+
+                <TextBlock x:Name="TxtDes" TextWrapping="Wrap"
+                       Foreground="{DynamicResource C-ForegroundBrush}" Width="560">
+                更新内容
+                </TextBlock>
+            </ScrollViewer>
+        </Border>
+        <Rectangle Grid.Row="2" Stroke="Black" StrokeThickness="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFEEEEEE" Offset="1"/>
+                    <GradientStop Color="#FFDDDDDD"/>
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Name="YesButton" Style="{DynamicResource Btn-Primary}">现在更新</Button>
+            <Button Name="NoButton" Style="{DynamicResource Btn-Default}" Margin="15,0">暂不更新</Button>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity.User" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity.User" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://srv.dayez.net/user/user_service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity" />
+  <xs:complexType name="UserLoginInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VerifyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VerifyCodeInSession" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserLoginInfo" nillable="true" type="tns:UserLoginInfo" />
+  <xs:complexType name="UserLoginResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgencyRoles" nillable="true" type="tns:ArrayOfUserInAgencyBasicInfo" />
+      <xs:element minOccurs="0" name="AvatarFile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="xs:long" />
+      <xs:element minOccurs="0" name="IDNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LastLoginAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="LastLoginIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Nickname" nillable="true" type="xs:string" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DayEZ.API.User.Entity" minOccurs="0" name="Status" type="q1:UserStatus" />
+      <xs:element minOccurs="0" name="TrueName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserLoginResult" nillable="true" type="tns:UserLoginResult" />
+  <xs:complexType name="ArrayOfUserInAgencyBasicInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserInAgencyBasicInfo" nillable="true" type="tns:UserInAgencyBasicInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserInAgencyBasicInfo" nillable="true" type="tns:ArrayOfUserInAgencyBasicInfo" />
+  <xs:complexType name="UserInAgencyBasicInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AgencyID" type="xs:long" />
+      <xs:element minOccurs="0" name="AgencyName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsSubjectLoadFormula" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RoleID" type="xs:int" />
+      <xs:element minOccurs="0" name="RoleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StageID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="StageName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="SubjectName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserInAgencyBasicInfo" nillable="true" type="tns:UserInAgencyBasicInfo" />
+  <xs:complexType name="UserRegisteInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InviteCode" type="xs:long" />
+      <xs:element minOccurs="0" name="IsAgreeProtocol" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Nickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RePassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VerifyCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="VerifyCodeInSession" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserRegisteInfo" nillable="true" type="tns:UserRegisteInfo" />
+</xs:schema>

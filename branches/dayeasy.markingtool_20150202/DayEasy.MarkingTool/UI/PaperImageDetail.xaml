@@ -1,0 +1,11 @@
+﻿<d:DeyiWindow xmlns:d="clr-namespace:DayEasy.MarkingTool.Core" x:Class="DayEasy.MarkingTool.UI.PaperImageDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="查看试卷" Height="500" Width="860" WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow" WindowState="Normal" ResizeMode="CanMinimize">
+    <Grid>
+        <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <Image Name="detail"></Image>
+        </ScrollViewer>
+    </Grid>
+</d:DeyiWindow>

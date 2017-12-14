@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://www.dayez.net/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.dayez.net/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.dayez.net/Imports">
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd0" namespace="http://www.dayez.net/" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/DayEZ.Framework" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd7" namespace="http://schemas.microsoft.com/Message" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity.Microtest" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="Paper_GetHomeworksFromSpecifiedTimeOn_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHomeworksFromSpecifiedTimeOn" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetHomeworksFromSpecifiedTimeOn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHomeworksFromSpecifiedTimeOnResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetMarkingDetails_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMarkingDetails" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetMarkingDetails_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMarkingDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetRecommendedAnswers_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecommendedAnswers" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetRecommendedAnswers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRecommendedAnswersResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetUserPaperCreationCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserPaperCreationCount" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetUserPaperCreationCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserPaperCreationCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CretePaper_InputMessage">
+    <wsdl:part name="parameters" element="tns:CretePaper" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CretePaper_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CretePaperResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperList4Page_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperList4Page" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperList4Page_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperList4PageResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperSection_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperSection" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperSection_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperSectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_ChangePaperSatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePaperSatus" />
+  </wsdl:message>
+  <wsdl:message name="Paper_ChangePaperSatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePaperSatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedMarkingResult_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedMarkingResult" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedMarkingResult_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedMarkingResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedPaperUsage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedPaperUsage" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedPaperUsage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedPaperUsageResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperBatchDetail_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperBatchDetail" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperBatchDetail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperBatchDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedMarkingResults_InputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedMarkingResults" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GeneratedMarkingResults_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GeneratedMarkingResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="PaperMarkingFileData">
+    <wsdl:part name="parameters" element="tns:PaperMarkingFileData" />
+  </wsdl:message>
+  <wsdl:message name="PaperMarkingFileData_Headers">
+    <wsdl:part name="DirectoryName" element="tns:DirectoryName" />
+    <wsdl:part name="Filename" element="tns:Filename" />
+  </wsdl:message>
+  <wsdl:message name="Paper_UploadFile_OutputMessage" />
+  <wsdl:message name="Paper_GetLessons_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLessons" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetLessons_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLessonsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_RemarkedLesson_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemarkedLesson" />
+  </wsdl:message>
+  <wsdl:message name="Paper_RemarkedLesson_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemarkedLessonResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetTeacherUsedPaperList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherUsedPaperList" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetTeacherUsedPaperList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetTeacherUsedPaperListResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_Status4Question_InputMessage">
+    <wsdl:part name="parameters" element="tns:Status4Question" />
+  </wsdl:message>
+  <wsdl:message name="Paper_Status4Question_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Status4QuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_Status4ErrorStudentCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:Status4ErrorStudentCount" />
+  </wsdl:message>
+  <wsdl:message name="Paper_Status4ErrorStudentCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:Status4ErrorStudentCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentByErrorCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentByErrorCount" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentByErrorCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentByErrorCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentIDByQuestionID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentIDByQuestionID" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentIDByQuestionID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentIDByQuestionIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_QuestionWholeStats_InputMessage">
+    <wsdl:part name="parameters" element="tns:QuestionWholeStats" />
+  </wsdl:message>
+  <wsdl:message name="Paper_QuestionWholeStats_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QuestionWholeStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetErrorQuestion_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetErrorQuestion" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetErrorQuestion_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetErrorQuestionResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperMarkSymbols_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperMarkSymbols" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetPaperMarkSymbols_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPaperMarkSymbolsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_OpenMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:OpenMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_OpenMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:OpenMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CloseMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:CloseMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CloseMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CloseMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetUnderwayMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnderwayMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetUnderwayMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUnderwayMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetEndedMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEndedMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetEndedMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEndedMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStartAndEndedTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartAndEndedTime" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStartAndEndedTime_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStartAndEndedTimeResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_HandInPaperOnline_InputMessage">
+    <wsdl:part name="parameters" element="tns:HandInPaperOnline" />
+  </wsdl:message>
+  <wsdl:message name="Paper_HandInPaperOnline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:HandInPaperOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CheckStudentIsHandIn_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckStudentIsHandIn" />
+  </wsdl:message>
+  <wsdl:message name="Paper_CheckStudentIsHandIn_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckStudentIsHandInResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetMicrotestStatistics_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMicrotestStatistics" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetMicrotestStatistics_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMicrotestStatisticsResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentByAnswerInMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentByAnswerInMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentByAnswerInMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentByAnswerInMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentMicrotestResult_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentMicrotestResult" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentMicrotestResult_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentMicrotestResultResponse" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentAnswerInMicrotest_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentAnswerInMicrotest" />
+  </wsdl:message>
+  <wsdl:message name="Paper_GetStudentAnswerInMicrotest_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStudentAnswerInMicrotestResponse" />
+  </wsdl:message>
+  <wsdl:portType name="Paper">
+    <wsdl:operation name="GetHomeworksFromSpecifiedTimeOn">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetHomeworksFromSpecifiedTimeOn" message="tns:Paper_GetHomeworksFromSpecifiedTimeOn_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetHomeworksFromSpecifiedTimeOnResponse" message="tns:Paper_GetHomeworksFromSpecifiedTimeOn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMarkingDetails">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetMarkingDetails" message="tns:Paper_GetMarkingDetails_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetMarkingDetailsResponse" message="tns:Paper_GetMarkingDetails_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRecommendedAnswers">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetRecommendedAnswers" message="tns:Paper_GetRecommendedAnswers_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetRecommendedAnswersResponse" message="tns:Paper_GetRecommendedAnswers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserPaperCreationCount">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetUserPaperCreationCount" message="tns:Paper_GetUserPaperCreationCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetUserPaperCreationCountResponse" message="tns:Paper_GetUserPaperCreationCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CretePaper">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/CretePaper" message="tns:Paper_CretePaper_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/CretePaperResponse" message="tns:Paper_CretePaper_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaperList4Page">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetPaperList4Page" message="tns:Paper_GetPaperList4Page_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetPaperList4PageResponse" message="tns:Paper_GetPaperList4Page_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaperSection">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetPaperSection" message="tns:Paper_GetPaperSection_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetPaperSectionResponse" message="tns:Paper_GetPaperSection_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePaperSatus">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/ChangePaperSatus" message="tns:Paper_ChangePaperSatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/ChangePaperSatusResponse" message="tns:Paper_ChangePaperSatus_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratedMarkingResult">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GeneratedMarkingResult" message="tns:Paper_GeneratedMarkingResult_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GeneratedMarkingResultResponse" message="tns:Paper_GeneratedMarkingResult_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratedPaperUsage">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GeneratedPaperUsage" message="tns:Paper_GeneratedPaperUsage_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GeneratedPaperUsageResponse" message="tns:Paper_GeneratedPaperUsage_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaperBatchDetail">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetPaperBatchDetail" message="tns:Paper_GetPaperBatchDetail_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetPaperBatchDetailResponse" message="tns:Paper_GetPaperBatchDetail_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GeneratedMarkingResults">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GeneratedMarkingResults" message="tns:Paper_GeneratedMarkingResults_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GeneratedMarkingResultsResponse" message="tns:Paper_GeneratedMarkingResults_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadFile">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/UploadFile" name="PaperMarkingFileData" message="tns:PaperMarkingFileData" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/UploadFileResponse" message="tns:Paper_UploadFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLessons">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetLessons" message="tns:Paper_GetLessons_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetLessonsResponse" message="tns:Paper_GetLessons_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemarkedLesson">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/RemarkedLesson" message="tns:Paper_RemarkedLesson_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/RemarkedLessonResponse" message="tns:Paper_RemarkedLesson_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTeacherUsedPaperList">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetTeacherUsedPaperList" message="tns:Paper_GetTeacherUsedPaperList_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetTeacherUsedPaperListResponse" message="tns:Paper_GetTeacherUsedPaperList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Status4Question">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/Status4Question" message="tns:Paper_Status4Question_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/Status4QuestionResponse" message="tns:Paper_Status4Question_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Status4ErrorStudentCount">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/Status4ErrorStudentCount" message="tns:Paper_Status4ErrorStudentCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/Status4ErrorStudentCountResponse" message="tns:Paper_Status4ErrorStudentCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentByErrorCount">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStudentByErrorCount" message="tns:Paper_GetStudentByErrorCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStudentByErrorCountResponse" message="tns:Paper_GetStudentByErrorCount_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentIDByQuestionID">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStudentIDByQuestionID" message="tns:Paper_GetStudentIDByQuestionID_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStudentIDByQuestionIDResponse" message="tns:Paper_GetStudentIDByQuestionID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QuestionWholeStats">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/QuestionWholeStats" message="tns:Paper_QuestionWholeStats_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/QuestionWholeStatsResponse" message="tns:Paper_QuestionWholeStats_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorQuestion">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetErrorQuestion" message="tns:Paper_GetErrorQuestion_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetErrorQuestionResponse" message="tns:Paper_GetErrorQuestion_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPaperMarkSymbols">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetPaperMarkSymbols" message="tns:Paper_GetPaperMarkSymbols_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetPaperMarkSymbolsResponse" message="tns:Paper_GetPaperMarkSymbols_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="OpenMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/OpenMicrotest" message="tns:Paper_OpenMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/OpenMicrotestResponse" message="tns:Paper_OpenMicrotest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CloseMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/CloseMicrotest" message="tns:Paper_CloseMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/CloseMicrotestResponse" message="tns:Paper_CloseMicrotest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUnderwayMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetUnderwayMicrotest" message="tns:Paper_GetUnderwayMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetUnderwayMicrotestResponse" message="tns:Paper_GetUnderwayMicrotest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEndedMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetEndedMicrotest" message="tns:Paper_GetEndedMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetEndedMicrotestResponse" message="tns:Paper_GetEndedMicrotest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStartAndEndedTime">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStartAndEndedTime" message="tns:Paper_GetStartAndEndedTime_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStartAndEndedTimeResponse" message="tns:Paper_GetStartAndEndedTime_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="HandInPaperOnline">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/HandInPaperOnline" message="tns:Paper_HandInPaperOnline_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/HandInPaperOnlineResponse" message="tns:Paper_HandInPaperOnline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckStudentIsHandIn">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/CheckStudentIsHandIn" message="tns:Paper_CheckStudentIsHandIn_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/CheckStudentIsHandInResponse" message="tns:Paper_CheckStudentIsHandIn_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMicrotestStatistics">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetMicrotestStatistics" message="tns:Paper_GetMicrotestStatistics_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetMicrotestStatisticsResponse" message="tns:Paper_GetMicrotestStatistics_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentByAnswerInMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStudentByAnswerInMicrotest" message="tns:Paper_GetStudentByAnswerInMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStudentByAnswerInMicrotestResponse" message="tns:Paper_GetStudentByAnswerInMicrotest_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentMicrotestResult">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStudentMicrotestResult" message="tns:Paper_GetStudentMicrotestResult_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStudentMicrotestResultResponse" message="tns:Paper_GetStudentMicrotestResult_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStudentAnswerInMicrotest">
+      <wsdl:input wsaw:Action="http://www.dayez.net/Paper/GetStudentAnswerInMicrotest" message="tns:Paper_GetStudentAnswerInMicrotest_InputMessage" />
+      <wsdl:output wsaw:Action="http://www.dayez.net/Paper/GetStudentAnswerInMicrotestResponse" message="tns:Paper_GetStudentAnswerInMicrotest_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

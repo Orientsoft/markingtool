@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Paper.Entity" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/System" />
+  <xs:import schemaLocation="http://srv.dayez.net/paper/paper_service.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfHomeworkStruct">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HomeworkStruct" nillable="true" type="tns:HomeworkStruct" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHomeworkStruct" nillable="true" type="tns:ArrayOfHomeworkStruct" />
+  <xs:complexType name="HomeworkStruct">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PaperBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Batch" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MarkingBy" type="xs:long" />
+          <xs:element minOccurs="0" name="MarkingRank" type="tns:MarkingRank" />
+          <xs:element minOccurs="0" name="Questions" nillable="true" type="tns:ArrayOfQuestionRef" />
+          <xs:element minOccurs="0" name="TotalMistakeCount" type="xs:int" />
+          <xs:element minOccurs="0" name="TotalQuestionCount" type="xs:int" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="HomeworkStruct" nillable="true" type="tns:HomeworkStruct" />
+  <xs:complexType name="PaperBase">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsPublic" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Source" type="tns:PaperSource" />
+      <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:PaperType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperBase" nillable="true" type="tns:PaperBase" />
+  <xs:simpleType name="PaperSource">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Unkown" />
+      <xs:enumeration value="Web" />
+      <xs:enumeration value="Andriod" />
+      <xs:enumeration value="IOS" />
+      <xs:enumeration value="Other" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PaperSource" nillable="true" type="tns:PaperSource" />
+  <xs:simpleType name="PaperType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None" />
+      <xs:enumeration value="Homewrok" />
+      <xs:enumeration value="Microtest" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="PaperType" nillable="true" type="tns:PaperType" />
+  <xs:simpleType name="MarkingRank">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Excellent">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Good">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Medium" />
+      <xs:enumeration value="Bad">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unspecified">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MarkingRank" nillable="true" type="tns:MarkingRank" />
+  <xs:complexType name="ArrayOfQuestionRef">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QuestionRef" nillable="true" type="tns:QuestionRef" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuestionRef" nillable="true" type="tns:ArrayOfQuestionRef" />
+  <xs:complexType name="QuestionRef">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="NextID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PervID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Version" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuestionRef" nillable="true" type="tns:QuestionRef" />
+  <xs:complexType name="ArrayOfMarkingDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarkingDetail" nillable="true" type="tns:MarkingDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMarkingDetail" nillable="true" type="tns:ArrayOfMarkingDetail" />
+  <xs:complexType name="MarkingDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCorrect" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MarkingSymbols" nillable="true" type="tns:ArrayOfMarkingSymbolInfo" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="QuestionVersion" type="xs:long" />
+      <xs:element minOccurs="0" name="Score" type="xs:int" />
+      <xs:element minOccurs="0" name="StudentAnswer" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StudentAnswerSnapshot" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TeacherComments" nillable="true" type="tns:ArrayOfTeacherCommentInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarkingDetail" nillable="true" type="tns:MarkingDetail" />
+  <xs:complexType name="ArrayOfMarkingSymbolInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarkingSymbolInfo" nillable="true" type="tns:MarkingSymbolInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMarkingSymbolInfo" nillable="true" type="tns:ArrayOfMarkingSymbolInfo" />
+  <xs:complexType name="MarkingSymbolInfo">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="Position" type="q1:Point" />
+      <xs:element minOccurs="0" name="SymbolType" type="tns:MarkingSymbolType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarkingSymbolInfo" nillable="true" type="tns:MarkingSymbolInfo" />
+  <xs:simpleType name="MarkingSymbolType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Circle">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Right">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Wrong">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MarkingSymbolType" nillable="true" type="tns:MarkingSymbolType" />
+  <xs:complexType name="ArrayOfTeacherCommentInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TeacherCommentInfo" nillable="true" type="tns:TeacherCommentInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTeacherCommentInfo" nillable="true" type="tns:ArrayOfTeacherCommentInfo" />
+  <xs:complexType name="TeacherCommentInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CommentText" nillable="true" type="xs:string" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="Position" type="q2:Point" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TeacherCommentInfo" nillable="true" type="tns:TeacherCommentInfo" />
+  <xs:complexType name="PaperEntity">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PaperBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Sections" nillable="true" type="tns:ArrayOfPaperSection" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PaperEntity" nillable="true" type="tns:PaperEntity" />
+  <xs:complexType name="ArrayOfPaperSection">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PaperSection" nillable="true" type="tns:PaperSection" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaperSection" nillable="true" type="tns:ArrayOfPaperSection" />
+  <xs:complexType name="PaperSection">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="QuestionRefs" nillable="true" type="tns:ArrayOfQuestionRef" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperSection" nillable="true" type="tns:PaperSection" />
+  <xs:complexType name="ArrayOfPaperFeed">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PaperFeed" nillable="true" type="tns:PaperFeed" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaperFeed" nillable="true" type="tns:ArrayOfPaperFeed" />
+  <xs:complexType name="PaperFeed">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsLoadFormula" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsPublic" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SubjectName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperFeed" nillable="true" type="tns:PaperFeed" />
+  <xs:complexType name="PaperDetail">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PaperBase">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Sections" nillable="true" type="tns:ArrayOfPaperSectionDetail" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PaperDetail" nillable="true" type="tns:PaperDetail" />
+  <xs:complexType name="ArrayOfPaperSectionDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PaperSectionDetail" nillable="true" type="tns:PaperSectionDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaperSectionDetail" nillable="true" type="tns:ArrayOfPaperSectionDetail" />
+  <xs:complexType name="PaperSectionDetail">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" minOccurs="0" name="Questions" nillable="true" type="q3:ArrayOfQuestionEntity" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperSectionDetail" nillable="true" type="tns:PaperSectionDetail" />
+  <xs:complexType name="MarkingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="AddedIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Batch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Detail" nillable="true" type="tns:ArrayOfMarkingDetail" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsFinished" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MarkingBy" type="xs:long" />
+      <xs:element minOccurs="0" name="PaperID" type="ser:guid" />
+      <xs:element minOccurs="0" name="StudentIdentity" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalScore" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MarkingResult" nillable="true" type="tns:MarkingResult" />
+  <xs:complexType name="PaperUsage">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="AddedIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CalculateScore" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ExpireTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PaperID" type="ser:guid" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperUsage" nillable="true" type="tns:PaperUsage" />
+  <xs:complexType name="PaperBatchDetail">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PaperUsage">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Sections" nillable="true" type="tns:ArrayOfPaperSectionDetail" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PaperBatchDetail" nillable="true" type="tns:PaperBatchDetail" />
+  <xs:complexType name="ArrayOfMarkingResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MarkingResult" nillable="true" type="tns:MarkingResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMarkingResult" nillable="true" type="tns:ArrayOfMarkingResult" />
+  <xs:complexType name="ArrayOfLesson">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Lesson" nillable="true" type="tns:Lesson" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLesson" nillable="true" type="tns:ArrayOfLesson" />
+  <xs:complexType name="Lesson">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ClassID" type="xs:long" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Remark" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sort" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="TeacherID" type="xs:long" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/System" minOccurs="0" name="Week" type="q4:DayOfWeek" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Lesson" nillable="true" type="tns:Lesson" />
+  <xs:complexType name="ArrayOfPaperUsage">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PaperUsage" nillable="true" type="tns:PaperUsage" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaperUsage" nillable="true" type="tns:ArrayOfPaperUsage" />
+  <xs:complexType name="ArrayOfQuestionStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="QuestionStatus" nillable="true" type="tns:QuestionStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuestionStatus" nillable="true" type="tns:ArrayOfQuestionStatus" />
+  <xs:complexType name="QuestionStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BigSort" type="xs:int" />
+      <xs:element minOccurs="0" name="ErrorCount" type="xs:int" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SamllSort" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuestionStatus" nillable="true" type="tns:QuestionStatus" />
+  <xs:complexType name="ArrayOfErrorCountStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorCountStatus" nillable="true" type="tns:ErrorCountStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfErrorCountStatus" nillable="true" type="tns:ArrayOfErrorCountStatus" />
+  <xs:complexType name="ErrorCountStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorCount" type="xs:int" />
+      <xs:element minOccurs="0" name="StudentCount" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ErrorCountStatus" nillable="true" type="tns:ErrorCountStatus" />
+  <xs:complexType name="ArrayOfErrorQuestion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ErrorQuestion" nillable="true" type="tns:ErrorQuestion" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfErrorQuestion" nillable="true" type="tns:ArrayOfErrorQuestion" />
+  <xs:complexType name="ErrorQuestion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DayEZ.API.Question.Entity" minOccurs="0" name="Difficulty" type="q5:QuestionDifficulty" />
+      <xs:element minOccurs="0" name="ErrorAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="ErrorRate" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="MarkingResultID" type="ser:guid" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="QuestionVersion" type="xs:long" />
+      <xs:element minOccurs="0" name="TypeID" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ErrorQuestion" nillable="true" type="tns:ErrorQuestion" />
+  <xs:complexType name="ArrayOfPaperSymbols">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PaperSymbols" nillable="true" type="tns:PaperSymbols" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPaperSymbols" nillable="true" type="tns:ArrayOfPaperSymbols" />
+  <xs:complexType name="PaperSymbols">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MarkingComments" nillable="true" type="tns:ArrayOfTeacherCommentInfo" />
+      <xs:element minOccurs="0" name="MarkingSymbols" nillable="true" type="tns:ArrayOfMarkingSymbolInfo" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="QuestionVersion" type="xs:long" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PaperSymbols" nillable="true" type="tns:PaperSymbols" />
+  <xs:complexType name="MicroTestUsage">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PaperUsage">
+        <xs:sequence>
+          <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="ClassIDs" nillable="true" type="q6:ArrayOflong" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MicroTestUsage" nillable="true" type="tns:MicroTestUsage" />
+  <xs:complexType name="ArrayOfMicrotestFeed">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MicrotestFeed" nillable="true" type="tns:MicrotestFeed" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMicrotestFeed" nillable="true" type="tns:ArrayOfMicrotestFeed" />
+  <xs:complexType name="MicrotestFeed">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="BatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClassID" type="xs:long" />
+      <xs:element minOccurs="0" name="ExpireTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PaperID" type="ser:guid" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SubjectID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MicrotestFeed" nillable="true" type="tns:MicrotestFeed" />
+  <xs:complexType name="MicrotestResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AddedAt" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="AddedBy" type="xs:long" />
+      <xs:element minOccurs="0" name="AddedIP" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Answers" nillable="true" type="tns:ArrayOfStudentAnswer" />
+      <xs:element minOccurs="0" name="BatchNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Score" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MicrotestResult" nillable="true" type="tns:MicrotestResult" />
+  <xs:complexType name="ArrayOfStudentAnswer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="StudentAnswer" nillable="true" type="tns:StudentAnswer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfStudentAnswer" nillable="true" type="tns:ArrayOfStudentAnswer" />
+  <xs:complexType name="StudentAnswer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Details" nillable="true" type="tns:ArrayOfAnswerDetail" />
+      <xs:element minOccurs="0" name="EntireVersion" type="xs:long" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCorrect" type="xs:boolean" />
+      <xs:element minOccurs="0" name="QuestionID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ResultID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Socre" type="xs:unsignedByte" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StudentAnswer" nillable="true" type="tns:StudentAnswer" />
+  <xs:complexType name="ArrayOfAnswerDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AnswerDetail" nillable="true" type="tns:AnswerDetail" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAnswerDetail" nillable="true" type="tns:ArrayOfAnswerDetail" />
+  <xs:complexType name="AnswerDetail">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Body" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCorrect" type="xs:boolean" />
+      <xs:element minOccurs="0" name="QuestionDetailID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Sorce" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="StudentAnswerID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AnswerDetail" nillable="true" type="tns:AnswerDetail" />
+</xs:schema>

@@ -1,0 +1,177 @@
+﻿<dy:DeyiWindow xmlns:dy="clr-namespace:DayEasy.MarkingTool.Core"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="DayEasy.MarkingTool.UI.Print.BatchList"
+        Title="{DynamicResource L-BatchList-Title}" Height="556" Width="900"
+              ResizeMode="NoResize"  WindowStartupLocation="CenterScreen"
+              WindowStyle="SingleBorderWindow"  WindowState="Normal"  Background="White">
+    <Grid x:Name="PrintWrap">
+        <Grid.Resources>
+            <dy:BooleanToVisibility x:Key="BooleanToVisibility"></dy:BooleanToVisibility>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="422*"/>
+            <ColumnDefinition Width="120"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFE8F2FC" HorizontalAlignment="Left" Height="70" Stroke="Black" VerticalAlignment="Top" Width="894" StrokeThickness="0" Grid.ColumnSpan="3"/>
+        <Rectangle Fill="#FFF2F6FA" HorizontalAlignment="Left" Height="60" Grid.Row="2" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="894" Grid.ColumnSpan="3"
+			Grid.Column="0"/>
+        <StackPanel Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="70" Width="844" HorizontalAlignment="Right">
+            <Rectangle Fill="#FFE8F2FC" Margin="0,17,0,24.082" Stroke="Black" StrokeThickness="0" Width="13"/>
+        </StackPanel>
+        <Grid x:Name="Wrap" RenderTransformOrigin="0,0" Grid.ColumnSpan="3" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+            <Grid.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.LayoutTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*"/>
+                <ColumnDefinition Width="422*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Rectangle HorizontalAlignment="Left" Height="70" Stroke="Black" VerticalAlignment="Top" Width="894" StrokeThickness="0" Grid.ColumnSpan="2">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFC6E3F7" Offset="1"/>
+                        <GradientStop Color="#FFA6D3F3"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Fill="#FFF2F6FA" HorizontalAlignment="Left" Height="60" Grid.Row="1" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="894" Grid.ColumnSpan="2"
+				Grid.Column="0" />
+        </Grid>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Height="70" Width="894" HorizontalAlignment="Right" Grid.ColumnSpan="3"
+				Grid.Column="0">
+            <Button x:Name="BtnBack" Click="BtnBack_Click" ToolTip="返回" HorizontalAlignment="Left" Margin="20,17,15,17" VerticalAlignment="Center" Width="36" BorderBrush="White" Foreground="White" Height="30" Style="{DynamicResource SimpleButton}" Background="#FF529EEA">
+                <ed:BlockArrow Height="20.398" Orientation="Left" Stroke="Black" StrokeThickness="0" Width="18.506" Fill="White" Margin="0,0,2,0"/>
+            </Button>
+            <Rectangle Fill="#FFE8F2FC" Margin="0,17,0,24.082" Stroke="Black" StrokeThickness="0" Width="0"/>
+        </StackPanel>
+        <Grid  Grid.Column="0" Grid.Row="1" ShowGridLines="True" 
+				VerticalAlignment="Top" Height="397" Grid.ColumnSpan="3">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                <dy:SortableListView x:Name="List" DockPanel.Dock="Left" VerticalAlignment="Top"
+					MinHeight="397" Background="White" BorderBrush="White" Foreground="#FF3D3D3D" FontSize="14">
+                    <ListView.View>
+                        <GridView x:Name="GridList">
+                            <GridViewColumn Width="180">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-Agency}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="180"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding AgencyName}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="150">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-Class}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="150"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding GroupName}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="100">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-MarkingStatus}" />
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="100"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+                                                   Foreground="{Binding StatusColor}"
+											Text="{Binding StatusCn}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="80">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-MarkingCount}" />
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="80"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding MarkingCount}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-MarkingTime}"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="200"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding DateCn}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Width="200">
+                                <GridViewColumnHeader Content="{DynamicResource L-BatchList-Grid-Operate}" Padding="0,3,0,3" Height="28"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel>
+                                            <Button Tag="{Binding Batch}" Uid="0"
+                                                    Visibility="{Binding NormalPaper,Converter={StaticResource BooleanToVisibility}}"
+                                                    IsEnabled="{Binding IsEnabled}"
+                                                    Style="{DynamicResource Btn-Info}" Width="55" Height="28" Click="BtnPrint_Click"
+                                                    Content="{DynamicResource L-BatchList-Btn-Print}"></Button>
+                                            <Button Tag="{Binding Batch}" Uid="1" 
+                                                    Visibility="{Binding PaperAb,Converter={StaticResource BooleanToVisibility}}"
+                                                    IsEnabled="{Binding IsEnabled}"
+                                                    Style="{DynamicResource Btn-Info}" Width="55" Height="28" Click="BtnPrint_Click"
+                                                    Margin="-66,0,0,0" Content="{DynamicResource L-BatchList-Btn-PrintA}"></Button>
+                                            <Button Tag="{Binding Batch}" Uid="2"
+                                                    Visibility="{Binding PaperAb,Converter={StaticResource BooleanToVisibility}}"
+                                                    IsEnabled="{Binding IsEnabled}"
+                                                    Style="{DynamicResource Btn-Info}" Width="55" Height="28" Click="BtnPrint_Click"
+                                                    Margin="15,0,0,0" Content="{DynamicResource L-BatchList-Btn-PrintB}"></Button>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </dy:SortableListView>
+            </ScrollViewer>
+        </Grid>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+				<Border BorderThickness="1"
+                        Width="46" Height="24"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"						
+                        Margin="0,10,0,0"
+                        x:Name="BdType">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#FFA3D077"/>
+                    </Border.BorderBrush>
+                    <Border.Background>
+                        <SolidColorBrush Color="#FFA3D077"/>
+                    </Border.Background>
+                    <Label Foreground="White" Height="25"
+                        x:Name="LblType" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">常规</Label>
+                </Border>
+				<TextBlock x:Name="LblPaperTitle" Style="{DynamicResource Txt-PaperTitle}" Text="初中2015级月考语文试卷" Margin="50,-23,0,0"></TextBlock>
+			</StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center">
+            <Button Style="{DynamicResource Btn-Primary}" Content="{DynamicResource L-JointPrint-Btn}" Click="JointPrintClick"></Button>
+        </StackPanel>
+    </Grid>
+</dy:DeyiWindow>

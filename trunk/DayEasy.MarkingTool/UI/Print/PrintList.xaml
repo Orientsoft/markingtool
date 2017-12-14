@@ -1,0 +1,236 @@
+﻿<dy:DeyiWindow xmlns:dy="clr-namespace:DayEasy.MarkingTool.Core"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing" mc:Ignorable="d" x:Class="DayEasy.MarkingTool.UI.Print.PrintList"
+        Title="{DynamicResource L-BatchPrint-Title}" Height="556" Width="900"
+              ResizeMode="NoResize"  WindowStartupLocation="CenterScreen"
+              WindowStyle="SingleBorderWindow" WindowState="Normal" Background="White">
+    <Grid x:Name="PrintWrap">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="25*"/>
+            <ColumnDefinition Width="422*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition/>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="#FFE8F2FC" HorizontalAlignment="Left" Height="70" Stroke="Black" VerticalAlignment="Top" Width="894" StrokeThickness="0" Grid.ColumnSpan="2"/>
+        <Rectangle Fill="#FFF2F6FA" HorizontalAlignment="Left" Height="60" Grid.Row="2" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="894" Grid.ColumnSpan="2"
+			Grid.Column="0" />
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Height="70" Width="844" HorizontalAlignment="Right">
+            <Rectangle Fill="#FFE8F2FC" Margin="0,17,0,24.082" Stroke="Black" StrokeThickness="0" Width="13"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Height="59" Margin="0,0,12,0" Width="819">
+            <TextBlock Width="330" Margin="0,5,146,0"  x:Name="TxtTip" Foreground="#FF3D3D3D" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14" FontFamily="Microsoft YaHei"><Run Language="zh-cn" Text="阅卷结果：总试卷数"/><Run Text=" "/><Run Text="0 , 0"/><Run Language="zh-cn" Text="成功，"/><Run Text=" "/><Run Text="0"/><Run Text=" "/><Run Language="zh-cn" Text="失败"/></TextBlock>
+        </StackPanel>
+        <Grid x:Name="Wrap" RenderTransformOrigin="0,0" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="0" Grid.RowSpan="3">
+            <Grid.LayoutTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" ScaleX="1"/>
+                    <SkewTransform AngleY="0" AngleX="0"/>
+                    <RotateTransform Angle="0"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.LayoutTransform>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="422*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+            <Rectangle HorizontalAlignment="Left" Height="70" Stroke="Black" VerticalAlignment="Top" Width="894" StrokeThickness="0" Grid.ColumnSpan="2">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFC6E3F7" Offset="1"/>
+                        <GradientStop Color="#FFA6D3F3"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Fill="#FFF2F6FA" HorizontalAlignment="Left" Height="60" Grid.Row="2" Stroke="Black" StrokeThickness="0" VerticalAlignment="Top" Width="894" Grid.ColumnSpan="2"
+				Grid.Column="0" />
+            <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top" Height="70" Width="894" HorizontalAlignment="Right" Grid.ColumnSpan="2"
+				Grid.Column="0">
+                <Button x:Name="BtnBack" Click="BtnBack_Click" ToolTip="返回" HorizontalAlignment="Left" Margin="20,17,15,17" VerticalAlignment="Center" Width="36" BorderBrush="White" Foreground="White" Height="30" Style="{DynamicResource SimpleButton}" Background="#FF529EEA">
+                    <ed:BlockArrow Height="20.398" Orientation="Left" Stroke="Black" StrokeThickness="0" Width="18.506" Fill="White" Margin="0,0,2,0"/>
+                </Button>
+                <Rectangle Fill="#FFE8F2FC" Margin="0,17,0,24.082" Stroke="Black" StrokeThickness="0" Width="0"/>
+            </StackPanel>
+            <Grid  Grid.Column="0" Grid.Row="1"               
+				ShowGridLines="True"
+				VerticalAlignment="Top" Height="397" Grid.ColumnSpan="2">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden">
+                    <dy:SortableListView x:Name="List"
+					DockPanel.Dock="Right"
+					VerticalAlignment="Top"
+					MinHeight="397" Background="White" BorderBrush="White" Foreground="#FF3D3D3D" FontSize="14">
+                        <dy:SortableListView.View>
+                            <GridView>
+                                <GridViewColumn Width="50">
+                                    <GridViewColumnHeader>
+                                        <CheckBox IsChecked="True" Click="CheckAll" ToolTip="全选"></CheckBox>
+                                    </GridViewColumnHeader>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <CheckBox IsChecked="{Binding IsChecked}" Click="CheckItem" Tag="{Binding Path=Id}"></CheckBox>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="70" dy:SortableListView.SortPropertyName="Index" HeaderContainerStyle="{DynamicResource Sort-Base}">
+                                    <GridViewColumnHeader Content="{DynamicResource L-Marking-Grid-Index}"/>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="70"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding Index}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <!--<GridViewColumn Width="80">
+                                <GridViewColumnHeader Content="{DynamicResource L-Marking-Grid-SectionType}" />
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Width="60"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding SectionTypeCn}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>-->
+                                <GridViewColumn Width="110">
+                                    <GridViewColumnHeader Content="{DynamicResource L-Marking-Grid-Name}"/>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="100"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding StudentName}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="110">
+                                    <GridViewColumnHeader Content="{DynamicResource L-Marking-Grid-Agency}"/>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="100"
+											TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding Agency}"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="100">
+                                    <GridViewColumnHeader Content="{DynamicResource L-BatchPrint-Grid-Score}" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock TextAlignment="Center"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding Score}"									
+											Width="100"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="200">
+                                    <GridViewColumnHeader Content="{DynamicResource L-BatchPrint-Grid-ErrorInfo}" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock  TextAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding ObjectiveErrorInfo}"
+											Width="200"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="90">
+                                    <GridViewColumnHeader Content="{DynamicResource L-BatchPrint-Grid-PrintStatus}" />
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Width="90"
+											TextAlignment="Center"
+											HorizontalAlignment="Center"
+											VerticalAlignment="Center"
+											Text="{Binding PrintStatusCn}"
+											Foreground="{Binding PrintStatusColor}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn Width="165">
+                                    <GridViewColumnHeader Content="{DynamicResource L-Marking-Grid-Operate}"/>
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel>
+                                                <Button ToolTip="{DynamicResource L-Marking-Btn-View}" Tag="{Binding Id}"
+												Style="{DynamicResource ViewButton}"
+												Click="BtnView_Click">
+                                                </Button>
+                                                <Button ToolTip="{DynamicResource L-BatchPrint-Btn-PrintItem}" Tag="{Binding Id}"
+                                                    Style="{DynamicResource PrintIconButton}" Click="BtnPrint_Click">
+                                                </Button>
+                                                <Button ToolTip="{DynamicResource L-Marking-Btn-Delete}" Tag="{Binding Id}"
+												Style="{DynamicResource DeleteButton}"
+												Click="btnDelete_Click">
+                                                </Button>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </dy:SortableListView.View>
+                    </dy:SortableListView>
+                </ScrollViewer>
+            </Grid>
+            <StackPanel Grid.Row="0" Grid.Column="1">
+                <Border BorderThickness="1"
+                        Width="46" Height="24"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"						
+                        Margin="0,11,0,-13"
+                        x:Name="BdType">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="#FFA3D077"/>
+                    </Border.BorderBrush>
+                    <Border.Background>
+                        <SolidColorBrush Color="#FFA3D077"/>
+                    </Border.Background>
+                    <Label Foreground="White" Height="25"
+                        x:Name="LblType" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center">常规</Label>
+                </Border>
+                <TextBlock x:Name="LblPaperTitle" Text="初中2015级月考语文试卷" Style="{DynamicResource Txt-PaperTitle}" Margin="55,-8,0,0"></TextBlock>
+                <ComboBox x:Name="agencies" Style="{DynamicResource S-ComboBox}" HorizontalAlignment="Right" Margin="0,-25,15,0" Width="200" Visibility="Collapsed">
+                    <ComboBoxItem Content="所有学校" DataContext="" IsSelected="True" />
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="0">
+                <Border BorderThickness="1" CornerRadius="2" Margin="0,40,2,0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock x:Name="LblClass" Text="2015级4班"
+                               Foreground="#FF477ea7"
+                               HorizontalAlignment="Left" VerticalAlignment="Center"
+                               FontSize="14" FontFamily="Microsoft YaHei UI"/>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" 
+                        VerticalAlignment="Center" 
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal">
+                <Label Content="已套打" Height="25"></Label><TextBox x:Name="TxtSkip" Width="30" Height="25" Text="0"></TextBox>
+                <Label Content="当前套打" Height="25"></Label><TextBox x:Name="TxtSize" Width="30" Height="25" Text="50"></TextBox>
+                <Button Style="{DynamicResource Btn-Info}" Width="60" Content="确认" Margin="15,0,0,0" Click="LoadDetailClick"></Button>
+                <Button x:Name="BtnPrev"  Style="{DynamicResource Btn-Info}" Width="60" Content="上一页" Margin="15,0,0,0" Click="PrevPageClick"></Button>
+                <Button x:Name="BtnNext"  Style="{DynamicResource Btn-Info}" Width="60" Content="下一页" Margin="15,0,0,0" Click="NextPageClick"></Button>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,15,0">
+                <ComboBox x:Name="PrintType" Style="{DynamicResource S-ComboBox}" Width="70" Margin="0,6,15,0" Visibility="Hidden">
+                    <ComboBoxItem Content="全部" DataContext="0" IsSelected="True"></ComboBoxItem>
+                    <ComboBoxItem Content="奇数页" DataContext="1"></ComboBoxItem>
+                    <ComboBoxItem Content="偶数页" DataContext="2"></ComboBoxItem>
+                </ComboBox>
+                <Button Content="{DynamicResource L-BatchPrint-Btn-Print}" Margin="0,0,0,0" x:Name="BtnPrint" Click="BtnPrintList_Click" Style="{DynamicResource Btn-Primary}" IsEnabled="False" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</dy:DeyiWindow>
