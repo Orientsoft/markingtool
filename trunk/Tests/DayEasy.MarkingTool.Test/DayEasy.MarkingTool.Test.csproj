@@ -49,9 +49,8 @@
     <Reference Include="DayEasy.Models.Open">
       <HintPath>..\..\DLL\DayEasy.Models.Open.dll</HintPath>
     </Reference>
-    <Reference Include="DayEasy.Open.Model, Version=1.1.20.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DayEasy.Open.Model.1.1.20.0\lib\net40\DayEasy.Open.Model.dll</HintPath>
+    <Reference Include="DayEasy.Open.Model">
+      <HintPath>..\..\DLL\DayEasy.Open.Model.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,7 +122,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="org.in2bits.MyXls">
-      <HintPath>..\..\packages\org.in2bits.MyXls.0.6.0\lib\org.in2bits.MyXls.dll</HintPath>
+      <HintPath>..\..\DLL\org.in2bits.MyXls.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
