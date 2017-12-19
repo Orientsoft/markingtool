@@ -49,6 +49,11 @@
                     <ComboBoxItem Content="选择阅卷方式" DataContext="-1" IsSelected="True" />
                     <ComboBoxItem Content="普通阅卷" DataContext="1"/>
                 </ComboBox>
+                <ComboBox x:Name="PaperCategory" Style="{DynamicResource S-ComboBox}" Margin="0,0,15,0" Width="60">
+                    <ComboBoxItem Content="选择阅卷方式" DataContext="-1" IsSelected="True" />
+                    <ComboBoxItem Content="{DynamicResource L-Marking-PaperTypeA3}" DataContext="1" />
+                    <ComboBoxItem Content="{DynamicResource L-Marking-PaperTypeA4}" DataContext="2"/>
+                </ComboBox>
                 <ComboBox x:Name="SectionType" Style="{DynamicResource S-ComboBox}" Margin="0,0,15,0" Width="60">
                     <ComboBoxItem Content="{DynamicResource L-Marking-SectionA}" DataContext="1" />
                     <ComboBoxItem Content="{DynamicResource L-Marking-SectionB}" DataContext="2" />

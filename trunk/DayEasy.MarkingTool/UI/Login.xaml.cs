@@ -110,22 +110,22 @@ namespace DayEasy.MarkingTool.UI
         private void UserLogin(object args)
         {
             SetControl(false);
-#if DEBUG
-            const string token = "9d981f67d5304c448d368f50cce6a3dc";// 9d981f67d5304c448d368f50cce6a3dc,d49620da93744f77b060c2d994f9b6a7
-            DeyiApp.Token = token;
-            var user = RestHelper.Instance.LoadUserInfo();
-            if (user == null || !user.Status)
-            {
-                LoginCallback(new DResult<MLoginDto>(user == null ? "登录失败" : user.Message));
-                return;
-            }
-            LoginCallback(new DResult<MLoginDto>(true, new MLoginDto
-            {
-                Token = token,
-                User = user.Data
-            }));
-            return;
-#endif
+//#if DEBUG
+//            const string token = "9d981f67d5304c448d368f50cce6a3dc";// 9d981f67d5304c448d368f50cce6a3dc,d49620da93744f77b060c2d994f9b6a7
+//            DeyiApp.Token = token;
+//            var user = RestHelper.Instance.LoadUserInfo();
+//            if (user == null || !user.Status)
+//            {
+//                LoginCallback(new DResult<MLoginDto>(user == null ? "登录失败" : user.Message));
+//                return;
+//            }
+//            LoginCallback(new DResult<MLoginDto>(true, new MLoginDto
+//            {
+//                Token = token,
+//                User = user.Data
+//            }));
+//            return;
+//#endif
 
             if (string.IsNullOrWhiteSpace(_userName))
             {
