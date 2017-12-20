@@ -170,17 +170,7 @@ namespace DayEasy.MarkingTool.BLL.Common
                 return bmp;
             }
 
-            int w, h;
-
-            if(Math.Abs(angle) == 90 || Math.Abs(angle) == 270)
-            {
-                w = bmp.Height;
-                h = bmp.Width;
-            } else
-            {
-                w = bmp.Width;
-                h = bmp.Height;
-            }
+            int w = bmp.Width, h = bmp.Height;
 
             float transformX = w / 2F,
                 transformY = h / 2F;

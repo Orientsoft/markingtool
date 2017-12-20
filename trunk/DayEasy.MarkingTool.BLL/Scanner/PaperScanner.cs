@@ -35,6 +35,16 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             LoadObjectives();
         }
 
+        /// <summary>
+        /// Find all the locating points in the paper image
+        /// </summary>
+        /// <param name="bmp"></param>
+        /// <returns></returns>
+        private List<Rectangle> FindLocatingPoints(Image bmp)
+        {
+            return new PointsFinder().Find(bmp);
+        }
+
         /// <summary> 压缩 & 纠偏 & 合并
         /// </summary>
         /// <param name="images"></param>
@@ -82,6 +92,17 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 if (lines.Any())
                 {
                     bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
+                }
+
+                var points = FindLocatingPoints(bmp);
+                Console.WriteLine("Find total {0} points.", points.Count());
+
+                if (points.Count() == 4)
+                {
+                    Console.WriteLine("Paper A!");
+                } else
+                {
+                    Console.WriteLine("Paper B!");
                 }
 
                 bmps.Add(bmp);
