@@ -43,6 +43,9 @@ namespace DayEasy.MarkingTool.UI.Scanner
         private int _combineCount = 1;
         private bool _isSingle = true;
 
+        // Paper Category
+        private int _paperCategory = 1;
+
         /// <summary> 扫描结果 </summary>
         private static MPictureList _markingInfo;
 
@@ -568,6 +571,15 @@ namespace DayEasy.MarkingTool.UI.Scanner
             if (_paperInfo == null)
                 return;
             _fileManager.InitDirectory();
+
+            // Load user selected paper category
+            _paperCategory = PaperCategory.SelectedIndex;
+
+            if(_paperCategory == -1)
+            {
+                _paperCategory = 1;
+            }
+
             _watcher = new Stopwatch();
             _watcher.Start();
             var currentIndex = _markedInfoList.Any() ? _markedInfoList.Max(t => t.Index) : 0;
@@ -578,7 +590,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 {
                     var arr = (object[])arg;
                     var index = (int)arr[1];
-                    var imagePath = _paperScanner.Resize((List<string>)arr[0]);
+                    var imagePath = _paperScanner.Resize((List<string>)arr[0], _paperCategory);
                     SingleProcess(imagePath, index);
                     TaskFinished();
                 }, new object[] { imgArr, ++currentIndex });

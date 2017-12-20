@@ -39,22 +39,51 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// </summary>
         /// <param name="images"></param>
         /// <returns></returns>
-        public string Resize(List<string> images)
+        public string Resize(List<string> images, int paperCategory)
         {
             var name = Path.GetFileName(images.First());
             var bmps = new List<Bitmap>();
             for (var j = 0; j < images.Count; j++)
             {
                 var bmp = (Bitmap)Image.FromFile(images[j]);
-                bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth);
-                var lines = new LineFinder(bmp).Find(
-                    (int)Math.Ceiling(bmp.Width * DeyiKeys.ScannerConfig.BlackScale),
-                    DeyiKeys.ScannerConfig.LineHeight, 1, 100);
-                if (lines != null && lines.Any())
+                List<LineInfo> lines = new List<LineInfo>();
+
+                // For A3 paper, check the direction and rotate image
+                if (paperCategory == 1 && bmp.Width < bmp.Height)
+                {
+                    bmp = ImageHelper.RotateA3Image(bmp);
+                }
+
+                // For A4 paper
+                if (paperCategory == 2 && bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
+                {
+                    if(bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
+                    {
+                        bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth);
+                    }
+
+                    lines = new LineFinder(bmp).Find(
+                        (int)Math.Ceiling(bmp.Width * DeyiKeys.ScannerConfig.BlackScale),
+                        DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+                }
+                else
+                {
+                    // Resize for A3 paper
+                    if(bmp.Width >= (DeyiKeys.ScannerConfig.PaperWidth * 2))
+                    {
+                        bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth * 2);
+                    }
+
+                    lines = new LineFinder(bmp).Find(
+                        (int)Math.Ceiling(bmp.Width * (DeyiKeys.ScannerConfig.BlackScale / 2)),
+                        DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+                }
+
+                if (lines.Any())
                 {
                     bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
                 }
-                //bmp = bmp.ToBinaryArray(diff: 10).ToBitmap();
+
                 bmps.Add(bmp);
             }
             _fileManager.SaveImage(bmps.ToArray(), name);

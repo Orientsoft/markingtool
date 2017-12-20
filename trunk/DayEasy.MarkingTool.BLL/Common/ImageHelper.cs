@@ -146,6 +146,16 @@ namespace DayEasy.MarkingTool.BLL.Common
             return MakeImage(origBmp, x, y, origBmp.Width, origBmp.Height);
         }
 
+        public static Bitmap RotateA3Image(Bitmap bmp)
+        {
+            //create an object that we can use to examine an image file
+            Image img = bmp;
+
+            //rotate the picture by 90 degrees and re-save the picture as a Jpeg
+            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            return (Bitmap)img;
+        }
+
         /// <summary>
         /// 图像旋转
         /// </summary>
@@ -156,9 +166,22 @@ namespace DayEasy.MarkingTool.BLL.Common
         public static Bitmap RotateImage(Bitmap bmp, float angle, Brush bgColor)
         {
             if (Math.Abs(angle) < 0.001)
+            {
                 return bmp;
-            int w = bmp.Width,
+            }
+
+            int w, h;
+
+            if(Math.Abs(angle) == 90 || Math.Abs(angle) == 270)
+            {
+                w = bmp.Height;
+                h = bmp.Width;
+            } else
+            {
+                w = bmp.Width;
                 h = bmp.Height;
+            }
+
             float transformX = w / 2F,
                 transformY = h / 2F;
             var pixelFormat = bmp.PixelFormat;
