@@ -44,7 +44,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
         private bool _isSingle = true;
 
         // Paper Category
-        private int _paperCategory = 1;
+        private byte _paperCategory = 1;
 
         /// <summary> 扫描结果 </summary>
         private static MPictureList _markingInfo;
@@ -573,11 +573,13 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _fileManager.InitDirectory();
 
             // Load user selected paper category
-            _paperCategory = PaperCategory.SelectedIndex;
-
-            if(_paperCategory == -1)
+            // Set A4 as the default category
+            if (PaperCategory.SelectedIndex == -1)
             {
-                _paperCategory = 1;
+                _paperCategory = (byte)BLL.Enum.PaperCategory.A4;
+            } else
+            {
+                _paperCategory = (byte)PaperCategory.SelectedIndex;
             }
 
             _watcher = new Stopwatch();
@@ -590,7 +592,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 {
                     var arr = (object[])arg;
                     var index = (int)arr[1];
-                    var imagePath = _paperScanner.Resize((List<string>)arr[0], _paperCategory);
+                    var imagePath = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
                     SingleProcess(imagePath, index);
                     TaskFinished();
                 }, new object[] { imgArr, ++currentIndex });

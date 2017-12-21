@@ -62,7 +62,7 @@ namespace DayEasy.MarkingTool.BLL.Common
             if (!Directory.Exists(_scannerDirectory))
                 Directory.CreateDirectory(_scannerDirectory);
 
-            _isInitDirectory = true;
+            _isInitDirectory = true;                   
         }
 
         public void SaveImage(Bitmap[] bmps, string imageName)

@@ -45,13 +45,9 @@ namespace DayEasy.MarkingTool.BLL.Common
                 // use the shape checker to extract the corner points
                 if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints))
                 {
-                    // only do things if the corners form a rectangle
+                    // only do things if the corners form a square
                     if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square)
                     {
-                        // here i use the graphics class to draw an overlay, but you
-                        // could also just use the cornerPoints list to calculate your
-                        // x, y, width, height values.
-
                         var rect = new Rectangle(cornerPoints[0].X, 
                             cornerPoints[0].Y, 
                             Math.Abs(cornerPoints[2].X - cornerPoints[0].X), 

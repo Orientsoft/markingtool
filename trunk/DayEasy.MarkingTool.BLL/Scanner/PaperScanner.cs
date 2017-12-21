@@ -1,6 +1,7 @@
 ﻿using DayEasy.MarkingTool.BLL.Common;
 using DayEasy.MarkingTool.BLL.Entity;
 using DayEasy.MarkingTool.BLL.Entity.Paper;
+using DayEasy.MarkingTool.BLL.Enum;
 using DayEasy.MarkingTool.BLL.Recognition;
 using DayEasy.Models.Open.Paper;
 using DayEasy.Models.Open.Work;
@@ -49,66 +50,76 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// </summary>
         /// <param name="images"></param>
         /// <returns></returns>
-        public string Resize(List<string> images, int paperCategory)
+        public string PreProcess(List<string> images, int paperCategory, byte paperType)
         {
             var name = Path.GetFileName(images.First());
             var bmps = new List<Bitmap>();
+
             for (var j = 0; j < images.Count; j++)
             {
-                var bmp = (Bitmap)Image.FromFile(images[j]);
-                List<LineInfo> lines = new List<LineInfo>();
-
-                // For A3 paper, check the direction and rotate image
-                if (paperCategory == 1 && bmp.Width < bmp.Height)
-                {
-                    bmp = ImageHelper.RotateA3Image(bmp);
-                }
-
-                // For A4 paper
-                if (paperCategory == 2 && bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
-                {
-                    if(bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
-                    {
-                        bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth);
-                    }
-
-                    lines = new LineFinder(bmp).Find(
-                        (int)Math.Ceiling(bmp.Width * DeyiKeys.ScannerConfig.BlackScale),
-                        DeyiKeys.ScannerConfig.LineHeight, 1, 100);
-                }
-                else
-                {
-                    // Resize for A3 paper
-                    if(bmp.Width >= (DeyiKeys.ScannerConfig.PaperWidth * 2))
-                    {
-                        bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth * 2);
-                    }
-
-                    lines = new LineFinder(bmp).Find(
-                        (int)Math.Ceiling(bmp.Width * (DeyiKeys.ScannerConfig.BlackScale / 2)),
-                        DeyiKeys.ScannerConfig.LineHeight, 1, 100);
-                }
-
-                if (lines.Any())
-                {
-                    bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
-                }
+                // Resize & rotate image
+                Bitmap bmp = Resize(images, paperCategory, j);
 
                 var points = FindLocatingPoints(bmp);
-                Console.WriteLine("Find total {0} points.", points.Count());
 
                 if (points.Count() == 4)
                 {
-                    Console.WriteLine("Paper A!");
-                } else
+                    // For A4 paper & A3 paper with non-AB type
+                    bmps.Add(bmp);
+                }
+                else
                 {
+                    // For A3 paper with AB type
                     Console.WriteLine("Paper B!");
                 }
-
-                bmps.Add(bmp);
             }
+
             _fileManager.SaveImage(bmps.ToArray(), name);
             return _fileManager.GetImagePath(name);
+        }
+
+        private static Bitmap Resize(List<string> images, int paperCategory, int index)
+        {
+            var bmp = (Bitmap)Image.FromFile(images[index]);
+            List<LineInfo> lines = new List<LineInfo>();
+
+            // For A3 paper, check the direction and rotate image
+            if (paperCategory == (byte)PaperCategory.A3 && bmp.Width < bmp.Height)
+            {
+                bmp = ImageHelper.RotateA3Image(bmp);
+            }
+
+            // For A4 paper
+            if (paperCategory == (byte)PaperCategory.A4 && bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
+            {
+                if (bmp.Width >= DeyiKeys.ScannerConfig.PaperWidth)
+                {
+                    bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth);
+                }
+
+                lines = new LineFinder(bmp).Find(
+                    (int)Math.Ceiling(bmp.Width * DeyiKeys.ScannerConfig.BlackScale),
+                    DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+            }
+            else
+            {
+                // Resize for A3 paper
+                if (bmp.Width >= (DeyiKeys.ScannerConfig.PaperWidth * 2))
+                {
+                    bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth * 2);
+                }
+
+                lines = new LineFinder(bmp).Find(
+                    (int)Math.Ceiling(bmp.Width * (DeyiKeys.ScannerConfig.BlackScale / 2)),
+                    DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+            }
+
+            if (lines.Any())
+            {
+                bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
+            }
+
+            return bmp;
         }
 
         public void Scanner(string imagePath, PaperMarkedInfo markedInfo, MPictureInfo picture)
