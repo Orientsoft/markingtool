@@ -41,7 +41,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// </summary>
         /// <param name="bmp"></param>
         /// <returns></returns>
-        private List<Rectangle> FindLocatingPoints(Image bmp)
+        private PointsResult FindLocatingPoints(Image bmp)
         {
             return new PointsFinder().Find(bmp);
         }
@@ -50,7 +50,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// </summary>
         /// <param name="images"></param>
         /// <returns></returns>
-        public string PreProcess(List<string> images, int paperCategory, byte paperType)
+        public string PreProcess(List<string> images, byte paperCategory, byte paperType)
         {
             var name = Path.GetFileName(images.First());
             var bmps = new List<Bitmap>();
@@ -62,15 +62,20 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                 var points = FindLocatingPoints(bmp);
 
-                if (points.Count() == 4)
+                if (paperCategory == (byte)PaperCategory.A4)
                 {
-                    // For A4 paper & A3 paper with non-AB type
+                    // For A4 paper, merge directly
                     bmps.Add(bmp);
                 }
-                else
+                else if (paperCategory == (byte)PaperCategory.A3 && 
+                    paperType ==(byte)PaperType.Normal)
                 {
-                    // For A3 paper with AB type
-                    Console.WriteLine("Paper B!");
+                    // For A3 paper with non-AB type
+
+                } else if (paperCategory == (byte)PaperCategory.A3 && 
+                    paperType == (byte)PaperType.PaperAb)
+                {
+                    // A3 paper with AB type
                 }
             }
 

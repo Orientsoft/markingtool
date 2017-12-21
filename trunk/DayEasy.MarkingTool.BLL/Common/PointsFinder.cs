@@ -4,13 +4,44 @@ using AForge.Math.Geometry;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace DayEasy.MarkingTool.BLL.Common
 {
+    public class PointsResult
+    {
+        public int PointsCount { get; set; }
+        public Rectangle PaperBPoint { get; set; }
+        public bool IsPaperB { get; set; }
+        public List<Rectangle> RectList { get; set; }
+    }
+
     public class PointsFinder
     {
+        public PointsResult ParseResult(List<Rectangle> recList)
+        {
+            var pr = new PointsResult();
+            pr.RectList = recList;
+            pr.PointsCount = recList.Count;
 
-        public List<Rectangle> Find(System.Drawing.Image bmp)
+            if(recList.Count == 5)
+            {
+                // It is paper B
+                pr.IsPaperB = true;
+
+                var maxX = recList.Max(r => r.X);
+                var minX = recList.Min(r => r.X);
+                pr.PaperBPoint = recList.Where(r => r.X > minX && r.X < maxX).FirstOrDefault();
+            }
+            else
+            {
+                pr.IsPaperB = false;
+            }
+
+            return pr;
+        }
+
+        public PointsResult Find(System.Drawing.Image bmp)
         {
             // locating objects
             BlobCounter blobCounter = new BlobCounter();
@@ -55,21 +86,21 @@ namespace DayEasy.MarkingTool.BLL.Common
 
                         locPoints.Add(rect);
 
-                        List<System.Drawing.Point> Points = new List<System.Drawing.Point>();
-                        foreach (var point in cornerPoints)
-                        {
-                            Points.Add(new System.Drawing.Point(point.X, point.Y));
-                        }
-
                         // For debug and output test image.
-                        Graphics g = Graphics.FromImage(rawImg);
-                        g.DrawPolygon(new Pen(Color.Red, 2.0f), Points.ToArray());
-                        rawImg.Save("d:\\result.png");
+                        //List<System.Drawing.Point> Points = new List<System.Drawing.Point>();
+                        //foreach (var point in cornerPoints)
+                        //{
+                        //    Points.Add(new System.Drawing.Point(point.X, point.Y));
+                        //}
+
+                        //Graphics g = Graphics.FromImage(rawImg);
+                        //g.DrawPolygon(new Pen(Color.Red, 2.0f), Points.ToArray());
+                        //rawImg.Save("d:\\result.png");
                     }
                 }
             }
 
-            return locPoints;
+            return ParseResult(locPoints);
         }
     }
 }
