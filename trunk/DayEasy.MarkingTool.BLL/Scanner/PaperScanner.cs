@@ -63,6 +63,9 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             }
 
             _fileManager.SaveImage(bmps.ToArray(), name);
+            var ppr = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name), IsPaperB = false };
+            results.Add(ppr);
+
             return results;
         }
 
