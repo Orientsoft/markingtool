@@ -94,6 +94,31 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             return results;
         }
 
+        /// <summary>
+        /// Merge and return results for PaperA3 withAB type
+        /// </summary>
+        /// <param name="images"></param>
+        /// <returns></returns>
+        private List<PreProcessResult> ProcessPaperA3WithAB(string name, List<string> images, byte paperCategory)
+        {
+            var results = new List<PreProcessResult>();
+            var bmps = new List<Bitmap>();
+
+            //for (var j = 0; j < images.Count; j++)
+            //{
+            //    var bmp = Resize(images, paperCategory, j);
+            //    // Split image into 2 pieces, then merge it.
+            //    // Do something.
+            //    bmps.Add(bmp);
+            //}
+
+            //_fileManager.SaveImage(bmps.ToArray(), name);
+            //var ppr = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name), IsPaperB = false };
+            //results.Add(ppr);
+
+            return results;
+        }
+
         /// <summary> 压缩 & 纠偏 & 合并
         /// </summary>
         /// <param name="images"></param>
@@ -116,30 +141,12 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 results = ProcessPaperA3WithNonAB(name, images, paperCategory);
             }
 
-
-            for (var j = 0; j < images.Count; j++)
+            if (paperCategory == (byte)PaperCategory.A3 &&
+                paperType == (byte)PaperType.PaperAb)
             {
-                // Resize & rotate image
-                //Bitmap bmp = Resize(images, paperCategory, j);
-
-                //if (paperCategory == (byte)PaperCategory.A4)
-                //{
-                //    // For A4 paper, merge directly
-                //    bmps.Add(bmp);
-                //}
-                //else if (paperCategory == (byte)PaperCategory.A3 &&
-                //    paperType == (byte)PaperType.Normal)
-                //{
-                //    // For A3 paper with non-AB type
-
-                //}
-                //else if (paperCategory == (byte)PaperCategory.A3 &&
-                //  paperType == (byte)PaperType.PaperAb)
-                //{
-                //    // A3 paper with AB type
-                //    var points = FindLocatingPoints(bmp);
-                //}
+                results = ProcessPaperA3WithAB(name, images, paperCategory);
             }
+
 
             // Needs refactor
             //_fileManager.SaveImage(bmps.ToArray(), name);
