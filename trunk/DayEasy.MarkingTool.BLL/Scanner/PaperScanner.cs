@@ -47,11 +47,11 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         }
 
         /// <summary>
-        /// Merge and return results for PaperA
+        /// Merge and return results for PaperA4
         /// </summary>
         /// <param name="images"></param>
         /// <returns></returns>
-        private List<PreProcessResult> ProcessPaperA(string name, List<string> images, byte paperCategory)
+        private List<PreProcessResult> ProcessPaperA4(string name, List<string> images, byte paperCategory)
         {
             var results = new List<PreProcessResult>();
             var bmps = new List<Bitmap>();
@@ -59,6 +59,31 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             for (var j = 0; j < images.Count; j++)
             {
                 var bmp = Resize(images, paperCategory, j);
+                bmps.Add(bmp);
+            }
+
+            _fileManager.SaveImage(bmps.ToArray(), name);
+            var ppr = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name), IsPaperB = false };
+            results.Add(ppr);
+
+            return results;
+        }
+
+        /// <summary>
+        /// Merge and return results for PaperA3 with non-AB type
+        /// </summary>
+        /// <param name="images"></param>
+        /// <returns></returns>
+        private List<PreProcessResult> ProcessPaperA3WithNonAB(string name, List<string> images, byte paperCategory)
+        {
+            var results = new List<PreProcessResult>();
+            var bmps = new List<Bitmap>();
+
+            for (var j = 0; j < images.Count; j++)
+            {
+                var bmp = Resize(images, paperCategory, j);
+                // Split image into 2 pieces, then merge it.
+                // Do something.
                 bmps.Add(bmp);
             }
 
@@ -80,9 +105,17 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
             if (paperCategory == (byte)PaperCategory.A4)
             {
-                // For A4 paper, merge directly
-                results = ProcessPaperA(name, images, paperCategory);
+                // For A4 paper, merge images together directly
+                results = ProcessPaperA4(name, images, paperCategory);
             }
+
+            if (paperCategory == (byte)PaperCategory.A3 &&
+                paperType == (byte)PaperType.Normal)
+            {
+                // For A3 paper with non-AB type
+                results = ProcessPaperA3WithNonAB(name, images, paperCategory);
+            }
+
 
             for (var j = 0; j < images.Count; j++)
             {
