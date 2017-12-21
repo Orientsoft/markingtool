@@ -95,6 +95,7 @@
     <Compile Include="Entity\ObjectiveItem.cs" />
     <Compile Include="Entity\ResizeResult.cs" />
     <Compile Include="Enum\PaperCategory.cs" />
+    <Compile Include="Enum\PreProcessResult.cs" />
     <Compile Include="Enum\StudentRecognitionType.cs" />
     <Compile Include="Recognition\AnswerSheetHelper.cs" />
     <Compile Include="Common\CombHelper.cs" />
