@@ -29,9 +29,15 @@ namespace DayEasy.MarkingTool.BLL.Common
                 // It is paper B
                 pr.IsPaperB = true;
 
-                var maxX = recList.Max(r => r.X);
-                var minX = recList.Min(r => r.X);
-                pr.PaperBPoint = recList.Where(r => r.X > minX && r.X < maxX).FirstOrDefault();
+                var maxY = recList.Max(r => r.Y);
+                var minY = recList.Min(r => r.Y);
+
+                // Find the start point of paper B
+                pr.PaperBPoint = recList.Where(
+                    r => r.Y > minY
+                    && r.Y < maxY
+                    && Math.Abs(r.Y - minY) > 10
+                    && Math.Abs(r.Y - maxY) > 10).FirstOrDefault();
             }
             else
             {
