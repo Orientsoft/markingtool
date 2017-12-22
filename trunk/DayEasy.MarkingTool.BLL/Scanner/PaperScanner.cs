@@ -83,7 +83,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             {
                 var bmp = Resize(images, paperCategory, j);
 
-                // Split image into 2 pieces, then merge it.
+                // Split image into 2 pieces, then merge them together.
                 var pr = FindLocatingPoints(bmp);
                 var centerX = pr.HorizonPoints[0].X + pr.HorizonPoints[0].Width / 2 
                     + (pr.HorizonPoints[1].X + pr.HorizonPoints[1].Width / 2
