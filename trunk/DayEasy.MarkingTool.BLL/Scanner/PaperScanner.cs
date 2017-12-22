@@ -151,6 +151,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             if (paperCategory == (byte)PaperCategory.A3 &&
                 paperType == (byte)PaperType.PaperAb)
             {
+                // For A3 paper with AB type
                 results = ProcessPaperA3WithAB(name, images, paperCategory);
             }
 
