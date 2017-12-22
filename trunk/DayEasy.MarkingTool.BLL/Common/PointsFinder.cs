@@ -14,8 +14,9 @@ namespace DayEasy.MarkingTool.BLL.Common
         public Rectangle PaperBPoint { get; set; }
         public bool IsPaperB { get; set; }
         public List<Rectangle> RectList { get; set; }
+        public List<Rectangle> HorizonPoints { get; set; }
     }
-
+     
     public class PointsFinder
     {
         public PointsResult ParseResult(List<Rectangle> recList)
@@ -38,10 +39,14 @@ namespace DayEasy.MarkingTool.BLL.Common
                     && r.Y < maxY
                     && Math.Abs(r.Y - minY) > 10
                     && Math.Abs(r.Y - maxY) > 10).FirstOrDefault();
+
+                pr.HorizonPoints = recList.Where(r => r.Y - minY < 20).OrderBy(r => r.X).ToList<Rectangle>();
             }
             else
             {
                 pr.IsPaperB = false;
+                var minY = recList.Min(r => r.Y);
+                pr.HorizonPoints = recList.Where(r => r.Y - minY < 20).OrderBy(r => r.X).ToList<Rectangle>();
             }
 
             return pr;

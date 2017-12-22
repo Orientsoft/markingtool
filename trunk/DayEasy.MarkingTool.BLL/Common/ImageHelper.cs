@@ -40,7 +40,7 @@ namespace DayEasy.MarkingTool.BLL.Common
         /// <param name="targetHeight"></param>
         /// <returns></returns>
         public static Image MakeImage(Image origBmp, int x, int y, int width, int height, int targetWidth = 0,
-            int targetHeight = 0)
+            int targetHeight = 0, bool dispose = true)
         {
             if (targetWidth > 0 && targetHeight == 0)
             {
@@ -78,8 +78,12 @@ namespace DayEasy.MarkingTool.BLL.Common
                 // 将原始图像矩形框中的内容生成到新画布中去
                 g.DrawImage(origBmp, destRect, origRect, GraphicsUnit.Pixel);
                 g.Dispose();
-                origBmp.Dispose();
-                GC.Collect();
+
+                if(dispose)
+                {
+                    origBmp.Dispose();
+                    GC.Collect();
+                }
             }
             return newBmp;
         }
