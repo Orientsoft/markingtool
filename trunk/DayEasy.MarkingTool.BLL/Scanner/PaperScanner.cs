@@ -264,7 +264,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             return bmp;
         }
 
-        public void Scanner(string imagePath, PaperMarkedInfo markedInfo, MPictureInfo picture)
+        public void ScanPaper(string imagePath, PaperMarkedInfo markedInfo, MPictureInfo picture)
         {
             if (string.IsNullOrWhiteSpace(imagePath) || picture == null)
                 return;

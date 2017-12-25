@@ -641,7 +641,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
         {
             var markedInfo = new PaperMarkedInfo(imagePath);
             var picture = new MPictureInfo { Id = null };
-            _paperScanner.Scanner(imagePath, markedInfo, picture);
+            _paperScanner.ScanPaper(imagePath, markedInfo, picture);
             if (markedInfo.StudentId > 0)
             {
                 if (_jointUsage != null && !string.IsNullOrWhiteSpace(picture.GroupId) &&
@@ -705,7 +705,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _combineCount = markedInfo.PageCount;
             var sectionType = picture.SectionType;
             var scanner = new PaperScanner(_paperInfo, _fileManager, sectionType);
-            scanner.Scanner(markedInfo.ImagePath, markedInfo, picture);
+            scanner.ScanPaper(markedInfo.ImagePath, markedInfo, picture);
             if (markedInfo.StudentId > 0)
             {
                 var exist = _markedInfoList.Any(
