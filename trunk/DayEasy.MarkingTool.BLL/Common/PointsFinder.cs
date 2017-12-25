@@ -64,10 +64,10 @@ namespace DayEasy.MarkingTool.BLL.Common
             BlobCounter blobCounter = new BlobCounter();
 
             blobCounter.FilterBlobs = true;
-            blobCounter.MinHeight = 13;
-            blobCounter.MinWidth = 13;
-            blobCounter.MaxHeight = 20;
-            blobCounter.MaxWidth = 20;
+            blobCounter.MinHeight = 14;
+            blobCounter.MinWidth = 14;
+            blobCounter.MaxHeight = 22;
+            blobCounter.MaxWidth = 22;
             var rawImg = (Bitmap)bmp;
 
             var grayImg = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(rawImg);
@@ -91,10 +91,11 @@ namespace DayEasy.MarkingTool.BLL.Common
                 List<IntPoint> cornerPoints;
 
                 // use the shape checker to extract the corner points
-                if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints))
+                if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints)) 
                 {
                     // only do things if the corners form a square
-                    if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square)
+                    if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square || 
+                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Rectangle)
                     {
                         var rect = new Rectangle(cornerPoints[0].X, 
                             cornerPoints[0].Y, 
