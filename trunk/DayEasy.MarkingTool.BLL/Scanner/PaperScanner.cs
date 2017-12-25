@@ -85,9 +85,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                 // Split image into 2 pieces, then merge them together.
                 var pr = FindLocatingPoints(bmp);
-                var centerX = pr.HorizonPoints[0].X + pr.HorizonPoints[0].Width / 2 
-                    + (pr.HorizonPoints[1].X + pr.HorizonPoints[1].Width / 2
-                    - (pr.HorizonPoints[0].X + pr.HorizonPoints[0].Width / 2)) / 2;
+                var centerX = pr.GetCenterX();
 
                 // Merge images together
                 bmps.Add((Bitmap)ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false));
@@ -109,19 +107,80 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         private List<PreProcessResult> ProcessPaperA3WithAB(string name, List<string> images, byte paperCategory)
         {
             var results = new List<PreProcessResult>();
-            var bmps = new List<Bitmap>();
+            var paperA = new List<Bitmap>();
+            var paperB = new List<Bitmap>();
+            var paperAFinished = false;
 
-            //for (var j = 0; j < images.Count; j++)
-            //{
-            //    var bmp = Resize(images, paperCategory, j);
-            //    // Split image into 2 pieces, then merge it.
-            //    // Do something.
-            //    bmps.Add(bmp);
-            //}
+            for (var j = 0; j < images.Count; j++)
+            {
+                var bmp = Resize(images, paperCategory, j);
+                // Split image into 2 pieces, detect it is paperA or paperB, then merge them.
+                var pr = FindLocatingPoints(bmp);
+                var centerX = pr.GetCenterX();
 
-            //_fileManager.SaveImage(bmps.ToArray(), name);
-            //var ppr = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name), IsPaperB = false };
-            //results.Add(ppr);
+                if(!pr.HasPaperBPoint && !paperAFinished)
+                {
+                    // For paperA, split them into 2 pieces, then merge.
+                    paperA.Add((Bitmap)ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false));
+                    paperA.Add((Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false));
+                }
+                else
+                {
+                    // For paperB
+                    // Check the position of the paper B point (left or right)
+                    if(pr.HasPaperBPoint && pr.PaperBPoint.X < centerX)
+                    {
+                        // Paper B point is on left side
+                        // 1. Split paper into left & right parts.
+                        var leftSide = ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false);
+                        var rightSide = (Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false);
+
+
+                        // 2. Split left side into 2 pieces.
+                        var topSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, 0, leftSide.Width, pr.PaperBPoint.Y, 0, 0, false);
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, pr.PaperBPoint.Y, leftSide.Width, leftSide.Height, 0, 0, false);
+
+                        paperA.Add(topSide);
+                        // Set paperA as finished status.
+                        paperAFinished = true;
+                        paperB.Add(bottomSide);
+                        paperB.Add(rightSide);
+                    }
+                    else if (pr.HasPaperBPoint && pr.PaperBPoint.X > centerX)
+                    {
+                        // Paper B point is on right side
+                        // Paper B point is on left side
+                        // 1. Split paper into left & right parts.
+                        var leftSide = (Bitmap)ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false);
+                        var rightSide = ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false);
+
+
+                        // 2. Split left side into 2 pieces.
+                        var topSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, 0, rightSide.Width, pr.PaperBPoint.Y, 0, 0, false);
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, pr.PaperBPoint.Y, rightSide.Width, rightSide.Height, 0, 0, false);
+
+                        paperA.Add(leftSide);
+                        paperA.Add(topSide);
+                        // Set paperA as finished status.
+                        paperAFinished = true;
+                        paperB.Add(bottomSide);
+                    }
+                    else
+                    {
+                        // For the left paperB images
+                        paperB.Add((Bitmap)ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false));
+                        paperB.Add((Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false));
+                    }
+                }
+            }
+
+            _fileManager.SaveImage(paperA.ToArray(), name+"a");
+            _fileManager.SaveImage(paperB.ToArray(), name + "b");
+
+            var pprA = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name+"a"), IsPaperB = false };
+            var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name + "b"), IsPaperB = false };
+            results.Add(pprA);
+            results.Add(pprB);
 
             return results;
         }
@@ -154,7 +213,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 // For A3 paper with AB type
                 results = ProcessPaperA3WithAB(name, images, paperCategory);
             }
-
 
             // Needs refactor
             //_fileManager.SaveImage(bmps.ToArray(), name);
