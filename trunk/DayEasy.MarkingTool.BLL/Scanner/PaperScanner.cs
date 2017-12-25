@@ -175,12 +175,15 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             }
 
             _fileManager.SaveImage(paperA.ToArray(), name.AppendFileName("a"));
-            _fileManager.SaveImage(paperB.ToArray(), name.AppendFileName("b"));
-
             var pprA = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("a")), IsPaperB = false };
-            var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("b")), IsPaperB = true };
             results.Add(pprA);
-            results.Add(pprB);
+
+            if (paperB.Count > 0 )
+            {
+                _fileManager.SaveImage(paperB.ToArray(), name.AppendFileName("b"));
+                var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("b")), IsPaperB = true };
+                results.Add(pprB);
+            }
 
             return results;
         }
