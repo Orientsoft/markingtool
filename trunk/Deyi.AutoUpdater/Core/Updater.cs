@@ -42,7 +42,7 @@ namespace Deyi.AutoUpdater.Core
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch
                     { }
                 };
                 client.DownloadDataAsync(new Uri(url));
