@@ -592,8 +592,13 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 {
                     var arr = (object[])arg;
                     var index = (int)arr[1];
-                    var imagePath = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
-                    SingleProcess(imagePath, index);
+                    var results = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
+
+                    foreach( var r in results)
+                    {
+                        SingleProcess(r.ImagePath, index);
+                    }
+
                     TaskFinished();
                 }, new object[] { imgArr, ++currentIndex });
             }

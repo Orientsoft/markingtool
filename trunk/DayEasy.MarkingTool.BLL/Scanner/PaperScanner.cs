@@ -178,7 +178,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             _fileManager.SaveImage(paperB.ToArray(), name.AppendFileName("b"));
 
             var pprA = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("a")), IsPaperB = false };
-            var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("b")), IsPaperB = false };
+            var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("b")), IsPaperB = true };
             results.Add(pprA);
             results.Add(pprB);
 
@@ -189,10 +189,10 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// </summary>
         /// <param name="images"></param>
         /// <returns></returns>
-        public string PreProcess(List<string> images, byte paperCategory, byte paperType)
+        public List<PreProcessResult> PreProcess(List<string> images, byte paperCategory, byte paperType)
         {
             var name = Path.GetFileName(images.First());
-            List<PreProcessResult> results;
+            var results = new List<PreProcessResult>();
 
             if (paperCategory == (byte)PaperCategory.A4)
             {
@@ -214,7 +214,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 results = ProcessPaperA3WithAB(name, images, paperCategory);
             }
 
-            return _fileManager.GetImagePath(name);
+            return results;
         }
 
         private static Bitmap Resize(List<string> images, int paperCategory, int index)
