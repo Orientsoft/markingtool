@@ -594,47 +594,90 @@ namespace DayEasy.MarkingTool.UI.Scanner
                     var index = (int)arr[1];
                     var results = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
 
-                    foreach( var r in results)
+                    if(results.Count == 1)
                     {
-                        SingleProcess(r.ImagePath, index);
+                        // Call original A4 process logic
+                        SingleProcess(results[0].ImagePath, index);
+                    }
+                    else
+                    {
+                        // Call A3 process logic
+                        MultipleProcess(results, index);
                     }
 
                     TaskFinished();
                 }, new object[] { imgArr, ++currentIndex });
             }
-
         }
 
-        /// <summary> 任务完成 </summary>
-        private void TaskFinished()
+        /// <summary> Original A4 process logic</summary>
+        /// <param name="imagePath"></param>
+        /// <param name="index"></param>
+        private void MultipleProcess(List<PreProcessResult> results, int index)
         {
-            UiInvoke(() =>
+            var markedInfo = new PaperMarkedInfo();
+
+            foreach(var r in results)
             {
-                var size = (int)(LblForBar.Tag ?? 1);
-                var count = PBar.Maximum / size;
-                var current = (int)(LblForBar.DataContext ?? 0);
-                current++;
-                LblForBar.Content = current + "/" + count;
-                LblForBar.DataContext = current;
-                ShowMsg();
-                if (current < count)
-                    return;
-                _isSaved = false;
-                InitBar(0, Visibility.Hidden);
-                LblForBar.DataContext = 0;
-                EnabledButton(true);
-                if (_watcher != null)
+                var picture = new MPictureInfo { Id = null };
+
+                if (r.IsPaperB)
                 {
-                    _watcher.Stop();
-                    _logger.I(
-                        $"共扫描{count}张试卷，耗时{_watcher.ElapsedMilliseconds}ms,均耗{_watcher.ElapsedMilliseconds / (double)count}ms");
+                    // Set it as paper B type.
+                    _paperScanner.SectionType = 2;
                 }
-                _watcher = null;
-                _fileManager.Dispose();
-            });
+                else
+                {
+                    // Set it as paper A type.
+                    _paperScanner.SectionType = 1;
+                }
+
+                // Set image path
+                markedInfo.ImagePath = r.ImagePath;
+                _paperScanner.ScanPaper(r.ImagePath, markedInfo, picture);
+
+                if (markedInfo.StudentId > 0)
+                {
+                    if (_jointUsage != null && !string.IsNullOrWhiteSpace(picture.GroupId) &&
+                        !_jointUsage.ClassList.Contains(picture.GroupId))
+                    {
+                        //协同班级判断
+                        markedInfo.IsSuccess = false;
+                        markedInfo.Desc = "班级不在协同范围内";
+                    }
+                    else
+                    {
+                        var exist = _markedInfoList.Any(
+                            t =>
+                                t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
+                                t.SectionType == markedInfo.SectionType);
+                        if (exist)
+                        {
+                            markedInfo.IsSuccess = false;
+                            markedInfo.Desc = "学生重复";
+                        }
+                    }
+                }
+                else
+                {
+                    markedInfo.IsSuccess = false;
+                    markedInfo.Desc = markedInfo.StudentName;
+                    markedInfo.StudentName = "未识别";
+                    picture.GroupId = string.Empty;
+                }
+                picture.IsSingle = _isSingle;
+                picture.PageCount = _combineCount;
+                picture.Index = index;
+                markedInfo.Index = index;
+                _markingInfo.Pictures.Add(picture);
+                CheckSheet(markedInfo, picture.SheetAnwers);
+                ShowResult(markedInfo);
+                ChangeBar(10);
+                GC.Collect();
+            }  
         }
 
-        /// <summary> 单个扫描任务,支持多张 </summary>
+        /// <summary> Original A4 process logic</summary>
         /// <param name="imagePath"></param>
         /// <param name="index"></param>
         private void SingleProcess(string imagePath, int index)
@@ -680,6 +723,35 @@ namespace DayEasy.MarkingTool.UI.Scanner
             ShowResult(markedInfo);
             ChangeBar(10);
             GC.Collect();
+        }
+
+        /// <summary> 任务完成 </summary>
+        private void TaskFinished()
+        {
+            UiInvoke(() =>
+            {
+                var size = (int)(LblForBar.Tag ?? 1);
+                var count = PBar.Maximum / size;
+                var current = (int)(LblForBar.DataContext ?? 0);
+                current++;
+                LblForBar.Content = current + "/" + count;
+                LblForBar.DataContext = current;
+                ShowMsg();
+                if (current < count)
+                    return;
+                _isSaved = false;
+                InitBar(0, Visibility.Hidden);
+                LblForBar.DataContext = 0;
+                EnabledButton(true);
+                if (_watcher != null)
+                {
+                    _watcher.Stop();
+                    _logger.I(
+                        $"共扫描{count}张试卷，耗时{_watcher.ElapsedMilliseconds}ms,均耗{_watcher.ElapsedMilliseconds / (double)count}ms");
+                }
+                _watcher = null;
+                _fileManager.Dispose();
+            });
         }
 
         private void RescannerMission(params PaperMarkedInfo[] infos)

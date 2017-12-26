@@ -17,14 +17,17 @@ namespace DayEasy.MarkingTool.BLL.Recognition
         protected List<ObjectiveItem> Objectives { get; }
         protected string ImagePath;
 
+        protected bool IgnoreCode { get; set; }
+
         protected virtual int[] ThresholdDiffs => new[] { 10, -10, 20, -20 };
 
-        protected DRecognition(string imagePath, List<ObjectiveItem> objectives)
+        protected DRecognition(string imagePath, List<ObjectiveItem> objectives, bool ignoreCode)
         {
             ImagePath = imagePath;
             if (File.Exists(ImagePath))
                 SourceBmp = (Bitmap)Image.FromFile(imagePath);
             Objectives = objectives;
+            IgnoreCode = ignoreCode;
         }
 
         /// <summary> 压缩 </summary>

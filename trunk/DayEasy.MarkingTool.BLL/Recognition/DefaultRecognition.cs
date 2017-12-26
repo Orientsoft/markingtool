@@ -5,8 +5,8 @@ namespace DayEasy.MarkingTool.BLL.Recognition
 {
     public class DefaultRecognition : DRecognition
     {
-        public DefaultRecognition(string imagePath, List<ObjectiveItem> objectives)
-            : base(imagePath, objectives)
+        public DefaultRecognition(string imagePath, List<ObjectiveItem> objectives, bool ignoreCode)
+            : base(imagePath, objectives, ignoreCode)
         {
         }
     }

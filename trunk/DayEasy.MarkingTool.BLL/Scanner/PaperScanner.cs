@@ -18,7 +18,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         /// <summary> 试卷信息 </summary>
         private readonly MPaperDto _paper;
         /// <summary> 试卷类型 </summary>
-        private readonly byte _sectionType;
+        private byte _sectionType;
         ///// <summary> 答题卡行数 </summary>
         //private int _rowCount;
         /// <summary> 答题卡每题选项数 </summary>
@@ -34,6 +34,11 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             _sectionType = sectionType;
             _fileManager = fileManager;
             LoadObjectives();
+        }
+
+        public byte SectionType {
+            get { return _sectionType; }
+            set { _sectionType = value; }
         }
 
         /// <summary>
@@ -280,29 +285,54 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 picture.Id = markedInfo.MarkedId;
                 picture.SectionType = _sectionType;
             }
-            //var sb = new StringBuilder();
-            //Action<string> logAction = msg => { sb.AppendLine(msg); };
+
             try
             {
-                using (var scanner = new DefaultRecognition(imagePath, _sheets))
+                if (string.IsNullOrEmpty(markedInfo.StudentCode))
                 {
-                    var result = scanner.Start();
-                    markedInfo.IsSuccess = true;
-                    markedInfo.StudentId = result.Student.Id;
-                    markedInfo.StudentName = result.Student.Name;
-                    markedInfo.StudentCode = result.Student.Code;
-
-                    picture.StudentId = result.Student.Id;
-                    picture.StudentName = result.Student.Name;
-                    picture.GroupId = result.Student.ClassId;
-
-                    picture.SheetAnwers = result.Sheets;
-                    markedInfo.Ratios = picture.SheetAnwers.ToWord();
-                    if (isNew)
+                    using (var scanner = new DefaultRecognition(imagePath, _sheets, false))
                     {
-                        markedInfo.ImagePath = imagePath;
+                        var result = scanner.Start();
+                        markedInfo.IsSuccess = true;
+                        markedInfo.StudentId = result.Student.Id;
+                        markedInfo.StudentName = result.Student.Name;
+                        markedInfo.StudentCode = result.Student.Code;
+
+                        picture.StudentId = result.Student.Id;
+                        picture.StudentName = result.Student.Name;
+                        picture.GroupId = result.Student.ClassId;
+
+                        picture.SheetAnwers = result.Sheets;
+                        markedInfo.Ratios = picture.SheetAnwers.ToWord();
+                        if (isNew)
+                        {
+                            markedInfo.ImagePath = imagePath;
+                        }
                     }
                 }
+                else
+                {
+                    using (var scanner = new DefaultRecognition(imagePath, _sheets, true))
+                    {
+                        var result = scanner.Start();
+                        markedInfo.IsSuccess = true;
+                        markedInfo.StudentId = result.Student.Id;
+                        markedInfo.StudentName = result.Student.Name;
+                        markedInfo.StudentCode = result.Student.Code;
+
+                        picture.StudentId = result.Student.Id;
+                        picture.StudentName = result.Student.Name;
+                        picture.GroupId = result.Student.ClassId;
+
+                        picture.SheetAnwers = result.Sheets;
+                        markedInfo.Ratios = picture.SheetAnwers.ToWord();
+                        if (isNew)
+                        {
+                            markedInfo.ImagePath = imagePath;
+                        }
+                    }
+                }
+              
             }
             catch (Exception ex)
             {

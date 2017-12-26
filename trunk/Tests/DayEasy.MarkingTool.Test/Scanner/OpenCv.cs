@@ -10,7 +10,7 @@ namespace DayEasy.MarkingTool.Test.Scanner
     public class OpenCv : DRecognition
     {
         private Mat _sourceMat;
-        public OpenCv(string imagePath, List<ObjectiveItem> objectives) : base(imagePath, objectives)
+        public OpenCv(string imagePath, List<ObjectiveItem> objectives) : base(imagePath, objectives, false)
         {
             _sourceMat = Cv2.ImRead(imagePath);
         }

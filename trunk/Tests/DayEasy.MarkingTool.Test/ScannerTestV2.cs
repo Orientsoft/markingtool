@@ -41,7 +41,7 @@ namespace DayEasy.MarkingTool.Test
                     var sb = new StringBuilder();
                     sb.AppendLine(index.ToString());
                     Action<string> logAction = msg => { sb.AppendLine(msg); };
-                    using (var scanner = new BLL.Recognition.DefaultRecognition(list[0], objectives))
+                    using (var scanner = new BLL.Recognition.DefaultRecognition(list[0], objectives, false))
                     {
                         var result = scanner.Start(logAction);
                         logAction(result.ToJson());
