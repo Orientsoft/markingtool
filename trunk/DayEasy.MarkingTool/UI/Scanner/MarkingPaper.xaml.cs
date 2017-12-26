@@ -1256,5 +1256,18 @@ namespace DayEasy.MarkingTool.UI.Scanner
             ExcelHelper.Export(new DataSet { Tables = { detailTable, statisticTable } }, null, dialog.FileName);
             WindowsHelper.ShowMsg("导出成功！");
         }
+
+        private void PaperCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if ((sender as System.Windows.Controls.ComboBox).SelectedIndex == 1)
+            {
+                SectionType.IsEnabled = false;
+                SectionType.Text = "AB";
+            }
+            else if ((sender as System.Windows.Controls.ComboBox).SelectedIndex == 2)
+            {
+                SectionType.IsEnabled = true;
+            }
+        }
     }
 }
