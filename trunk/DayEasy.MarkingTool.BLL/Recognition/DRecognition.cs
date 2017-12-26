@@ -45,12 +45,12 @@ namespace DayEasy.MarkingTool.BLL.Recognition
         }
 
         /// <summary> 找线 </summary>
-        protected virtual void FindLines()
+        protected virtual void FindLines(int skip = 100)
         {
             using (var finder = new LineFinder(SourceBmp))
             {
                 var width = (int)Math.Ceiling(SourceBmp.Width * DeyiKeys.ScannerConfig.BlackScale);
-                Lines = finder.Find(width, DeyiKeys.ScannerConfig.LineHeight, 2, 100);
+                Lines = finder.Find(width, DeyiKeys.ScannerConfig.LineHeight, 2, skip);
             }
         }
 
@@ -153,7 +153,7 @@ namespace DayEasy.MarkingTool.BLL.Recognition
                 return result;
             WatchAction($"{ImagePath},总共", () =>
             {
-                //WatchAction("压缩试卷", Resize, logAction);
+                WatchAction("压缩试卷", Resize, logAction);
                 //WatchAction("二值化", () =>
                 //{
                 //    Binary();
@@ -161,8 +161,24 @@ namespace DayEasy.MarkingTool.BLL.Recognition
                 //}, logAction);
                 WatchAction("查找横线", () =>
                 {
-                    FindLines();
+                    if (!IgnoreCode)
+                    {
+                        FindLines();
+                    }
+                    else
+                    {
+                        FindLines(5);
+                    }
+                    
                     logAction?.Invoke(Lines.ToJson());
+
+                    //foreach(var line in Lines)
+                    //{
+                    //    Graphics g = Graphics.FromImage(SourceBmp);
+                    //    g.DrawLine(new Pen(Color.Red, 2.0f), line.StartX, line.StartY, line.StartX - line.BlackCount, line.StartY);
+                    //    SourceBmp.Save("d:\\line.png");
+                    //}
+
                 }, logAction);
                 //WatchAction("纠偏", Rotate, logAction);
                 WatchAction("得一号", () =>

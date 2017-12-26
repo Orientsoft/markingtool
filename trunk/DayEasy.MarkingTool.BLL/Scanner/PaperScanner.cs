@@ -314,6 +314,8 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 else
                 {
                     // For A3 with paperB, ignore student code scanning.
+                    _sheets.Clear();
+                    LoadObjectives();
                     using (var scanner = new DefaultRecognition(imagePath, _sheets, true))
                     {
                         var result = scanner.Start();

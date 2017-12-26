@@ -615,65 +615,69 @@ namespace DayEasy.MarkingTool.UI.Scanner
         /// <param name="index"></param>
         private void MultipleProcess(List<PreProcessResult> results, int index)
         {
-            var markedInfo = new PaperMarkedInfo();
-            var picture = new MPictureInfo { Id = null };
+            // Scan paper A
+            var markedInfoA = new PaperMarkedInfo();
+            var pictureA = new MPictureInfo { Id = null };
+            _paperScanner.SectionType = 1;
+            markedInfoA.ImagePath = results[0].ImagePath;
 
-            foreach (var r in results)
+            _paperScanner.ScanPaper(results[0].ImagePath, markedInfoA, pictureA);
+            HandleResult(index, markedInfoA, pictureA);
+
+            // Scan paper B
+            var markedInfoB = ObjectCopier.Clone(markedInfoA);
+            var pictureB = new MPictureInfo { Id = null, GroupId = pictureA.GroupId };
+            _paperScanner.SectionType = 2;
+            _paperScanner.ScanPaper(results[1].ImagePath, markedInfoB, pictureB);
+
+            markedInfoB.StudentId = markedInfoA.StudentId;
+            markedInfoB.StudentName = markedInfoA.StudentName;
+            markedInfoB.StudentCode = markedInfoA.StudentCode;
+            markedInfoB.ImagePath = results[1].ImagePath;
+
+            HandleResult(index, markedInfoB, pictureB);
+        }
+
+        private void HandleResult(int index, PaperMarkedInfo markedInfo, MPictureInfo picture)
+        {
+            if (markedInfo.StudentId > 0)
             {
-                if (r.IsPaperB)
+                if (_jointUsage != null && !string.IsNullOrWhiteSpace(picture.GroupId) &&
+                    !_jointUsage.ClassList.Contains(picture.GroupId))
                 {
-                    // Set it as paper B type.
-                    _paperScanner.SectionType = 2;
-                }
-                else
-                {
-                    // Set it as paper A type.
-                    _paperScanner.SectionType = 1;
-                }
-
-                // Set image path
-                markedInfo.ImagePath = r.ImagePath;
-                _paperScanner.ScanPaper(r.ImagePath, markedInfo, picture);
-
-                if (markedInfo.StudentId > 0)
-                {
-                    if (_jointUsage != null && !string.IsNullOrWhiteSpace(picture.GroupId) &&
-                        !_jointUsage.ClassList.Contains(picture.GroupId))
-                    {
-                        //协同班级判断
-                        markedInfo.IsSuccess = false;
-                        markedInfo.Desc = "班级不在协同范围内";
-                    }
-                    else
-                    {
-                        var exist = _markedInfoList.Any(
-                            t =>
-                                t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
-                                t.SectionType == markedInfo.SectionType);
-                        if (exist)
-                        {
-                            markedInfo.IsSuccess = false;
-                            markedInfo.Desc = "学生重复";
-                        }
-                    }
-                }
-                else
-                {
+                    //协同班级判断
                     markedInfo.IsSuccess = false;
-                    markedInfo.Desc = markedInfo.StudentName;
-                    markedInfo.StudentName = "未识别";
-                    picture.GroupId = string.Empty;
+                    markedInfo.Desc = "班级不在协同范围内";
                 }
-                picture.IsSingle = _isSingle;
-                picture.PageCount = _combineCount;
-                picture.Index = index;
-                markedInfo.Index = index;
-                _markingInfo.Pictures.Add(picture);
-                CheckSheet(markedInfo, picture.SheetAnwers);
-                ShowResult(markedInfo);
-                ChangeBar(10);
-                GC.Collect();
-            }  
+                else
+                {
+                    var exist = _markedInfoList.Any(
+                        t =>
+                            t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
+                            t.SectionType == markedInfo.SectionType);
+                    if (exist)
+                    {
+                        markedInfo.IsSuccess = false;
+                        markedInfo.Desc = "学生重复";
+                    }
+                }
+            }
+            else
+            {
+                markedInfo.IsSuccess = false;
+                markedInfo.Desc = markedInfo.StudentName;
+                markedInfo.StudentName = "未识别";
+                picture.GroupId = string.Empty;
+            }
+            picture.IsSingle = _isSingle;
+            picture.PageCount = _combineCount;
+            picture.Index = index;
+            markedInfo.Index = index;
+            _markingInfo.Pictures.Add(picture);
+            CheckSheet(markedInfo, picture.SheetAnwers);
+            ShowResult(markedInfo);
+            ChangeBar(10);
+            GC.Collect();
         }
 
         /// <summary> Original A4 process logic</summary>

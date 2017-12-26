@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ImageUtils.cs" />
+    <Compile Include="Common\ObjectCopier.cs" />
     <Compile Include="Common\PointsFinder.cs" />
     <Compile Include="Entity\ObjectiveItem.cs" />
     <Compile Include="Entity\ResizeResult.cs" />

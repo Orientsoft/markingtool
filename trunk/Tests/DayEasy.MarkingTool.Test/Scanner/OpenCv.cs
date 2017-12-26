@@ -27,7 +27,7 @@ namespace DayEasy.MarkingTool.Test.Scanner
             _sourceMat = _sourceMat.Threshold(170, 255, ThresholdTypes.Binary);
         }
 
-        protected override void FindLines()
+        protected override void FindLines(int skip = 0)
         {
 
         }

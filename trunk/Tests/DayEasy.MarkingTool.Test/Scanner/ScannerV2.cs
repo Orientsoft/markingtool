@@ -13,7 +13,7 @@ namespace DayEasy.MarkingTool.Test.Scanner
 
         }
 
-        protected override void FindLines()
+        protected override void FindLines(int skip = 0)
         {
             var imageData = SourceBmp.ToBinaryArray();
             var width = imageData.GetLength(1);
