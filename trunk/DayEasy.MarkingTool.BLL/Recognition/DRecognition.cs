@@ -153,7 +153,7 @@ namespace DayEasy.MarkingTool.BLL.Recognition
                 return result;
             WatchAction($"{ImagePath},总共", () =>
             {
-                WatchAction("压缩试卷", Resize, logAction);
+                //WatchAction("压缩试卷", Resize, logAction);
                 //WatchAction("二值化", () =>
                 //{
                 //    Binary();
@@ -167,15 +167,18 @@ namespace DayEasy.MarkingTool.BLL.Recognition
                 //WatchAction("纠偏", Rotate, logAction);
                 WatchAction("得一号", () =>
                 {
-                    var codeResult = Dcode();
-                    result.Student = new StudentInfo
+                    if(!IgnoreCode)
                     {
-                        Code = codeResult.Data
-                    };
-                    if (codeResult.Status)
-                        return;
-                    result.Status = false;
-                    result.Student.Name = codeResult.Message;
+                        var codeResult = Dcode();
+                        result.Student = new StudentInfo
+                        {
+                            Code = codeResult.Data
+                        };
+                        if (codeResult.Status)
+                            return;
+                        result.Status = false;
+                        result.Student.Name = codeResult.Message;
+                    }
                 }, logAction);
                 WatchAction("答题卡", () =>
                 {
@@ -188,7 +191,10 @@ namespace DayEasy.MarkingTool.BLL.Recognition
             }, logAction);
             WatchAction("学生信息", () =>
             {
-                LoadStudent(result);
+                if (!IgnoreCode)
+                {
+                    LoadStudent(result);
+                }
             }, logAction);
             return result;
         }

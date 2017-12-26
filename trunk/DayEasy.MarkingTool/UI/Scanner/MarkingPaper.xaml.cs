@@ -616,11 +616,10 @@ namespace DayEasy.MarkingTool.UI.Scanner
         private void MultipleProcess(List<PreProcessResult> results, int index)
         {
             var markedInfo = new PaperMarkedInfo();
+            var picture = new MPictureInfo { Id = null };
 
-            foreach(var r in results)
+            foreach (var r in results)
             {
-                var picture = new MPictureInfo { Id = null };
-
                 if (r.IsPaperB)
                 {
                     // Set it as paper B type.

@@ -304,6 +304,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                         picture.SheetAnwers = result.Sheets;
                         markedInfo.Ratios = picture.SheetAnwers.ToWord();
+
                         if (isNew)
                         {
                             markedInfo.ImagePath = imagePath;
@@ -312,20 +313,22 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 }
                 else
                 {
+                    // For A3 with paperB, ignore student code scanning.
                     using (var scanner = new DefaultRecognition(imagePath, _sheets, true))
                     {
                         var result = scanner.Start();
                         markedInfo.IsSuccess = true;
-                        markedInfo.StudentId = result.Student.Id;
-                        markedInfo.StudentName = result.Student.Name;
-                        markedInfo.StudentCode = result.Student.Code;
+                        //markedInfo.StudentId = result.Student.Id;
+                        //markedInfo.StudentName = result.Student.Name;
+                        //markedInfo.StudentCode = result.Student.Code;
 
-                        picture.StudentId = result.Student.Id;
-                        picture.StudentName = result.Student.Name;
-                        picture.GroupId = result.Student.ClassId;
+                        picture.StudentId = markedInfo.StudentId;
+                        picture.StudentName = markedInfo.StudentName;
+                        //picture.GroupId = result.Student.ClassId;
 
                         picture.SheetAnwers = result.Sheets;
                         markedInfo.Ratios = picture.SheetAnwers.ToWord();
+
                         if (isNew)
                         {
                             markedInfo.ImagePath = imagePath;
