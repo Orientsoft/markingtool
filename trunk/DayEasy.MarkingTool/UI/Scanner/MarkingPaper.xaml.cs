@@ -594,6 +594,17 @@ namespace DayEasy.MarkingTool.UI.Scanner
                     var index = (int)arr[1];
                     var results = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
 
+                    if(results.Count == 0)
+                    {
+                        var markedInfo = new PaperMarkedInfo();
+                        markedInfo.IsSuccess = false;
+                        markedInfo.Desc = "试卷未包含B卷内容";
+                        markedInfo.Index = index;
+                        ShowResult(markedInfo);
+                        TaskFinished();
+                        return;
+                    }
+
                     if(results.Count == 1)
                     {
                         // Call original A4 process logic
