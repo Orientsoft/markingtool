@@ -28,6 +28,13 @@ namespace DayEasy.MarkingTool.BLL.Common
         public PointsResult ParseResult(List<Rectangle> recList)
         {
             var pr = new PointsResult();
+
+            if(recList.Count < 4)
+            {
+                pr.PointsCount = 0;
+                return pr;
+            }
+
             var maxX = recList.Max(r => r.X);
             var minX = recList.Min(r => r.X);
 

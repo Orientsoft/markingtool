@@ -122,6 +122,11 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 // Split image into 2 pieces, detect it is paperA or paperB, then merge them.
                 var pr = FindLocatingPoints(bmp);
 
+                if(pr.PointsCount == 0)
+                {
+                    return results;
+                }
+
                 if(images.Count == 1 && pr.PointsCount == 4)
                 {
                     // Should have 5 points.
