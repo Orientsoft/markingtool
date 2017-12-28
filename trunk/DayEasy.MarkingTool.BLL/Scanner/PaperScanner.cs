@@ -150,7 +150,10 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, 0, leftSide.Width, pr.PaperBPoint.Y, 0, 0, false);
-                        var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, pr.PaperBPoint.Y, leftSide.Width, leftSide.Height, 0, 0, false);
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide, 
+                            0, pr.PaperBPoint.Y, 
+                            leftSide.Width, leftSide.Height - topSide.Height,
+                            leftSide.Width, leftSide.Height - topSide.Height, false);
 
                         paperA.Add(topSide);
                         // Set paperA as finished status.
@@ -169,7 +172,10 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, 0, rightSide.Width, pr.PaperBPoint.Y, 0, 0, false);
-                        var bottomSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, pr.PaperBPoint.Y, rightSide.Width, rightSide.Height, 0, 0, false);
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(rightSide, 
+                            0, pr.PaperBPoint.Y, 
+                            rightSide.Width, rightSide.Height - topSide.Height, 
+                            rightSide.Width, rightSide.Height - topSide.Height, false);
 
                         paperA.Add(leftSide);
                         paperA.Add(topSide);
