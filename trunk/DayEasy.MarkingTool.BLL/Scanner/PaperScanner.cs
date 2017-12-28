@@ -147,7 +147,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                         var leftSide = ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false);
                         var rightSide = (Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false);
 
-
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, 0, leftSide.Width, pr.PaperBPoint.Y, 0, 0, false);
                         var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide, 
@@ -168,7 +167,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                         // 1. Split paper into left & right parts.
                         var leftSide = (Bitmap)ImageHelper.MakeImage(bmp, 0, 0, centerX, bmp.Height, 0, 0, false);
                         var rightSide = ImageHelper.MakeImage(bmp, centerX, 0, centerX, bmp.Height, 0, 0, false);
-
 
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, 0, rightSide.Width, pr.PaperBPoint.Y, 0, 0, false);
