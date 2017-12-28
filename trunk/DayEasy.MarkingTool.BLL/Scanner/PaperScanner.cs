@@ -295,8 +295,9 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
             try
             {
-                if (string.IsNullOrEmpty(markedInfo.StudentCode))
+                if (_sectionType == (byte)1)
                 {
+                    LoadObjectives();
                     using (var scanner = new DefaultRecognition(imagePath, _sheets, false))
                     {
                         var result = scanner.Start();
