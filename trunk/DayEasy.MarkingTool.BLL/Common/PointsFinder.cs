@@ -31,13 +31,24 @@ namespace DayEasy.MarkingTool.BLL.Common
             pr.RectList = recList;
             pr.PointsCount = recList.Count;
 
-            if(recList.Count == 5)
+            var maxY = recList.Max(r => r.Y);
+            var minY = recList.Min(r => r.Y);
+            var maxX = recList.Max(r => r.X);
+            var minX = recList.Min(r => r.X);
+
+            // Remove the wrong points
+            for (int i = recList.Count - 1; i >= 0; i--)
+            {
+                if(Math.Abs(recList[i].X - minX) > 15 && Math.Abs(recList[i].X - maxX) > 15 && recList[i].X < maxX)
+                {
+                    recList.RemoveAt(i);
+                } 
+            }
+
+            if (recList.Count == 5)
             {
                 // It is paper B
                 pr.HasPaperBPoint = true;
-
-                var maxY = recList.Max(r => r.Y);
-                var minY = recList.Min(r => r.Y);
 
                 // Find the start point of paper B
                 pr.PaperBPoint = recList.Where(
@@ -46,13 +57,12 @@ namespace DayEasy.MarkingTool.BLL.Common
                     && Math.Abs(r.Y - minY) > 10
                     && Math.Abs(r.Y - maxY) > 10).FirstOrDefault();
 
-                pr.HorizonPoints = recList.Where(r => r.Y - minY < 20).OrderBy(r => r.X).ToList<Rectangle>();
+                pr.HorizonPoints = recList.OrderBy(r => r.Y).Take(2).ToList<Rectangle>();
             }
             else
             {
                 pr.HasPaperBPoint = false;
-                var minY = recList.Min(r => r.Y);
-                pr.HorizonPoints = recList.Where(r => r.Y - minY < 20).OrderBy(r => r.X).ToList<Rectangle>();
+                pr.HorizonPoints = recList.OrderBy(r => r.Y).Take(2).ToList<Rectangle>();
             }
 
             return pr;

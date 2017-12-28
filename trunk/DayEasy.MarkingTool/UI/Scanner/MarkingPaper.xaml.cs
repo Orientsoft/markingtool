@@ -698,6 +698,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
         {
             var markedInfo = new PaperMarkedInfo(imagePath);
             var picture = new MPictureInfo { Id = null };
+            _paperScanner.SectionType = 1;
             _paperScanner.ScanPaper(imagePath, markedInfo, picture);
             if (markedInfo.StudentId > 0)
             {
