@@ -636,7 +636,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             HandleResult(index, markedInfoA, pictureA);
 
             // Scan paper B
-            var markedInfoB = ObjectCopier.Clone(markedInfoA);
+            var markedInfoB = new PaperMarkedInfo(results[1].ImagePath);
             var pictureB = new MPictureInfo { Id = null, GroupId = pictureA.GroupId };
             _paperScanner.SectionType = 2;
             _paperScanner.ScanPaper(results[1].ImagePath, markedInfoB, pictureB);

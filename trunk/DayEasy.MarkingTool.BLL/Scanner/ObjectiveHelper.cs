@@ -22,12 +22,12 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         {
             if (paper == null || string.IsNullOrWhiteSpace(paper.Id))
                 return null;
-            type = (byte)(type == 0 ? 1 : type);
-            var key = string.Concat(paper.Id, "_", type);
-            if (ObjectiveCache.ContainsKey(key))
-            {
-                return ObjectiveCache[key];
-            }
+            //type = (byte)(type == 0 ? 1 : type);
+            //var key = string.Concat(paper.Id, "_", type);
+            //if (ObjectiveCache.ContainsKey(key))
+            //{
+            //    return ObjectiveCache[key];
+            //}
             var sheets = new List<ObjectiveItem>();
 
 #if sheets
@@ -74,7 +74,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 }
             }
 #endif
-            ObjectiveCache.TryAdd(key, sheets);
+            //ObjectiveCache.TryAdd(key, sheets);
             return sheets;
         }
 

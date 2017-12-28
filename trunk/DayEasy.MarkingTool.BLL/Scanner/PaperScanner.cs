@@ -345,7 +345,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                         }
                     }
                 }
-              
             }
             catch (Exception ex)
             {
