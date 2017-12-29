@@ -337,9 +337,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                         var result = scanner.Start();
                         markedInfo.IsSuccess = true;
 
-                        picture.StudentId = markedInfo.StudentId;
-                        picture.StudentName = markedInfo.StudentName;
-
                         picture.SheetAnwers = result.Sheets;
                         markedInfo.Ratios = picture.SheetAnwers.ToWord();
 

@@ -646,6 +646,10 @@ namespace DayEasy.MarkingTool.UI.Scanner
             markedInfoB.StudentCode = markedInfoA.StudentCode;
             markedInfoB.ImagePath = results[1].ImagePath;
 
+            // Copy student ID, name from picture A
+            pictureB.StudentId = pictureA.StudentId;
+            pictureB.StudentName = pictureA.StudentName;
+
             HandleResult(index, markedInfoB, pictureB);
         }
 
