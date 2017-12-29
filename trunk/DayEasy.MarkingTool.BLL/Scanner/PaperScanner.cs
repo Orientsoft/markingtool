@@ -304,7 +304,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
             try
             {
-                if (_sectionType == (byte)1)
+                if (_sectionType < (byte)2)
                 {
                     var sheets = LoadObjectives();
                     using (var scanner = new DefaultRecognition(imagePath, sheets, false))

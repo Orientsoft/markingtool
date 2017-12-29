@@ -621,7 +621,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             }
         }
 
-        /// <summary> Original A4 process logic</summary>
+        /// <summary> A3 paper process logic</summary>
         /// <param name="imagePath"></param>
         /// <param name="index"></param>
         private void MultipleProcess(List<PreProcessResult> results, int index)
@@ -698,7 +698,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
         {
             var markedInfo = new PaperMarkedInfo(imagePath);
             var picture = new MPictureInfo { Id = null };
-            _paperScanner.SectionType = 1;
+
             _paperScanner.ScanPaper(imagePath, markedInfo, picture);
             if (markedInfo.StudentId > 0)
             {

@@ -22,7 +22,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         {
             if (paper == null || string.IsNullOrWhiteSpace(paper.Id))
                 return null;
-            //type = (byte)(type == 0 ? 1 : type);
+            type = (byte)(type == 0 ? 1 : type);
             //var key = string.Concat(paper.Id, "_", type);
             //if (ObjectiveCache.ContainsKey(key))
             //{
