@@ -598,7 +598,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
                     {
                         var markedInfo = new PaperMarkedInfo();
                         markedInfo.IsSuccess = false;
-                        markedInfo.Desc = "试卷未包含B卷内容";
+                        markedInfo.Desc = "定位点识别异常";
                         markedInfo.Index = index;
                         ShowResult(markedInfo);
                         TaskFinished();
