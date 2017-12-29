@@ -22,7 +22,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
         ///// <summary> 答题卡行数 </summary>
         //private int _rowCount;
         /// <summary> 答题卡每题选项数 </summary>
-        private List<ObjectiveItem> _sheets;
+        //private List<ObjectiveItem> _sheets;
         /// <summary> 文件管理 </summary>
         private readonly FileManager _fileManager;
 
@@ -306,8 +306,8 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             {
                 if (_sectionType == (byte)1)
                 {
-                    LoadObjectives();
-                    using (var scanner = new DefaultRecognition(imagePath, _sheets, false))
+                    var sheets = LoadObjectives();
+                    using (var scanner = new DefaultRecognition(imagePath, sheets, false))
                     {
                         var result = scanner.Start();
                         markedInfo.IsSuccess = true;
@@ -331,9 +331,8 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 else
                 {
                     // For A3 with paperB, ignore student code scanning.
-                    _sheets.Clear();
-                    LoadObjectives();
-                    using (var scanner = new DefaultRecognition(imagePath, _sheets, true))
+                    var sheets = LoadObjectives();
+                    using (var scanner = new DefaultRecognition(imagePath, sheets, true))
                     {
                         var result = scanner.Start();
                         markedInfo.IsSuccess = true;
@@ -363,12 +362,16 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             }
         }
 
-        private void LoadObjectives()
+        private List<ObjectiveItem> LoadObjectives()
         {
-            _sheets = new List<ObjectiveItem>();
+            var sheets = new List<ObjectiveItem>();
             if (_paper == null || _sectionType > 2)
-                return;
-            _sheets = ObjectiveHelper.GetObjectives(_paper, _sectionType);
+            {
+                return sheets;
+            }
+
+            sheets = ObjectiveHelper.GetObjectives(_paper, _sectionType);
+            return sheets;
         }
     }
 }
