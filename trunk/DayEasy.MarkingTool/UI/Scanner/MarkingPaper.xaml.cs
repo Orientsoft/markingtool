@@ -527,6 +527,17 @@ namespace DayEasy.MarkingTool.UI.Scanner
                     }
                     _combineCount = Helper.ToInt((((ComboBoxItem)ComboPage.SelectedItem).DataContext), 1);
                     var sectionType = 0;
+
+                    // For A4 paper, must select paper type.
+                    if (PaperCategory.SelectedIndex == 2 || PaperCategory.SelectedIndex == -1)
+                    {
+                        if (_paperInfo.PaperType == (byte)PaperType.PaperAb && SectionType.SelectedIndex == -1)
+                        {
+                            WindowsHelper.ShowError("请选择试卷类型！");
+                            return;
+                        }
+                    }
+
                     if (_paperInfo.PaperType == (byte)PaperType.PaperAb)
                     {
                         if (!SectionType.IsVisible)
