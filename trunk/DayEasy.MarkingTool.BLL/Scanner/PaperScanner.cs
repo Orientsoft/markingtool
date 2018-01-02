@@ -285,7 +285,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             return bmp;
         }
 
-        public void ScanPaper(string imagePath, PaperMarkedInfo markedInfo, MPictureInfo picture)
+        public void ScanPaper(string imagePath, PaperMarkedInfo markedInfo, MPictureInfo picture, byte paperCategory)
         {
             if (string.IsNullOrWhiteSpace(imagePath) || picture == null)
                 return;
@@ -304,7 +304,25 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
             try
             {
-                if (_sectionType < (byte)2)
+                if (_sectionType == (byte)2 && paperCategory == (byte)PaperCategory.A3)
+                {
+                    // For A3 with paperB, ignore student code scanning.
+                    var sheets = LoadObjectives();
+                    using (var scanner = new DefaultRecognition(imagePath, sheets, true))
+                    {
+                        var result = scanner.Start();
+                        markedInfo.IsSuccess = true;
+
+                        picture.SheetAnwers = result.Sheets;
+                        markedInfo.Ratios = picture.SheetAnwers.ToWord();
+
+                        if (isNew)
+                        {
+                            markedInfo.ImagePath = imagePath;
+                        }
+                    }
+                }
+                else
                 {
                     var sheets = LoadObjectives();
                     using (var scanner = new DefaultRecognition(imagePath, sheets, false))
@@ -318,24 +336,6 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                         picture.StudentId = result.Student.Id;
                         picture.StudentName = result.Student.Name;
                         picture.GroupId = result.Student.ClassId;
-
-                        picture.SheetAnwers = result.Sheets;
-                        markedInfo.Ratios = picture.SheetAnwers.ToWord();
-
-                        if (isNew)
-                        {
-                            markedInfo.ImagePath = imagePath;
-                        }
-                    }
-                }
-                else
-                {
-                    // For A3 with paperB, ignore student code scanning.
-                    var sheets = LoadObjectives();
-                    using (var scanner = new DefaultRecognition(imagePath, sheets, true))
-                    {
-                        var result = scanner.Start();
-                        markedInfo.IsSuccess = true;
 
                         picture.SheetAnwers = result.Sheets;
                         markedInfo.Ratios = picture.SheetAnwers.ToWord();

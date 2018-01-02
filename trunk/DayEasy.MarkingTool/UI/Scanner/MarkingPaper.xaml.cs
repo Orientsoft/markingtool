@@ -643,14 +643,14 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _paperScanner.SectionType = 1;
             markedInfoA.ImagePath = results[0].ImagePath;
 
-            _paperScanner.ScanPaper(results[0].ImagePath, markedInfoA, pictureA);
+            _paperScanner.ScanPaper(results[0].ImagePath, markedInfoA, pictureA, _paperCategory);
             HandleResult(index, markedInfoA, pictureA);
 
             // Scan paper B
             var markedInfoB = new PaperMarkedInfo(results[1].ImagePath);
             var pictureB = new MPictureInfo { Id = null, GroupId = pictureA.GroupId };
             _paperScanner.SectionType = 2;
-            _paperScanner.ScanPaper(results[1].ImagePath, markedInfoB, pictureB);
+            _paperScanner.ScanPaper(results[1].ImagePath, markedInfoB, pictureB, _paperCategory);
 
             markedInfoB.StudentId = markedInfoA.StudentId;
             markedInfoB.StudentName = markedInfoA.StudentName;
@@ -714,7 +714,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             var markedInfo = new PaperMarkedInfo(imagePath);
             var picture = new MPictureInfo { Id = null };
 
-            _paperScanner.ScanPaper(imagePath, markedInfo, picture);
+            _paperScanner.ScanPaper(imagePath, markedInfo, picture, _paperCategory);
             if (markedInfo.StudentId > 0)
             {
                 if (_jointUsage != null && !string.IsNullOrWhiteSpace(picture.GroupId) &&
@@ -807,7 +807,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _combineCount = markedInfo.PageCount;
             var sectionType = picture.SectionType;
             var scanner = new PaperScanner(_paperInfo, _fileManager, sectionType);
-            scanner.ScanPaper(markedInfo.ImagePath, markedInfo, picture);
+            scanner.ScanPaper(markedInfo.ImagePath, markedInfo, picture, _paperCategory);
             if (markedInfo.StudentId > 0)
             {
                 var exist = _markedInfoList.Any(
