@@ -2,11 +2,11 @@
 ; 有关创建 Inno Setup 脚本文件的详细资料请查阅帮助文档！
 
 #define MyAppName "得一扫描工具"
-#define MyAppVersion "0.6.30"
+#define MyAppVersion "0.6.31"
 #define MyAppPublisher "四川得一科技有限公司"
 #define MyAppURL "http://www.dayeasy.net"
 #define MyAppExeName "DayEasy.MarkingTool.exe"
-#define MyFolder "d:\works\得一科技\dayeasy.markingtool\package-tool"
+#define MyFolder "D:\works\markingtool\trunk\package-tool"
 
 [Setup]
 ; 注: AppId的值为单独标识该应用程序。
@@ -61,8 +61,8 @@ Source: "{#MyFolder}\src\regocx.bat"; DestDir: "{app}"; Flags: ignoreversion
 Source: "{#MyFolder}\src\config\*"; DestDir: "{app}\config"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”                                     
 ;Source: "D:\Program Files (x86)\ISTool\isxdl.dll"; Flags: dontcopy
-Source: "c:\Program Files (x86)\Inno Setup 5\Addin\IsSkin.dll"; DestDir: {app}; Flags: dontcopy
-Source: "c:\Program Files (x86)\Inno Setup 5\isSkins\Vista.cjstyles"; DestDir: {tmp}; Flags: dontcopy 
+Source: "d:\Program Files (x86)\Inno Setup 5\Addin\IsSkin.dll"; DestDir: {app}; Flags: dontcopy
+Source: "d:\Program Files (x86)\Inno Setup 5\isSkins\Vista.cjstyles"; DestDir: {tmp}; Flags: dontcopy 
 
 [code]
 //加载皮肤
