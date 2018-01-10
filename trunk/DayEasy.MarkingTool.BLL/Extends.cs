@@ -68,6 +68,12 @@ namespace DayEasy.MarkingTool.BLL
             return str.UrlEncode(null);
         }
 
+        public static string AppendFileName(this string origin, string append)
+        {
+            var result = origin.Split('.');
+            return string.Format("{0}{1}.{2}", result[0], append, result[1]);
+        }
+
         public static string UrlDecode(this string str, Encoding encoding)
         {
             if (string.IsNullOrWhiteSpace(str)) return str;

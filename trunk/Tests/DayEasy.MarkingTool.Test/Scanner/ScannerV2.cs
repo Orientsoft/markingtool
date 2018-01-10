@@ -8,12 +8,12 @@ namespace DayEasy.MarkingTool.Test.Scanner
     public class ScannerV2 : DRecognition
     {
         public ScannerV2(string imagePath, List<ObjectiveItem> objectives)
-            : base(imagePath, objectives)
+            : base(imagePath, objectives, false)
         {
 
         }
 
-        protected override void FindLines()
+        protected override void FindLines(int skip = 0)
         {
             var imageData = SourceBmp.ToBinaryArray();
             var width = imageData.GetLength(1);

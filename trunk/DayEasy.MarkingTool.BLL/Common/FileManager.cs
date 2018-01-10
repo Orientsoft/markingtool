@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -61,29 +62,16 @@ namespace DayEasy.MarkingTool.BLL.Common
             if (!Directory.Exists(_scannerDirectory))
                 Directory.CreateDirectory(_scannerDirectory);
 
-            _isInitDirectory = true;
+            _isInitDirectory = true;                   
         }
 
         public void SaveImage(Bitmap[] bmps, string imageName)
         {
-            //if (bmps.Length > 1)
-            //{
-            //    for (var i = 1; i < bmps.Length; i++)
-            //    {
-            //        var item = bmps[i];
-            //        //纠偏
-            //        var line =
-            //            new LineFinder(item).Find((int)Math.Ceiling(item.Width * DeyiKeys.ScannerConfig.BlackScale),
-            //                DeyiKeys.ScannerConfig.LineHeight, 1, 100);
-            //        if (line != null && line.Count == 1)
-            //        {
-            //            bmps[i] = ImageHelper.RotateImage(item, -(float)line[0].Angle);
-            //        }
-            //    }
-            //}
             var bmp = ImageHelper.CombineBitmaps(bmps.ToList());
             var path = Path.Combine(_scannerDirectory, imageName);
-            ImageHelper.Resize(bmp, path, DeyiKeys.ScannerConfig.PaperWidth);
+            //ImageHelper.Resize(bmp, path, DeyiKeys.ScannerConfig.PaperWidth);
+            Image img = bmp;
+            img.Save(path, System.Drawing.Imaging.ImageFormat.Jpeg);
             bmps.ToList().ForEach(t => t.Dispose());
             bmp.Dispose();
         }

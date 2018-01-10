@@ -17,14 +17,17 @@ namespace DayEasy.MarkingTool.BLL.Recognition
         protected List<ObjectiveItem> Objectives { get; }
         protected string ImagePath;
 
+        protected bool IgnoreCode { get; set; }
+
         protected virtual int[] ThresholdDiffs => new[] { 10, -10, 20, -20 };
 
-        protected DRecognition(string imagePath, List<ObjectiveItem> objectives)
+        protected DRecognition(string imagePath, List<ObjectiveItem> objectives, bool ignoreCode)
         {
             ImagePath = imagePath;
             if (File.Exists(ImagePath))
                 SourceBmp = (Bitmap)Image.FromFile(imagePath);
             Objectives = objectives;
+            IgnoreCode = ignoreCode;
         }
 
         /// <summary> 压缩 </summary>
@@ -42,12 +45,12 @@ namespace DayEasy.MarkingTool.BLL.Recognition
         }
 
         /// <summary> 找线 </summary>
-        protected virtual void FindLines()
+        protected virtual void FindLines(int skip = 100)
         {
             using (var finder = new LineFinder(SourceBmp))
             {
                 var width = (int)Math.Ceiling(SourceBmp.Width * DeyiKeys.ScannerConfig.BlackScale);
-                Lines = finder.Find(width, DeyiKeys.ScannerConfig.LineHeight, 2, 100);
+                Lines = finder.Find(width, DeyiKeys.ScannerConfig.LineHeight, 2, skip);
             }
         }
 
@@ -158,21 +161,40 @@ namespace DayEasy.MarkingTool.BLL.Recognition
                 //}, logAction);
                 WatchAction("查找横线", () =>
                 {
-                    FindLines();
+                    if (!IgnoreCode)
+                    {
+                        FindLines();
+                    }
+                    else
+                    {
+                        FindLines(5);
+                    }
+                    
                     logAction?.Invoke(Lines.ToJson());
+
+                    //foreach(var line in Lines)
+                    //{
+                    //    Graphics g = Graphics.FromImage(SourceBmp);
+                    //    g.DrawLine(new Pen(Color.Red, 2.0f), line.StartX, line.StartY, line.StartX - line.BlackCount, line.StartY);
+                    //    SourceBmp.Save("d:\\line.png");
+                    //}
+
                 }, logAction);
                 //WatchAction("纠偏", Rotate, logAction);
                 WatchAction("得一号", () =>
                 {
-                    var codeResult = Dcode();
-                    result.Student = new StudentInfo
+                    if(!IgnoreCode)
                     {
-                        Code = codeResult.Data
-                    };
-                    if (codeResult.Status)
-                        return;
-                    result.Status = false;
-                    result.Student.Name = codeResult.Message;
+                        var codeResult = Dcode();
+                        result.Student = new StudentInfo
+                        {
+                            Code = codeResult.Data
+                        };
+                        if (codeResult.Status)
+                            return;
+                        result.Status = false;
+                        result.Student.Name = codeResult.Message;
+                    }
                 }, logAction);
                 WatchAction("答题卡", () =>
                 {
@@ -185,7 +207,10 @@ namespace DayEasy.MarkingTool.BLL.Recognition
             }, logAction);
             WatchAction("学生信息", () =>
             {
-                LoadStudent(result);
+                if (!IgnoreCode)
+                {
+                    LoadStudent(result);
+                }
             }, logAction);
             return result;
         }

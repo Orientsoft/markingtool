@@ -193,10 +193,10 @@ namespace DayEasy.MarkingTool.BLL.Common
             {
                 foreach (var file in files)
                 {
-                    if (file.Extension == (".jpg") ||
-                        file.Extension == (".png") ||
-                        file.Extension == (".bmp") ||
-                        file.Extension == (".gif"))
+                    if (file.Extension.ToLower() == (".jpg") ||
+                        file.Extension.ToLower() == (".png") ||
+                        file.Extension.ToLower() == (".bmp") ||
+                        file.Extension.ToLower() == (".gif"))
                     {
                         picPaths.Add(file.FullName);
                     }

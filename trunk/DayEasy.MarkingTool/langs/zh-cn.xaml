@@ -25,6 +25,8 @@
     <s:String x:Key="L-Marking-Title">试卷扫描</s:String>
     <s:String x:Key="L-Marking-SectionA">A卷</s:String>
     <s:String x:Key="L-Marking-SectionB">B卷</s:String>
+    <s:String x:Key="L-Marking-PaperTypeA3">A3</s:String>
+    <s:String x:Key="L-Marking-PaperTypeA4">A4</s:String>
     <s:String x:Key="L-Marking-SingleScanner">单面</s:String>
     <s:String x:Key="L-Marking-DoubleScanner">双面</s:String>
     <s:String x:Key="L-Marking-Qrcode">二维码</s:String>

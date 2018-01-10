@@ -161,7 +161,7 @@ namespace Deyi.AutoUpdater.UI
                     CopyDirectory(dir, destDirName + Path.GetFileName(dir));
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 throw new Exception("复制文件错误");
             }

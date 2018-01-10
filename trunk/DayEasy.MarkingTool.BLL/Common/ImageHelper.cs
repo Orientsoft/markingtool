@@ -40,7 +40,7 @@ namespace DayEasy.MarkingTool.BLL.Common
         /// <param name="targetHeight"></param>
         /// <returns></returns>
         public static Image MakeImage(Image origBmp, int x, int y, int width, int height, int targetWidth = 0,
-            int targetHeight = 0)
+            int targetHeight = 0, bool dispose = true)
         {
             if (targetWidth > 0 && targetHeight == 0)
             {
@@ -78,8 +78,12 @@ namespace DayEasy.MarkingTool.BLL.Common
                 // 将原始图像矩形框中的内容生成到新画布中去
                 g.DrawImage(origBmp, destRect, origRect, GraphicsUnit.Pixel);
                 g.Dispose();
-                origBmp.Dispose();
-                GC.Collect();
+
+                if(dispose)
+                {
+                    origBmp.Dispose();
+                    GC.Collect();
+                }
             }
             return newBmp;
         }
@@ -146,6 +150,16 @@ namespace DayEasy.MarkingTool.BLL.Common
             return MakeImage(origBmp, x, y, origBmp.Width, origBmp.Height);
         }
 
+        public static Bitmap RotateA3Image(Bitmap bmp)
+        {
+            //create an object that we can use to examine an image file
+            Image img = bmp;
+
+            //rotate the picture by 90 degrees and re-save the picture as a Jpeg
+            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            return (Bitmap)img;
+        }
+
         /// <summary>
         /// 图像旋转
         /// </summary>
@@ -156,9 +170,12 @@ namespace DayEasy.MarkingTool.BLL.Common
         public static Bitmap RotateImage(Bitmap bmp, float angle, Brush bgColor)
         {
             if (Math.Abs(angle) < 0.001)
+            {
                 return bmp;
-            int w = bmp.Width,
-                h = bmp.Height;
+            }
+
+            int w = bmp.Width, h = bmp.Height;
+
             float transformX = w / 2F,
                 transformY = h / 2F;
             var pixelFormat = bmp.PixelFormat;
