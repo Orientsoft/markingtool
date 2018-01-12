@@ -79,7 +79,7 @@ namespace DayEasy.MarkingTool.BLL.Recognition
             _height = _bmpArray.GetLength(0);
             _preWidth = _width / (float)_cols;
             _lineHeight = _height / (float)_rows;
-            if (Math.Abs(_lineHeight - DeyiKeys.ScannerConfig.LineHeight) > 5 || _width < DeyiKeys.ScannerConfig.PaperWidth - 120)
+            if (Math.Abs(_lineHeight - DeyiKeys.ScannerConfig.LineHeight) > 5 || _width < DeyiKeys.ScannerConfig.PaperWidth - 150)
             {
                 return false;
             }
