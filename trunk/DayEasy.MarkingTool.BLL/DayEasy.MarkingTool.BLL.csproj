@@ -90,6 +90,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ImageHelperEx.cs" />
     <Compile Include="Common\ImageUtils.cs" />
     <Compile Include="Common\ObjectCopier.cs" />
     <Compile Include="Common\PointsFinder.cs" />

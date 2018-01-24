@@ -169,7 +169,7 @@ namespace DayEasy.MarkingTool.BLL.Common
         /// <returns></returns>
         public static Bitmap RotateImage(Bitmap bmp, float angle, Brush bgColor)
         {
-            if (Math.Abs(angle) < 0.001)
+            if (Math.Abs(angle) < 0.001 || Math.Abs(angle) > 1)
             {
                 return bmp;
             }

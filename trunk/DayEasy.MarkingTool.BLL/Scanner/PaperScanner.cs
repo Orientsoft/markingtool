@@ -279,7 +279,17 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
             if (lines.Any())
             {
+                // For debug only, output lines
+                //Graphics g = Graphics.FromImage(bmp);
+                //foreach (var line in lines)
+                //{
+                //    g.DrawLine(new Pen(Color.Red, 2.0f), line.StartX, line.StartY, line.StartX - line.BlackCount, line.StartY);
+                //}
+                //bmp.Save("d:\\line.png");
+
                 bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
+
+                //bmp.Save("d:\\after-rotage.png");
             }
 
             return bmp;

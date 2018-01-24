@@ -41,7 +41,7 @@ namespace DayEasy.MarkingTool.BLL.Common
             // Remove the wrong points
             for (int i = recList.Count - 1; i >= 0; i--)
             {
-                if(Math.Abs(recList[i].X - minX) > 20 && Math.Abs(recList[i].X - maxX) > 20 && recList[i].X < maxX)
+                if(Math.Abs(recList[i].X - minX) >= 10 && Math.Abs(recList[i].X - maxX) >= 10 && recList[i].X < maxX)
                 {
                     recList.RemoveAt(i);
                 } 
@@ -115,7 +115,8 @@ namespace DayEasy.MarkingTool.BLL.Common
                 {
                     // only do things if the corners form a square
                     if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square || 
-                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Rectangle)
+                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Rectangle ||
+                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Trapezoid)
                     {
                         var rect = new Rectangle(cornerPoints[0].X, 
                             cornerPoints[0].Y, 
