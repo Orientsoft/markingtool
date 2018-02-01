@@ -4,7 +4,7 @@
   <description asmv2:iconFile="icon.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="DayEasy.MarkingTool" version="0.6.31.0" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="DayEasy.MarkingTool" version="0.6.32.0" language="neutral" processorArchitecture="x86" />
     <commandLine file="DayEasy.MarkingTool.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -97,25 +97,25 @@
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DayEasy.MarkingTool.exe" size="881664">
-      <assemblyIdentity name="DayEasy.MarkingTool" version="0.6.31.0" language="neutral" processorArchitecture="x86" />
+      <assemblyIdentity name="DayEasy.MarkingTool" version="0.6.32.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>S1zMgRPNDSR9wzJFBwJ9foSoLUg=</dsig:DigestValue>
+        <dsig:DigestValue>A77QBK6upUp45SGH7d9sEYmN0NU=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
     <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="DayEasy.MarkingTool.BLL.dll" size="144384">
-      <assemblyIdentity name="DayEasy.MarkingTool.BLL" version="0.6.31.0" language="neutral" processorArchitecture="msil" />
+      <assemblyIdentity name="DayEasy.MarkingTool.BLL" version="0.6.32.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>isuGJBprs2VPSu84Q/0mvkDZscU=</dsig:DigestValue>
+        <dsig:DigestValue>fVsapkliBHdMnHQDt0G+a2+1e/g=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -139,7 +139,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>8Rl6hCQ8VxurDqfpRpe1Il2G4mg=</dsig:DigestValue>
+        <dsig:DigestValue>Zv9rIe18rdEB6loHi/PzyOVcLBk=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -263,13 +263,13 @@
       </hash>
     </dependentAssembly>
   </dependency>
-  <file name="DayEasy.MarkingTool.exe.config" size="734">
+  <file name="DayEasy.MarkingTool.exe.config" size="809">
     <hash>
       <dsig:Transforms>
         <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
       </dsig:Transforms>
       <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-      <dsig:DigestValue>dA9seHdNlh0cahsz4j95+/WwTTs=</dsig:DigestValue>
+      <dsig:DigestValue>kX5rfN+awbWZJ4SNB3AAUVuvnss=</dsig:DigestValue>
     </hash>
   </file>
   <file name="icon.ico" size="78488">

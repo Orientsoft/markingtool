@@ -195,6 +195,12 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 }
             }
 
+            // If paper B is not recognized, return empty results.
+            if(paperA.Count == 0 || paperB.Count == 0)
+            {
+                return results;
+            }
+
             _fileManager.SaveImage(paperA.ToArray(), name.AppendFileName("a"));
             var pprA = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("a")), IsPaperB = false };
             results.Add(pprA);

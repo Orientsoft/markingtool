@@ -10,7 +10,7 @@ namespace DayEasy.MarkingTool.BLL
     /// <summary> 全局静态资源类 </summary>
     public static class DeyiKeys
     {
-        public const string Version = "0.6.31";
+        public const string Version = "0.6.32";
         public static MarkingConfig MarkingConfig
         {
             get { return ConfigUtils<MarkingConfig>.Config; }

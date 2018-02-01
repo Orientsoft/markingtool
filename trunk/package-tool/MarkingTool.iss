@@ -2,7 +2,7 @@
 ; 有关创建 Inno Setup 脚本文件的详细资料请查阅帮助文档！
 
 #define MyAppName "得一扫描工具"
-#define MyAppVersion "0.6.31"
+#define MyAppVersion "0.6.32"
 #define MyAppPublisher "四川得一科技有限公司"
 #define MyAppURL "http://www.dayeasy.net"
 #define MyAppExeName "DayEasy.MarkingTool.exe"

@@ -596,6 +596,13 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _watcher = new Stopwatch();
             _watcher.Start();
             var currentIndex = _markedInfoList.Any() ? _markedInfoList.Max(t => t.Index) : 0;
+
+            //var eventList = new AutoResetEvent[count];
+            //for (var i = 0; i < count; i++)
+            //{
+            //    eventList[i] = new AutoResetEvent(false);
+            //}
+
             for (var i = 0; i < count; i++)
             {
                 var imgArr = _paperPathsList.Skip(i * _combineCount).Take(_combineCount).ToList();
@@ -611,23 +618,38 @@ namespace DayEasy.MarkingTool.UI.Scanner
                         markedInfo.IsSuccess = false;
                         markedInfo.Desc = "定位点识别异常";
                         markedInfo.Index = index;
+                        markedInfo.RatiosColor = "Red";
                         ShowResult(markedInfo);
+                        ShowResult(markedInfo);
+                        ChangeBar(10);
                         TaskFinished();
                         return;
                     }
 
                     if(results.Count == 1)
                     {
-                        // Call original A4 process logic
-                        SingleProcess(results[0].ImagePath, index);
+                        try
+                        {
+                            // Call original A4 process logic
+                            SingleProcess(results[0].ImagePath, index);
+                        }
+                        finally
+                        {
+                            TaskFinished();
+                        }
                     }
                     else
                     {
-                        // Call A3 process logic
-                        MultipleProcess(results, index);
+                        try
+                        {
+                            // Call A3 process logic
+                            MultipleProcess(results, index);
+                        }
+                        finally
+                        {
+                            TaskFinished();
+                        }
                     }
-
-                    TaskFinished();
                 }, new object[] { imgArr, ++currentIndex });
             }
         }
@@ -662,6 +684,8 @@ namespace DayEasy.MarkingTool.UI.Scanner
             pictureB.StudentName = pictureA.StudentName;
 
             HandleResult(index, markedInfoB, pictureB);
+
+            ChangeBar(10);
         }
 
         private void HandleResult(int index, PaperMarkedInfo markedInfo, MPictureInfo picture)
@@ -702,7 +726,6 @@ namespace DayEasy.MarkingTool.UI.Scanner
             _markingInfo.Pictures.Add(picture);
             CheckSheet(markedInfo, picture.SheetAnwers);
             ShowResult(markedInfo);
-            ChangeBar(10);
             GC.Collect();
         }
 
@@ -768,7 +791,9 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 LblForBar.DataContext = current;
                 ShowMsg();
                 if (current < count)
+                {
                     return;
+                }
                 _isSaved = false;
                 InitBar(0, Visibility.Hidden);
                 LblForBar.DataContext = 0;
@@ -852,7 +877,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             {
                 TxtTip.Visibility = Visibility.Visible;
                 var count =
-                    _markedInfoList.Count(t => (!t.IsSuccess && t.StudentCode.Length != 5) || t.RatiosColor == "Red");
+                    _markedInfoList.Count(t => !t.IsSuccess || t.RatiosColor == "Red");
                 TxtTip.Text = string.Format("试卷总数：{0}张，异常：{1}张", _markedInfoList.Count, count);
             }));
         }
