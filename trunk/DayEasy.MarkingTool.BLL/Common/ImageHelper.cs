@@ -139,7 +139,10 @@ namespace DayEasy.MarkingTool.BLL.Common
             var bmp = Resize(sourceBmp, width, height);
             var encoder = GetEncoderInfo(Path.GetExtension(path));
             if (encoder == null)
+            {
                 return;
+            }
+
             var encoderParameters = new EncoderParameters(1);
             encoderParameters.Param[0] = new EncoderParameter(Encoder.Quality, qt);
             bmp.Save(path, encoder, encoderParameters);
@@ -429,7 +432,10 @@ namespace DayEasy.MarkingTool.BLL.Common
             int abs = Math.Abs(firstNum - secondNum);
             int result = Math.Max(firstNum, secondNum);
             if (result == 0)
+            {
                 result = 1;
+            }
+
             return abs / (float)result;
         }
 
@@ -450,9 +456,15 @@ namespace DayEasy.MarkingTool.BLL.Common
         public static Bitmap CombineBitmaps(List<Bitmap> bmps)
         {
             if (bmps == null || !bmps.Any())
+            {
                 return null;
+            }
+
             if (bmps.Count() == 1)
+            {
                 return bmps[0];
+            }
+
             var height = bmps.Sum(t => t.Height);
             var width = bmps.Max(t => t.Width);
             var bmp = new Bitmap(width, height);
@@ -491,7 +503,10 @@ namespace DayEasy.MarkingTool.BLL.Common
         {
             var total = (bmp.Width * bmp.Height);
             if (total <= 0)
+            {
                 return 0;
+            }
+
             var black = 0;
             var data = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height),
                 ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
@@ -549,14 +564,20 @@ namespace DayEasy.MarkingTool.BLL.Common
         public static bool IsFilled(List<int[]> blackList)
         {
             if (blackList == null || !blackList.Any())
+            {
                 return false;
+            }
+
             int fillWidth = DeyiKeys.ScannerConfig.SmearWidth,
                 fillHeight = DeyiKeys.ScannerConfig.SmearHeight;
 
             Func<int, int, bool> isBlack = (x, y) =>
             {
                 if (x < 0 || y < 0 || y >= blackList.Count || x >= blackList[y].Length)
+                {
                     return false;
+                }
+
                 return blackList[y][x] == 1;
             };
 
@@ -565,7 +586,10 @@ namespace DayEasy.MarkingTool.BLL.Common
                 for (var x = 0; x < blackList[y].Length - fillWidth; x++)
                 {
                     if (!isBlack(x, y))
+                    {
                         continue;
+                    }
+
                     var black = 0;
                     for (var i = 0; i < fillHeight; i++)
                     {
