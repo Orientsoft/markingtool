@@ -40,11 +40,11 @@ namespace DayEasy.MarkingTool.BLL.Common
 
             // Remove the wrong points
             for (int i = recList.Count - 1; i >= 0; i--)
-            {
-                if(Math.Abs(recList[i].X - minX) >= 10 && Math.Abs(recList[i].X - maxX) >= 10 && recList[i].X < maxX)
+            { 
+                if (Math.Abs(recList[i].X - minX) >= 20 && Math.Abs(recList[i].X - maxX) >= 20 && recList[i].X < maxX)
                 {
                     recList.RemoveAt(i);
-                } 
+                }
             }
 
             pr.RectList = recList;
@@ -111,32 +111,33 @@ namespace DayEasy.MarkingTool.BLL.Common
                 List<IntPoint> cornerPoints;
 
                 // use the shape checker to extract the corner points
-                if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints)) 
+                //if (shapeChecker.IsQuadrilateral(edgePoints, out cornerPoints))
+                //{
+                cornerPoints = PointsCloud.FindQuadrilateralCorners(edgePoints);
+                // only do things if the corners form a square
+                if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square ||
+                    shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Rectangle ||
+                    shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Trapezoid)
                 {
-                    // only do things if the corners form a square
-                    if (shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Square || 
-                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Rectangle ||
-                        shapeChecker.CheckPolygonSubType(cornerPoints) == PolygonSubType.Trapezoid)
-                    {
-                        var rect = new Rectangle(cornerPoints[0].X, 
+                    var rect = new Rectangle(cornerPoints[0].X, 
                             cornerPoints[0].Y, 
                             Math.Abs(cornerPoints[2].X - cornerPoints[0].X), 
                             Math.Abs(cornerPoints[2].Y - cornerPoints[0].Y));
 
                         locPoints.Add(rect);
 
-                        // For debug and output test image.
-                        //List<System.Drawing.Point> Points = new List<System.Drawing.Point>();
-                        //foreach (var point in cornerPoints)
-                        //{
-                        //    Points.Add(new System.Drawing.Point(point.X, point.Y));
-                        //}
+                    // For debug and output test image.
+                    //List<System.Drawing.Point> Points = new List<System.Drawing.Point>();
+                    //foreach (var point in cornerPoints)
+                    //{
+                    //    Points.Add(new System.Drawing.Point(point.X, point.Y));
+                    //}
 
-                        //Graphics g = Graphics.FromImage(rawImg);
-                        //g.DrawPolygon(new Pen(Color.Red, 2.0f), Points.ToArray());
-                        //rawImg.Save("d:\\result.png");
-                    }
+                    //Graphics g = Graphics.FromImage(rawImg);
+                    //g.DrawPolygon(new Pen(Color.Red, 2.0f), Points.ToArray());
+                    //rawImg.Save("d:\\result.png");
                 }
+                //}
             }
 
             return ParseResult(locPoints);
