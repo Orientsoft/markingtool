@@ -36,7 +36,8 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             LoadObjectives();
         }
 
-        public byte SectionType {
+        public byte SectionType
+        {
             get { return _sectionType; }
             set { _sectionType = value; }
         }
@@ -91,10 +92,12 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 // Split image into 2 pieces, then merge them together.
                 var pr = FindLocatingPoints(bmp);
                 var centerX = pr.GetCenterX();
+                if (centerX == 0)
+                    centerX = bmp.Width / 2;
 
                 // Merge images together
                 bmps.Add((Bitmap)ImageHelper.MakeImage(bmp, 0, 0, DeyiKeys.ScannerConfig.PaperWidth, bmp.Height, 0, 0, false));
-                bmps.Add((Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, DeyiKeys.ScannerConfig.PaperWidth, bmp.Height, 0 , 0, false));
+                bmps.Add((Bitmap)ImageHelper.MakeImage(bmp, centerX, 0, DeyiKeys.ScannerConfig.PaperWidth, bmp.Height, 0, 0, false));
             }
 
             _fileManager.SaveImage(bmps.ToArray(), name);
@@ -122,20 +125,22 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 // Split image into 2 pieces, detect it is paperA or paperB, then merge them.
                 var pr = FindLocatingPoints(bmp);
 
-                if(pr.PointsCount == 0)
+                if (pr.PointsCount == 0)
                 {
                     return results;
                 }
 
-                if(images.Count == 1 && pr.PointsCount == 4)
+                if (images.Count == 1 && pr.PointsCount == 4)
                 {
                     // Should have 5 points.
                     return results;
                 }
 
                 var centerX = pr.GetCenterX();
+                if (centerX == 0)
+                    centerX = bmp.Width / 2;
 
-                if(!pr.HasPaperBPoint && !paperAFinished)
+                if (!pr.HasPaperBPoint && !paperAFinished)
                 {
                     // For paperA, split them into 2 pieces, then merge.
                     paperA.Add((Bitmap)ImageHelper.MakeImage(bmp, 0, 0, DeyiKeys.ScannerConfig.PaperWidth, bmp.Height, 0, 0, false));
@@ -145,7 +150,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 {
                     // For paperB
                     // Check the position of the paper B point (left or right)
-                    if(pr.HasPaperBPoint && pr.PaperBPoint.X < centerX)
+                    if (pr.HasPaperBPoint && pr.PaperBPoint.X < centerX)
                     {
                         // Paper B point is on left side
                         // 1. Split paper into left & right parts.
@@ -154,7 +159,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(leftSide, 0, 0, DeyiKeys.ScannerConfig.PaperWidth, pr.PaperBPoint.Y, 0, 0, false);
-                        var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide, 
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(leftSide,
                             0, pr.PaperBPoint.Y,
                             DeyiKeys.ScannerConfig.PaperWidth, leftSide.Height - topSide.Height,
                             DeyiKeys.ScannerConfig.PaperWidth, leftSide.Height - topSide.Height, false);
@@ -175,7 +180,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                         // 2. Split left side into 2 pieces.
                         var topSide = (Bitmap)ImageHelper.MakeImage(rightSide, 0, 0, DeyiKeys.ScannerConfig.PaperWidth, pr.PaperBPoint.Y, 0, 0, false);
-                        var bottomSide = (Bitmap)ImageHelper.MakeImage(rightSide, 
+                        var bottomSide = (Bitmap)ImageHelper.MakeImage(rightSide,
                             0, pr.PaperBPoint.Y,
                             DeyiKeys.ScannerConfig.PaperWidth, rightSide.Height - topSide.Height,
                             DeyiKeys.ScannerConfig.PaperWidth, rightSide.Height - topSide.Height, false);
@@ -196,7 +201,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             }
 
             // If paper B is not recognized, return empty results.
-            if(paperA.Count == 0 || paperB.Count == 0)
+            if (paperA.Count == 0 || paperB.Count == 0)
             {
                 return results;
             }
@@ -205,7 +210,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             var pprA = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("a")), IsPaperB = false };
             results.Add(pprA);
 
-            if (paperB.Count > 0 )
+            if (paperB.Count > 0)
             {
                 _fileManager.SaveImage(paperB.ToArray(), name.AppendFileName("b"));
                 var pprB = new PreProcessResult() { ImagePath = _fileManager.GetImagePath(name.AppendFileName("b")), IsPaperB = true };
@@ -215,8 +220,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             return results;
         }
 
-        /// <summary> 压缩 & 纠偏 & 合并
-        /// </summary>
+        /// <summary> 压缩 & 纠偏 & 合并 </summary>
         /// <param name="images"></param>
         /// <returns></returns>
         public List<PreProcessResult> PreProcess(List<string> images, byte paperCategory, byte paperType)
@@ -255,7 +259,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
             // For A3 paper, check the direction and rotate image
             if (paperCategory == (byte)PaperCategory.A3 && bmp.Width < bmp.Height)
             {
-                bmp = ImageHelper.RotateA3Image(bmp);
+                ImageHelper.RotateA3Image(bmp);
             }
 
             // For A4 paper
@@ -277,10 +281,13 @@ namespace DayEasy.MarkingTool.BLL.Scanner
                 {
                     bmp = (Bitmap)ImageHelper.Resize(bmp, DeyiKeys.ScannerConfig.PaperWidth * 2);
                 }
+                using (var lineBmp = ImageHelper.MakeImage((Bitmap)bmp.Clone(), 0, 0, DeyiKeys.ScannerConfig.PaperWidth, bmp.Height))
+                {
+                    //lineBmp.Save(Directory.GetCurrentDirectory() + "\\line.png");
 
-                lines = new LineFinder(bmp).Find(
-                    (int)Math.Ceiling(bmp.Width * (DeyiKeys.ScannerConfig.BlackScale / 2)),
-                    DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+                    lines = new LineFinder(lineBmp).Find((int)Math.Ceiling(lineBmp.Width * DeyiKeys.ScannerConfig.BlackScale),
+                        DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+                }
             }
 
             if (lines.Any())
@@ -295,7 +302,7 @@ namespace DayEasy.MarkingTool.BLL.Scanner
 
                 bmp = ImageHelper.RotateImage(bmp, -(float)lines.Average(t => t.Angle));
 
-                //bmp.Save("d:\\after-rotage.png");
+                //bmp.Save(Directory.GetCurrentDirectory() + "\\after-rotage.png");
             }
 
             return bmp;

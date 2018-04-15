@@ -357,8 +357,8 @@ namespace DayEasy.MarkingTool.UI.Scanner
                     sectionType = SectionType.SelectedIndex + 1;
                 }
                 _paperScanner = new PaperScanner(_paperInfo, _fileManager, (byte)sectionType);
-                BeginPorgress();
             });
+            BeginPorgress();
         }
 
         #endregion
@@ -588,7 +588,8 @@ namespace DayEasy.MarkingTool.UI.Scanner
             if (PaperCategory.SelectedIndex == -1)
             {
                 _paperCategory = (byte)BLL.Enum.PaperCategory.A4;
-            } else
+            }
+            else
             {
                 _paperCategory = (byte)PaperCategory.SelectedIndex;
             }
@@ -602,55 +603,83 @@ namespace DayEasy.MarkingTool.UI.Scanner
             //{
             //    eventList[i] = new AutoResetEvent(false);
             //}
+            //ThreadPool.SetMaxThreads(3, 2);            
+            var scannerAction = new Action<List<string>, int>((images, index) =>
+            {
+                try
+                {
+                    ImageProcess(images, index);
+                }
+                catch (Exception ex)
+                {
+                    _logger.E(ex.Message, ex);
+                }
+                finally
+                {
+                    TaskFinished();
+                    GC.Collect();
+                }
+            });
+            var scannerTask = new ScannerTask(scannerAction, DeyiKeys.ScannerConfig.AsyncCount);
 
             for (var i = 0; i < count; i++)
             {
                 var imgArr = _paperPathsList.Skip(i * _combineCount).Take(_combineCount).ToList();
-                ThreadPool.QueueUserWorkItem(arg =>
+
+                scannerTask.Add(new ScannerItem
                 {
-                    var arr = (object[])arg;
-                    var index = (int)arr[1];
-                    var results = _paperScanner.PreProcess((List<string>)arr[0], _paperCategory, _paperInfo.PaperType);
+                    Images = imgArr,
+                    Index = currentIndex
+                });
+                //ThreadPool.QueueUserWorkItem(arg =>
+                //{
+                //    var arr = (object[])arg;
+                //    var index = (int)arr[1];
+                //    try
+                //    {
+                //        ImageProcess((List<string>)arr[0], index);
+                //    }
+                //    catch { }
+                //    finally
+                //    {
+                //        TaskFinished();
+                //        GC.Collect();
+                //    }
+                //}, new object[] { imgArr, currentIndex });
+                var isA3Ab = _paperCategory == 1 && _paperInfo.PaperType == (byte)PaperType.PaperAb;
+                currentIndex += isA3Ab ? 2 : 1;
+            }
+            scannerTask.Start();
+        }
 
-                    if(results.Count == 0)
-                    {
-                        var markedInfo = new PaperMarkedInfo();
-                        markedInfo.IsSuccess = false;
-                        markedInfo.Desc = "定位点识别异常";
-                        markedInfo.Index = index;
-                        markedInfo.RatiosColor = "Red";
-                        ShowResult(markedInfo);
-                        ShowResult(markedInfo);
-                        ChangeBar(10);
-                        TaskFinished();
-                        return;
-                    }
+        private void ImageProcess(List<string> images, int index)
+        {
+            var results = _paperScanner.PreProcess(images, _paperCategory, _paperInfo.PaperType);
 
-                    if(results.Count == 1)
-                    {
-                        try
-                        {
-                            // Call original A4 process logic
-                            SingleProcess(results[0].ImagePath, index);
-                        }
-                        finally
-                        {
-                            TaskFinished();
-                        }
-                    }
-                    else
-                    {
-                        try
-                        {
-                            // Call A3 process logic
-                            MultipleProcess(results, index);
-                        }
-                        finally
-                        {
-                            TaskFinished();
-                        }
-                    }
-                }, new object[] { imgArr, ++currentIndex });
+            if (results.Count == 0)
+            {
+                var markedInfo = new PaperMarkedInfo
+                {
+                    IsSuccess = false,
+                    Desc = "定位点识别异常",
+                    Index = index,
+                    RatiosColor = "Red"
+                };
+                ShowResult(markedInfo);
+                ShowResult(markedInfo);
+                ChangeBar(10);
+                return;
+            }
+
+            if (results.Count == 1)
+            {
+                // Call original A4 process logic
+                SingleProcess(results[0].ImagePath, index + 1);
+            }
+            else
+            {
+                // Call A3 process logic
+                MultipleProcess(results, index);
             }
         }
 
@@ -666,7 +695,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             markedInfoA.ImagePath = results[0].ImagePath;
 
             _paperScanner.ScanPaper(results[0].ImagePath, markedInfoA, pictureA, _paperCategory);
-            HandleResult(index, markedInfoA, pictureA);
+            HandleResult(index + 1, markedInfoA, pictureA);
 
             // Scan paper B
             var markedInfoB = new PaperMarkedInfo(results[1].ImagePath);
@@ -683,7 +712,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
             pictureB.StudentId = pictureA.StudentId;
             pictureB.StudentName = pictureA.StudentName;
 
-            HandleResult(index, markedInfoB, pictureB);
+            HandleResult(index + 2, markedInfoB, pictureB);
 
             ChangeBar(10);
         }
@@ -701,14 +730,17 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 }
                 else
                 {
-                    var exist = _markedInfoList.Any(
-                        t =>
-                            t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
-                            t.SectionType == markedInfo.SectionType);
-                    if (exist)
+                    lock (_markedInfoList)
                     {
-                        markedInfo.IsSuccess = false;
-                        markedInfo.Desc = "学生重复";
+                        var exist = _markedInfoList.Any(
+                            t =>
+                                t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
+                                t.SectionType == markedInfo.SectionType);
+                        if (exist)
+                        {
+                            markedInfo.IsSuccess = false;
+                            markedInfo.Desc = "学生重复";
+                        }
                     }
                 }
             }
@@ -749,14 +781,17 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 }
                 else
                 {
-                    var exist = _markedInfoList.Any(
-                        t =>
-                            t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
-                            t.SectionType == markedInfo.SectionType);
-                    if (exist)
+                    lock (_markedInfoList)
                     {
-                        markedInfo.IsSuccess = false;
-                        markedInfo.Desc = "学生重复";
+                        var exist = _markedInfoList.Any(
+                            t =>
+                                t.StudentId > 0 && t.StudentId == markedInfo.StudentId &&
+                                t.SectionType == markedInfo.SectionType);
+                        if (exist)
+                        {
+                            markedInfo.IsSuccess = false;
+                            markedInfo.Desc = "学生重复";
+                        }
                     }
                 }
             }

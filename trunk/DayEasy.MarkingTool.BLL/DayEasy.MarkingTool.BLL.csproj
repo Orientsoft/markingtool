@@ -159,6 +159,7 @@
     <Compile Include="Scanner\PaperScanner.cs" />
     <Compile Include="Scanner\ObjectiveHelper.cs" />
     <Compile Include="Recognition\DefaultRecognition.cs" />
+    <Compile Include="Scanner\ScannerTask.cs" />
     <Compile Include="Singleton.cs" />
   </ItemGroup>
   <ItemGroup />

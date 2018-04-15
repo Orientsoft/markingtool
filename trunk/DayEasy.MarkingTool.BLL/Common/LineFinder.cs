@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Runtime.InteropServices;
 
 namespace DayEasy.MarkingTool.BLL.Common
 {
@@ -47,73 +48,59 @@ namespace DayEasy.MarkingTool.BLL.Common
         {
             var lines = new List<LineInfo>();
             var data = _sourceBmp.LockBits(new Rectangle(0, 0, _width, _height),
-                ImageLockMode.ReadWrite, PixelFormat.Format32bppRgb);
-            unsafe
+                ImageLockMode.ReadOnly, _sourceBmp.PixelFormat);
+
+            var bpp = (int)Math.Floor(data.Stride / (float)data.Width);
+            for (int y = skip; y < data.Height - 50; y++)
             {
-                const int bpp = 4;
-                var ptr = (byte*)data.Scan0;
-                int remain = data.Stride - data.Width * bpp,
-                    linePtr = remain + data.Width * bpp;
-                //跳过最小Y坐标
-                ptr += linePtr * skip;
-                //遍历每行
-                for (int y = skip; y < data.Height-50; y++)
+                int black = 0, move = 0, currentY = y, startX = 0;
+                var prevBlack = false;
+                for (var x = 0; x < data.Width; x++)
                 {
-                    int black = 0,
-                        move = 0,
-                        currentY = y,
-                        startX = 0;
-                    var prevBlack = false;
-                    //遍历行内像素点
-                    for (var x = 0; x < data.Width; x++)
+                    var index = y * data.Stride + (x * bpp);
+                    if (IsBlack(data.Scan0, index))
                     {
-                        //黑点判断
-                        if (IsBlack(ptr))
-                        {
-                            if (!prevBlack)
-                                startX = x;
-                            black++;
-                            prevBlack = true;
-                        }
-                        else if (prevBlack)
-                        {
-                            ptr -= linePtr;
-                            var prev = IsBlack(ptr);
-                            ptr += 2 * linePtr;
-                            var next = IsBlack(ptr);
-                            if (prev || next)
-                            {
-                                black++;
-                                move += (prev ? -1 : 1);
-                                if (prev) ptr -= 2 * linePtr;
-                            }
-                            else
-                            {
-                                ptr -= linePtr;
-                                prevBlack = false;
-                            }
-                        }
-                        ptr += bpp;
+                        if (!prevBlack)
+                            startX = x;
+                        black++;
+                        prevBlack = true;
                     }
-                    ptr += remain;
-                    //还原
-                    ptr -= linePtr * move;
-                    //行内黑点数判断
-                    if (black < length)
-                        continue;
-                    lines.Add(new LineInfo
+                    else
                     {
-                        StartX = startX,
-                        StartY = currentY,
-                        BlackCount = black,
-                        BlackScale = (black / (float)_width),
-                        Move = move
-                    });
-                    if (count > 0 && lines.Count >= count)
-                        break;
-                    y += lineHeight;
-                    ptr += linePtr * lineHeight;
+                        //上一行
+                        var prev = IsBlack(data.Scan0, index - data.Stride);
+                        //下一行
+                        var next = IsBlack(data.Scan0, index + data.Stride);
+                        if (prev || next)
+                        {
+                            black++;
+                            move += (prev ? -1 : 1);
+                            if (prev && y > 1)
+                                y -= 1;
+                            else if (y < data.Height - 50)
+                                y += 1;
+                        }
+                        else
+                        {
+                            prevBlack = false;
+                        }
+                    }
                 }
+                y -= move;
+                //行内黑点数判断
+                if (black < length)
+                    continue;
+                lines.Add(new LineInfo
+                {
+                    StartX = startX,
+                    StartY = currentY,
+                    BlackCount = black,
+                    BlackScale = (black / (float)_width),
+                    Move = move
+                });
+                if (count > 0 && lines.Count >= count)
+                    break;
+                y += lineHeight;
             }
             _sourceBmp.UnlockBits(data);
             return lines;
@@ -131,83 +118,140 @@ namespace DayEasy.MarkingTool.BLL.Common
         {
             var lines = new List<LineInfo>();
             var data = _sourceBmp.LockBits(new Rectangle(0, 0, _width, _height),
-                ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
-            unsafe
+                ImageLockMode.ReadWrite, _sourceBmp.PixelFormat);
+            var bpp = (int)Math.Floor(data.Stride / (float)data.Width);
+            for (int x = skip; x < data.Width; x++)
             {
-                const int bpp = 3;
-                var ptr = (byte*)data.Scan0;
-                int remain = data.Stride - data.Width * bpp,
-                    linePtr = remain + data.Width * bpp;
-                //跳过最小Y坐标
-                //遍历每行
-                for (int x = skip; x < data.Width; x++)
+                int black = 0, move = 0, currentX = x;
+                var prevBlack = false;
+                //遍历行内像素点
+                for (int y = 0; y < data.Width; y++)
                 {
-                    int black = 0,
-                        move = 0,
-                        currentX = x;
-                    var prevBlack = false;
-                    ptr += skip * bpp;
-                    //遍历行内像素点
-                    for (int y = 0; y < data.Width; y++)
+                    var index = y * data.Stride + (x * bpp);
+                    //黑点判断
+                    if (IsBlack(data.Scan0, index))
                     {
-                        //黑点判断
-                        if (IsBlack(ptr))
-                        {
-                            black++;
-                            prevBlack = true;
-                        }
-                        else if (prevBlack)
-                        {
-                            bool isBlack = false;
-                            if (x > 0)
-                            {
-                                ptr -= bpp;
-                                if (IsBlack(ptr))
-                                {
-                                    move--;
-                                    black++;
-                                    isBlack = true;
-                                }
-                                else
-                                {
-                                    ptr += bpp;
-                                }
-                            }
-                            if (!isBlack && x < data.Width - 1)
-                            {
-                                ptr += bpp;
-                                if (IsBlack(ptr))
-                                {
-                                    move++;
-                                    black++;
-                                }
-                                else
-                                {
-                                    ptr -= bpp;
-                                    prevBlack = false;
-                                }
-                            }
-                        }
-                        ptr += linePtr;
+                        black++;
+                        prevBlack = true;
                     }
-                    ptr += remain;
-                    ptr -= bpp * move;
-                    //行内黑点数判断
-                    if (black >= length)
+                    else if (prevBlack)
                     {
-                        lines.Add(new LineInfo
+                        bool isBlack = false;
+                        if (x > 1)
                         {
-                            StartY = currentX,
-                            BlackCount = black,
-                            Move = move
-                        });
-                        if (count > 0 && lines.Count >= count)
-                            break;
-                        x += lineHeight;
-                        ptr += linePtr * lineHeight;
+                            if (IsBlack(data.Scan0, index - bpp))
+                            {
+                                move--;
+                                black++;
+                                isBlack = true;
+                            }
+                        }
+                        if (!isBlack && x < data.Width - 1)
+                        {
+                            if (IsBlack(data.Scan0, index + bpp))
+                            {
+                                move++;
+                                black++;
+                            }
+                            else
+                            {
+                                if (x > 1)
+                                    x--;
+                                prevBlack = false;
+                            }
+                        }
                     }
                 }
+                x -= move;
+                //行内黑点数判断
+                if (black >= length)
+                {
+                    lines.Add(new LineInfo
+                    {
+                        StartY = currentX,
+                        BlackCount = black,
+                        Move = move
+                    });
+                    if (count > 0 && lines.Count >= count)
+                        break;
+                    x += lineHeight;
+                }
             }
+            //unsafe
+            //{
+            //    var ptr = (byte*)data.Scan0;
+            //    int remain = data.Stride - data.Width * bpp,
+            //        linePtr = remain + data.Width * bpp;
+            //    //跳过最小Y坐标
+            //    //遍历每行
+            //    for (int x = skip; x < data.Width; x++)
+            //    {
+            //        int black = 0,
+            //            move = 0,
+            //            currentX = x;
+            //        var prevBlack = false;
+            //        ptr += skip * bpp;
+            //        //遍历行内像素点
+            //        for (int y = 0; y < data.Width; y++)
+            //        {
+            //            //黑点判断
+            //            if (IsBlack(ptr))
+            //            {
+            //                black++;
+            //                prevBlack = true;
+            //            }
+            //            else if (prevBlack)
+            //            {
+            //                bool isBlack = false;
+            //                if (x > 0)
+            //                {
+            //                    ptr -= bpp;
+            //                    if (IsBlack(ptr))
+            //                    {
+            //                        move--;
+            //                        black++;
+            //                        isBlack = true;
+            //                    }
+            //                    else
+            //                    {
+            //                        ptr += bpp;
+            //                    }
+            //                }
+            //                if (!isBlack && x < data.Width - 1)
+            //                {
+            //                    ptr += bpp;
+            //                    if (IsBlack(ptr))
+            //                    {
+            //                        move++;
+            //                        black++;
+            //                    }
+            //                    else
+            //                    {
+            //                        ptr -= bpp;
+            //                        prevBlack = false;
+            //                    }
+            //                }
+            //            }
+            //            ptr += linePtr;
+            //        }
+            //        ptr += remain;
+            //        ptr -= bpp * move;
+            //        //行内黑点数判断
+            //        if (black >= length)
+            //        {
+            //            lines.Add(new LineInfo
+            //            {
+            //                StartY = currentX,
+            //                BlackCount = black,
+            //                Move = move
+            //            });
+            //            if (count > 0 && lines.Count >= count)
+            //                break;
+            //            x += lineHeight;
+            //            ptr += linePtr * lineHeight;
+            //        }
+            //    }
+            //}
             _sourceBmp.UnlockBits(data);
             return lines;
         }
@@ -222,6 +266,14 @@ namespace DayEasy.MarkingTool.BLL.Common
             {
                 return false;
             }
+        }
+
+        private bool IsBlack(IntPtr scan0, int index)
+        {
+            byte r = Marshal.ReadByte(scan0, index + 2),
+                g = Marshal.ReadByte(scan0, index + 1),
+                b = Marshal.ReadByte(scan0, index);
+            return (r * 0.299) + (g * 0.587) + (b * 0.114) < DeyiKeys.ScannerConfig.LineTreshold;
         }
 
         public void Dispose()

@@ -62,6 +62,10 @@ namespace DayEasy.MarkingTool.BLL.Config
         [XmlElement("recognitionType")]
         public int RecognitionType { get; set; }
 
+        /// <summary> 同时执行的任务数 </summary>
+        [XmlElement("asyncCount")]
+        public int AsyncCount { get; set; } = 5;
+
         public ScannerConfig()
         {
             SheetType = 1;
@@ -73,7 +77,7 @@ namespace DayEasy.MarkingTool.BLL.Config
             AreaY = 20;
         }
     }
-    
+
     public enum RecognitionType : byte { Rank = 0, Area = 1 }
 
     public enum ScannerType

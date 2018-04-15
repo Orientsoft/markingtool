@@ -1,6 +1,5 @@
 ﻿using DayEasy.MarkingTool.BLL;
 using DayEasy.MarkingTool.BLL.Common;
-using DayEasy.MarkingTool.BLL.Recognition;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Drawing;
@@ -101,6 +100,31 @@ namespace DayEasy.MarkingTool.Test
             var bmp = (Bitmap)Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "\\sheet\\sheet.png");
             var filled = ImageHelper.IsFilled(bmp);
             Console.WriteLine(filled);
+        }
+
+        [TestMethod]
+        public void FindePointsTest()
+        {
+            var bmp = (Bitmap)Image.FromFile(AppDomain.CurrentDomain.BaseDirectory + "\\paper\\image00099.JPG");
+            bmp = ImageHelper.RotateA3Image(bmp);
+            bmp = (Bitmap)ImageHelper.Resize(bmp, 780 * 2);
+            bmp = ImageHelper.RotateImage(bmp);
+            bmp.Save(AppDomain.CurrentDomain.BaseDirectory + $"\\paper\\a3.jpg");
+            var centerX = bmp.Width / 2;
+            var b1 = ImageHelper.MakeImage((Bitmap)bmp.Clone(), 0, 0, centerX, bmp.Height);
+            var b2 = ImageHelper.MakeImage((Bitmap)bmp.Clone(), centerX, 0, centerX, bmp.Height);
+            b1.Save(AppDomain.CurrentDomain.BaseDirectory + "\\paper\\b1.JPG");
+            b2.Save(AppDomain.CurrentDomain.BaseDirectory + "\\paper\\b2.JPG");
+            //var finder = new PointsFinder();
+            //var result = finder.Find(bmp);  
+            //foreach (var point in result.HorizonPoints)
+            //{
+            //    var b = ImageHelper.MakeImage(bmp, point.X, point.Y, point.Width, point.Height);
+            //    b.Save(AppDomain.CurrentDomain.BaseDirectory + $"\\paper\\point{point.X}_{point.Y}.jpg");
+            //    b.Dispose();
+            //}
+            //bmp.Dispose();
+            //Console.WriteLine(JsonHelper.ToJson(result));
         }
     }
 }

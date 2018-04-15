@@ -79,7 +79,7 @@ namespace DayEasy.MarkingTool.BLL.Common
                 g.DrawImage(origBmp, destRect, origRect, GraphicsUnit.Pixel);
                 g.Dispose();
 
-                if(dispose)
+                if (dispose)
                 {
                     origBmp.Dispose();
                     GC.Collect();
@@ -153,14 +153,15 @@ namespace DayEasy.MarkingTool.BLL.Common
             return MakeImage(origBmp, x, y, origBmp.Width, origBmp.Height);
         }
 
-        public static Bitmap RotateA3Image(Bitmap bmp)
+        public static void RotateA3Image(Bitmap bmp)
         {
+            bmp.RotateFlip(RotateFlipType.Rotate270FlipNone);
             //create an object that we can use to examine an image file
-            Image img = bmp;
+            //Image img = bmp;
 
-            //rotate the picture by 90 degrees and re-save the picture as a Jpeg
-            img.RotateFlip(RotateFlipType.Rotate270FlipNone);
-            return (Bitmap)img;
+            ////rotate the picture by 90 degrees and re-save the picture as a Jpeg
+            //img.RotateFlip(RotateFlipType.Rotate270FlipNone);
+            //return (Bitmap)img;
         }
 
         /// <summary>
@@ -172,7 +173,7 @@ namespace DayEasy.MarkingTool.BLL.Common
         /// <returns></returns>
         public static Bitmap RotateImage(Bitmap bmp, float angle, Brush bgColor)
         {
-            if (Math.Abs(angle) < 0.001 || Math.Abs(angle) > 1)
+            if (Math.Abs(angle) < 0.001 || Math.Abs(angle) > 2)
             {
                 return bmp;
             }
@@ -210,6 +211,15 @@ namespace DayEasy.MarkingTool.BLL.Common
             }
             bmp.Dispose();
             return tmpBitmap;
+        }
+
+        public static Bitmap RotateImage(Bitmap bmp)
+        {
+            var lines = new LineFinder(bmp).Find(
+                    (int)Math.Ceiling(bmp.Width * (DeyiKeys.ScannerConfig.BlackScale / 2)),
+                    DeyiKeys.ScannerConfig.LineHeight, 1, 100);
+            if (lines == null || !lines.Any()) return bmp;
+            return RotateImage(bmp, -(float)lines.Average(t => t.Angle));
         }
 
         /// <summary>

@@ -17,7 +17,11 @@ namespace DayEasy.MarkingTool.BLL.Entity
         /// <summary> 偏移角度 </summary>
         public double Angle
         {
-            get { return Math.Asin(Move / (double)BlackCount) / (Math.PI / 180D); }
+            get
+            {
+                //计算sin角度,Math.PI π=180度
+                return Math.Asin(Move / (double)BlackCount) / (Math.PI / 180D);
+            }
         }
 
         /// <summary> 黑点比例 </summary>
