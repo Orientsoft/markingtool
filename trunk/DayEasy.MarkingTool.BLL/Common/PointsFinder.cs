@@ -29,9 +29,7 @@ namespace DayEasy.MarkingTool.BLL.Common
             var x = rect.X;
             var y = rect.Y;
             //左边定位点
-            if ((x >= 0 && x < 120) || (730 < x && x < 830))
-                return true;
-            if (x > 1350 && (y < 150 || y > 950))
+            if ((x >= 0 && x < 120) || x > 1350)
                 return true;
             return false;
         }
@@ -44,10 +42,29 @@ namespace DayEasy.MarkingTool.BLL.Common
             {
                 if (c > 0)
                     v = i.X - c;
-                if (v > 10 && v < 700)
+                if (v >= 12 && v < 700)
                     RectList.Remove(i);
                 c = i.X;
             }
+            if (RectList.Count < 5)
+            {
+                //4个基础点
+                var rectA = orders.FirstOrDefault(t => t.X < 100 && t.Y < 100);
+                var rectB = orders.FirstOrDefault(t => t.X > 1350 && t.Y < 100);
+                var rectC = orders.FirstOrDefault(t => t.X < 100 && t.Y > 960);
+                var rectD = orders.FirstOrDefault(t => t.X > 1350 && t.Y > 960);
+                //补全定位点
+                if (rectA.IsEmpty && !rectB.IsEmpty && !rectC.IsEmpty)
+                    RectList.Add(new Rectangle(rectC.X, rectB.Y, rectC.Width, rectB.Height));
+                if (rectB.IsEmpty && !rectA.IsEmpty && !rectD.IsEmpty)
+                    RectList.Add(new Rectangle(rectD.X, rectA.Y, rectD.Width, rectA.Height));
+                if (rectC.IsEmpty && !rectA.IsEmpty && !rectD.IsEmpty)
+                    RectList.Add(new Rectangle(rectA.X, rectD.Y, rectA.Width, rectD.Height));
+                if (rectD.IsEmpty && !rectB.IsEmpty && !rectC.IsEmpty)
+                    RectList.Add(new Rectangle(rectB.X, rectC.Y, rectB.Width, rectC.Height));
+            }
+
+
         }
 
 
@@ -147,20 +164,23 @@ namespace DayEasy.MarkingTool.BLL.Common
         public PointsResult Find(System.Drawing.Image bmp)
         {
             // locating objects
-            BlobCounter blobCounter = new BlobCounter();
-
-            blobCounter.FilterBlobs = true;
-            blobCounter.MinHeight = 14;
-            blobCounter.MinWidth = 14;
-            blobCounter.MaxHeight = 22;
-            blobCounter.MaxWidth = 22;
+            BlobCounter blobCounter = new BlobCounter
+            {
+                FilterBlobs = true,
+                MinHeight = 14,
+                MinWidth = 14,
+                MaxHeight = 22,
+                MaxWidth = 22
+            };
             var rawImg = (Bitmap)bmp;
 
             var grayImg = AForge.Imaging.Filters.Grayscale.CommonAlgorithms.BT709.Apply(rawImg);
             var bwImg = new AForge.Imaging.Filters.OtsuThreshold().Apply(grayImg);
+            //bwImg.Save($"d:/bw_{Guid.NewGuid().ToString("N")}.png");
             var openingFilter = new AForge.Imaging.Filters.Opening();
             openingFilter.ApplyInPlace(bwImg);
             var bwInvImg = new AForge.Imaging.Filters.Invert().Apply(bwImg);
+            //bwInvImg.Save($"d:/inv_{Guid.NewGuid().ToString("N")}.png");
             bwImg.Dispose();
             grayImg.Dispose();
 

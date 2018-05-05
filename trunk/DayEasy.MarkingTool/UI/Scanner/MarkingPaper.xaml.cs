@@ -652,23 +652,35 @@ namespace DayEasy.MarkingTool.UI.Scanner
             scannerTask.Start();
         }
 
-        private void ImageProcess(List<string> images, int index)
+        private bool ImageProcess(List<string> images, int index)
         {
             var results = _paperScanner.PreProcess(images, _paperCategory, _paperInfo.PaperType);
-
+            var isA3Ab = _paperCategory == 1 && _paperInfo.PaperType == (byte)PaperType.PaperAb;
             if (results.Count == 0)
             {
-                var markedInfo = new PaperMarkedInfo
+                PaperMarkedInfo info;
+                info = new PaperMarkedInfo
                 {
                     IsSuccess = false,
                     Desc = "定位点识别异常",
-                    Index = index,
+                    Index = index + 1,
                     RatiosColor = "Red"
                 };
-                ShowResult(markedInfo);
-                ShowResult(markedInfo);
+                ShowResult(info);
+
+                if (isA3Ab)
+                {
+                    info = new PaperMarkedInfo
+                    {
+                        IsSuccess = false,
+                        Desc = "定位点识别异常",
+                        Index = index + 2,
+                        RatiosColor = "Red"
+                    };
+                    ShowResult(info);
+                }
                 ChangeBar(10);
-                return;
+                return false;
             }
 
             if (results.Count == 1)
@@ -681,6 +693,7 @@ namespace DayEasy.MarkingTool.UI.Scanner
                 // Call A3 process logic
                 MultipleProcess(results, index);
             }
+            return true;
         }
 
         /// <summary> A3 paper process logic</summary>

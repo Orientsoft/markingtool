@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace DayEasy.MarkingTool.BLL.Enum
+﻿namespace DayEasy.MarkingTool.BLL.Enum
 {
     public class PreProcessResult
     {
